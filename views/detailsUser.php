@@ -6,16 +6,17 @@ require '../Controller/AppController.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <?php require 'header.php' ?>
 <body>
+<!--Menu-->
 <?php controller();
 ?>
 <div>
-    <div>
-        <?= $user->getUseEmail() ?>
-        <?= $user->getUsePassword() ?>
-    </div>
+    <?= $user->getUseEmail() ?>
+    <?= $user->getUsePassword() ?>
 </div>
+
+<!--Importer le footer-->
 </body>
 </html>

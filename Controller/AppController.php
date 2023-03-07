@@ -2,12 +2,16 @@
 
 namespace Controller;
 
+use model\Annonce;
 use model\User;
 
 require_once 'UserController.php';
 
 $users = [];
 $user = new User();
+
+$annonces = [];
+$annonce = new Annonce();
 
 //session_start();
 

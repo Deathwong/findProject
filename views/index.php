@@ -6,7 +6,7 @@ require '../Controller/AppController.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <?php require 'header.php' ?>
 <body>
 <?php controller();

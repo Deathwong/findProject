@@ -6,7 +6,7 @@ require '../Controller/AppController.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <?php require 'header.php' ?>
 <body>
 <?php
@@ -52,5 +52,5 @@ controller();
 <?php require 'footer.php' ?>
 <script type="text/javascript">
     validateFormEventListener();
-</body>
-</html>
+    </body>
+    </html>
