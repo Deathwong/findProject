@@ -9,7 +9,7 @@ require_once 'UserController.php';
 $users = [];
 $user = new User();
 
-session_start();
+//session_start();
 
 function controller(): void
 {
