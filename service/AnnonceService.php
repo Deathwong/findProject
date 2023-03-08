@@ -35,4 +35,29 @@ class AnnonceService
         // On retourne l'annonce
         return $request->fetchObject(Annonce::class);
     }
+
+    public static function updateAnnonce(): void
+    {
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        $Annonce = self::getAnnonceValues();
+
+    }
+
+    public static function getAnnonceValues(): array
+    {
+        $annonce = [
+            "use_id" => getElementInRequestByAttribute("use_id"),
+            "ann_nom" => getElementInRequestByAttribute("ann_nom"),
+            "ann_prix" => getElementInRequestByAttribute("ann_prix"),
+            "ann_description" => getElementInRequestByAttribute("ann_description")
+        ];
+
+        if (getElementInRequestByAttribute("ann_id")) {
+            $annonce[] = getElementInRequestByAttribute("ann_id");
+            //array_push($annonce,getElementInRequestByAttribute("ann_id"));
+        }
+
+        return $annonce;
+    }
 }
