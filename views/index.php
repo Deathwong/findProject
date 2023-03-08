@@ -1,15 +1,12 @@
 <?php
-
-use function Controller\controller;
-
 require '../Controller/AppController.php';
+controller();
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <?php require 'header.php' ?>
 <body>
-<?php controller();
+<?php
 ?>
 <div>
     <div><?= $user->getUseId() ?></div>

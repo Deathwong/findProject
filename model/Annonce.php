@@ -2,8 +2,6 @@
 
 namespace model;
 
-use Cassandra\Date;
-
 class Annonce
 {
     private int $ann_id;
@@ -15,6 +13,7 @@ class Annonce
     private int $ann_nombre_consultation;
     private string $ann_create_at;
     private string $ann_update_at;
+    private string $categories;
 
     /**
      * @return int
@@ -145,7 +144,7 @@ class Annonce
     }
 
     /**
-     * @return Date
+     * @return string
      */
     public function getAnnUpdateAt(): string
     {
@@ -153,10 +152,27 @@ class Annonce
     }
 
     /**
-     * @param Date $ann_update_at
+     * @param string $ann_update_at
      */
-    public function setAnnUpdateAt(Date $ann_update_at): void
+    public function setAnnUpdateAt(string $ann_update_at): void
     {
         $this->ann_update_at = $ann_update_at;
     }
+
+    /**
+     * @return string
+     */
+    public function getCategories(): string
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param string $categories
+     */
+    public function setCategories(string $categories): void
+    {
+        $this->categories = $categories;
+    }
+
 }

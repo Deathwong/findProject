@@ -1,10 +1,12 @@
 <?php
 
-namespace Controller;
-
+use Controller\AnnonceController;
+use Controller\UserController;
 use model\Annonce;
 use model\User;
+use service\UriHandler;
 
+require_once '../service/UriHandler.php';
 require_once 'UserController.php';
 require_once 'AnnonceController.php';
 
@@ -14,43 +16,49 @@ $user = new User();
 $annonces = [];
 $annonce = new Annonce();
 
+$categoriesAnnonce = [];
+
 function controller(): void
 {
-    global $users, $user, $annonce;
+    global $users, $user, $annonce, $categoriesAnnonce;
+    $separator = ",";
 
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
     switch ($uri) {
-        case '/findProject/views/':
+        case UriHandler::$INDEX_URL:
             if (isset($_SESSION["use_id"])) {
                 $user = $_SESSION["use_id"];
             }
             break;
-        case '/findProject/views/listeUsers':
+        case UriHandler::$LISTEUSERS_URL:
             $users = UserController::getUsers();
             break;
-        case '/findProject/views/detailsUser.php': // todo: modifier le nom
+
+        case UriHandler::$DETAILSUSER_URL:
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 UserController::createUser();
             } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $user = UserController::getUserDetails();
             }
             break;
-        case '/findProject/views/signup.php':
-            // Pour éviter les erreurs 404. A l'enregistrement on pointe sur details
+
+        case UriHandler::$SIGNUP_URL:
+            // Pour éviter les erreurs 404. À l'enregistrement, on pointe sur details
             break;
-        case '/findProject/views/signin.php':
+        case UriHandler::$SIGNIN_URL:
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // todo Validation
                 // Connexion de l'utilisateur
                 UserController::connectUser();
             }
             break;
-        case '/findProject/views/detailsAnnonce.php':
+        case UriHandler::$DETAILSANNONCE_URL:
             //on vérifie si la requête est un GET
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 //o récupère les détails de l'Annonce
                 $annonce = AnnonceController::getAnnonceDetails();
+                $categoriesAnnonce = explode($separator, $annonce->getCategories());
             }
             break;
         default:

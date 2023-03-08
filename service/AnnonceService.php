@@ -13,22 +13,26 @@ class AnnonceService
 
     public static function getAnnonceDetails(): Annonce
     {
-        //on récupère la connection
+        // On récupère la connection
         $connection = PdoConnectionHandler::getPDOInstance();
 
-        //on récupère l'id de l'annonce
+        // On récupère l'id de l'annonce
         $idAnnonce = getElementInRequestByAttribute("idAnnonce");
 
-        //la requête
-        $query = "select a.* from annonce a where a.ann_id = :idAnnonce";
+        // Requête ramenant l'annonce et les différentes catégories séparées par une virgule
+        $query = "select ann.*, GROUP_CONCAT(cat.cat_libelle) as categories from annonce ann join categorie_annonce ca 
+            ON ann.ann_id = ca.ann_id join categorie cat on ca.cat_id = cat.cat_id where ann.ann_id = :idAnnonce";
 
-        //on fait le prépare statement
+        // On fait le prépare statement
         $request = $connection->prepare($query);
 
+        // On fait le binding
         $request->bindParam("idAnnonce", $idAnnonce);
 
+        // On exécute la requête
         $request->execute();
 
+        // On retourne l'annonce
         return $request->fetchObject(Annonce::class);
     }
 }

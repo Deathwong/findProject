@@ -1,17 +1,11 @@
 <?php
-session_start();
-
-use function Controller\controller;
-
 require '../Controller/AppController.php';
+controller();
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <?php require 'header.php' ?>
 <body>
-<?php controller();
-?>
 <div>
 
     <form action="detailsUser.php" method="post" id="formUser">
