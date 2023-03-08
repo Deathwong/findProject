@@ -13,8 +13,8 @@ class Annonce
     private string $ann_description;
     private string $ann_photo;
     private int $ann_nombre_consultation;
-    private Date $ann_create_at;
-    private Date $ann_update_at;
+    private string $ann_create_at;
+    private string $ann_update_at;
 
     /**
      * @return int
@@ -131,7 +131,7 @@ class Annonce
     /**
      * @return Date
      */
-    public function getAnnCreateAt(): Date
+    public function getAnnCreateAt(): string
     {
         return $this->ann_create_at;
     }
@@ -147,7 +147,7 @@ class Annonce
     /**
      * @return Date
      */
-    public function getAnnUpdateAt(): Date
+    public function getAnnUpdateAt(): string
     {
         return $this->ann_update_at;
     }

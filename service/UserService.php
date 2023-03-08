@@ -35,10 +35,9 @@ class UserService
 
     public static function createUser(): void
     {
-        // todo : Gestion du md5
         $connection = PdoConnectionHandler::getPDOInstance();
 
-        $query = "insert into user (use_email, use_password) VALUE (:use_email, :use_password)";
+        $query = "insert into user (use_email, use_password) VALUE (:use_email,:use_password)";
 
         $userValues = self::getUserFromValues();
 
@@ -62,7 +61,7 @@ class UserService
         $passwordTyped = getElementInRequestByAttribute("password");
         $emailTyped = getElementInRequestByAttribute("email");
 
-        $query = "select u.* from user u where u.use_email = :emailTyped";
+        $query = "select u.* from user u where use_email = :emailTyped";
         $request = $connection->prepare($query);
         $request->bindParam(':emailTyped', $emailTyped);
 
@@ -73,7 +72,6 @@ class UserService
 
         if (!empty($user)) {
             $passwordUser = $user->getUsePassword();
-            // todo : Gestion du md5
             if ($passwordUser == $passwordTyped) {
                 $_SESSION["use_id"] = $user;
                 header("location:../views/");

@@ -6,6 +6,7 @@ use model\Annonce;
 use model\User;
 
 require_once 'UserController.php';
+require_once 'AnnonceController.php';
 
 $users = [];
 $user = new User();
@@ -13,11 +14,9 @@ $user = new User();
 $annonces = [];
 $annonce = new Annonce();
 
-//session_start();
-
 function controller(): void
 {
-    global $users, $user;
+    global $users, $user, $annonce;
 
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -45,6 +44,13 @@ function controller(): void
                 // todo Validation
                 // Connexion de l'utilisateur
                 UserController::connectUser();
+            }
+            break;
+        case '/findProject/views/detailsAnnonce.php':
+            //on vérifie si la requête est un GET
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                //o récupère les détails de l'Annonce
+                $annonce = AnnonceController::getAnnonceDetails();
             }
             break;
         default:
