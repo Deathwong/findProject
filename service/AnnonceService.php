@@ -38,22 +38,34 @@ class AnnonceService
 
     public static function updateAnnonce(): void
     {
+        // On récupère la connection
         $connection = PdoConnectionHandler::getPDOInstance();
 
+        // On récupère les valeurs de l'annonce
         $Annonce = self::getAnnonceValues();
 
+        $query = "";
     }
 
     public static function getAnnonceValues(): array
     {
+        // On déclare la variable annonce
         $annonce = [
-            "use_id" => getElementInRequestByAttribute("use_id"),
             "ann_nom" => getElementInRequestByAttribute("ann_nom"),
             "ann_prix" => getElementInRequestByAttribute("ann_prix"),
             "ann_description" => getElementInRequestByAttribute("ann_description")
         ];
 
+        // On vérifie si l'on reçoit bien un id d'utilisateur
+        if (getElementInRequestByAttribute("use_id")) {
+            // On ajoute l'id d'utilisateur
+            $annonce[] = getElementInRequestByAttribute("use_id");
+            //array_push($annonce,getElementInRequestByAttribute("use_id"));
+        }
+
+        // On vérifie si l'on reçoit bien un id d'annonce
         if (getElementInRequestByAttribute("ann_id")) {
+            // On ajoute l'id d'annonce
             $annonce[] = getElementInRequestByAttribute("ann_id");
             //array_push($annonce,getElementInRequestByAttribute("ann_id"));
         }
