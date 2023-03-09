@@ -72,4 +72,24 @@ class AnnonceService
 
         return $annonce;
     }
+
+    public static function deleteAnnonce(): void
+    {
+        //on récupère la connection
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        // On récupère l'id de l'annonce
+        $idAnnonce = getElementInRequestByAttribute("idAnnonce");
+
+        // Requête de suppression d'une annonce
+        $queryDeleteCategorie = "delete from categorie_annonce WHERE ann_id = :idAnnonce";
+        $queryDeleteAnnonce = "delete from annonce where ann_id = :idAnnonce";
+
+        // On fait le prépare statement
+        $request = $connection->prepare($queryDeleteCategorie);
+
+        // On exécute la requête
+        $request->execute();
+
+    }
 }

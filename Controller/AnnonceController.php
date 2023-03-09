@@ -15,4 +15,9 @@ class AnnonceController
     {
         return AnnonceService::getAnnonceDetails();
     }
+
+    public static function unsetAnnonce(): void
+    {
+        return AnnonceService::deleteAnnonce();
+    }
 }
