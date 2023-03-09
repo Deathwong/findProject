@@ -42,26 +42,31 @@ class AnnonceService
         $connection = PdoConnectionHandler::getPDOInstance();
 
         // On récupère les valeurs de l'annonce
-        $Annonce = self::getAnnonceValues();
+        $annonce = self::getAnnonceFromValues();
 
-        $query = "";
+        $idAnnonce = $annonce["ann_id"];
+
+        $query = "update annonce a set a.ann_nom = :ann_nom , a.ann_prix = :ann_prix, 
+                     a.ann_description = :ann_description where ann_id = :ann_id ";
+
+        $request = $connection->prepare($query);
+
+        $request->execute($annonce);
+
+        if (getElementInRequestByAttribute("ann_photo")) {
+            $param = getElementInRequestByAttribute("ann_photo");
+            getFileNamePlusExtension($param, $idAnnonce);
+        }
+
     }
 
-    public static function getAnnonceValues(): array
+    public static function getAnnonceFromValues(): array
     {
-        // On déclare la variable annonce
         $annonce = [
             "ann_nom" => getElementInRequestByAttribute("ann_nom"),
             "ann_prix" => getElementInRequestByAttribute("ann_prix"),
             "ann_description" => getElementInRequestByAttribute("ann_description")
         ];
-
-        // On vérifie si l'on reçoit bien un id d'utilisateur
-        if (getElementInRequestByAttribute("use_id")) {
-            // On ajoute l'id d'utilisateur
-            $annonce[] = getElementInRequestByAttribute("use_id");
-            //array_push($annonce,getElementInRequestByAttribute("use_id"));
-        }
 
         // On vérifie si l'on reçoit bien un id d'annonce
         if (getElementInRequestByAttribute("ann_id")) {
@@ -72,4 +77,77 @@ class AnnonceService
 
         return $annonce;
     }
+
+    public static function deleteLinkCategoriesAnnonce($idAnnonce): void
+    {
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        $query = "delete from categorie_annonce where ann_id = :ann_id";
+
+        $request = $connection->prepare($query);
+
+        $request->bindParam(":ann_id", $idAnnonce);
+
+        $request->execute();
+    }
+
+    public static function getCategoryFromValues(): array
+    {
+        // Le séparateur sur lequel on se basera pour créer le tableau de catégories
+        $separator = ",";
+
+        // On récupère les différentes catégories
+        $categories = getElementInRequestByAttribute("categories");
+
+        // On retourne un tableau de catégories
+        return explode($separator, $categories);
+    }
+
+    public static function updateCategoriesAnnonce($idAnnonce): void
+    {
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        $categories = self::getCategoryFromValues();
+
+        $categories_annonces = [];
+
+        foreach ($categories as $category) {
+            $category_annonce = $idAnnonce . "," . $category;
+            $categories_annonces[] = $category_annonce;
+        }
+
+//        $query = "insert into categorie_annonce(ann_id, cat_id) values";
+
+//        $query .= implode(",", $categories_annonces);
+
+//        $request = $connection->prepare($query);
+//
+//        $request->execute($categories_annonces);
+    }
+
+    public static function deleteAnnonce(): void
+    {
+        // On récupère la connection
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        // On récupère l'id de l'annonce qui vient de la requête http (par exemple envoyé par le navigateur)
+        $idAnnonce = getElementInRequestByAttribute("idAnnonce");
+
+        // Suppression des catégories liées à l'annonce
+        self::deleteLinkCategoriesAnnonce($idAnnonce);
+
+        $query = "delete from annonce WHERE ann_id = :idAnnonce";
+
+        // On fait le prépare statement
+        $request = $connection->prepare($query);
+
+        // On fait le binding
+        $request->bindParam("idAnnonce", $idAnnonce);
+
+        // On exécute la requête
+        $request->execute();
+
+        header('location:' . UriHandler::$LISTE_USERS_URL);
+    }
+
 }
