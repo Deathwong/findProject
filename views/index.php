@@ -8,11 +8,12 @@ controller();
 <body>
 <?php
 ?>
-<div>
-    <div><?= $user->getUseId() ?></div>
-    <div><?= $user->getUseEmail() ?></div>
-    <div><?= $user->getUsePassword() ?></div>
-</div>
+<div>ACCUEIL</div>
+<!--<div>-->
+<!--    <div>--><?php //= $user->getUseId() ?><!--</div>-->
+<!--    <div>--><?php //= $user->getUseEmail() ?><!--</div>-->
+<!--    <div>--><?php //= $user->getUsePassword() ?><!--</div>-->
+<!--</div>-->
 <?php require 'footer.php' ?>
 </body>
 </html>
