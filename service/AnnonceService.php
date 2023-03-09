@@ -136,6 +136,8 @@ class AnnonceService
         // Suppression des catégories liées à l'annonce
         self::deleteLinkCategoriesAnnonce($idAnnonce);
 
+        // TODO : faire appelle à la fonction qui supprime les favoris liés à l'annonce
+
         $query = "delete from annonce WHERE ann_id = :idAnnonce";
 
         // On fait le prépare statement
@@ -150,4 +152,15 @@ class AnnonceService
         header('location:' . UriHandler::$LISTE_USERS_URL);
     }
 
+    public static function getAllAnnonce(): array
+    {
+        /*
+         * 1 récupérer la connection
+         * 2 écrire la requête
+         * 3 Exécuter la requête
+         * 4 Fecth et retourner l'array de la liste des annonces
+         * (return $request->fetchAll(PDO::FETCH_CLASS, Annonce::class);)
+         */
+        return [];
+    }
 }
