@@ -18,6 +18,8 @@ $annonce = new Annonce();
 
 $categoriesAnnonce = [];
 
+session_start();
+
 function controller(): void
 {
     global $users, $user, $annonce, $categoriesAnnonce;
@@ -31,11 +33,12 @@ function controller(): void
                 $user = $_SESSION["use_id"];
             }
             break;
-        case UriHandler::$LISTEUSERS_URL:
+
+        case UriHandler::$LISTE_USERS_URL:
             $users = UserController::getUsers();
             break;
 
-        case UriHandler::$DETAILSUSER_URL:
+        case UriHandler::$DETAILS_USER_URL:
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 UserController::createUser();
             } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -46,6 +49,7 @@ function controller(): void
         case UriHandler::$SIGNUP_URL:
             // Pour éviter les erreurs 404. À l'enregistrement, on pointe sur details
             break;
+
         case UriHandler::$SIGNIN_URL:
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // todo Validation
@@ -53,7 +57,8 @@ function controller(): void
                 UserController::connectUser();
             }
             break;
-        case UriHandler::$DETAILSANNONCE_URL:
+
+        case UriHandler::$DETAILS_ANNONCE_URL:
             //on vérifie si la requête est un GET
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 //o récupère les détails de l'Annonce
@@ -61,6 +66,17 @@ function controller(): void
                 $categoriesAnnonce = explode($separator, $annonce->getCategories());
             }
             break;
+
+        case UriHandler::$DELETE_ANNONCE_URL:
+            // Suppression d'une annonce via son Id
+            AnnonceController::deleteAnnonce();
+            break;
+
+        case UriHandler::$LIST_ANNONCE_URL:
+            // TODO Mettre un commentaire de la fonctionnalité
+            // TODO : Appelle de la fonction qui va bien d'annonceController
+            break;
+
         default:
             header('Status: 404 Not Found');
             echo '<html lang="fr"><body><h1>Page Not Found</h1></body></html>';

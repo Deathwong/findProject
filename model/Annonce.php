@@ -128,7 +128,7 @@ class Annonce
     }
 
     /**
-     * @return Date
+     * @return string
      */
     public function getAnnCreateAt(): string
     {
@@ -136,9 +136,9 @@ class Annonce
     }
 
     /**
-     * @param Date $ann_create_at
+     * @param string $ann_create_at
      */
-    public function setAnnCreateAt(Date $ann_create_at): void
+    public function setAnnCreateAt(string $ann_create_at): void
     {
         $this->ann_create_at = $ann_create_at;
     }
@@ -174,5 +174,4 @@ class Annonce
     {
         $this->categories = $categories;
     }
-
 }
