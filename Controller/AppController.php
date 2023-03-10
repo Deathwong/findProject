@@ -18,6 +18,8 @@ $annonce = new Annonce();
 
 $categoriesAnnonce = [];
 
+session_start();
+
 function controller(): void
 {
     global $users, $user, $annonce, $categoriesAnnonce;
