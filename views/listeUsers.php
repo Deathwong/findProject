@@ -4,7 +4,7 @@ controller();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <?php require 'header.php' ?>
 <body>
 <div>

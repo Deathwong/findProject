@@ -58,6 +58,9 @@ class AnnonceService
             getFileNamePlusExtension($param, $idAnnonce);
         }
 
+        CategoryAnnonceService::deleteLinkCategoriesAnnonce($idAnnonce);
+
+        self::updateCategoriesAnnonce($idAnnonce);
     }
 
     public static function getAnnonceFromValues(): array
@@ -77,19 +80,19 @@ class AnnonceService
 
         return $annonce;
     }
-
-    public static function deleteLinkCategoriesAnnonce($idAnnonce): void
-    {
-        $connection = PdoConnectionHandler::getPDOInstance();
-
-        $query = "delete from categorie_annonce where ann_id = :ann_id";
-
-        $request = $connection->prepare($query);
-
-        $request->bindParam(":ann_id", $idAnnonce);
-
-        $request->execute();
-    }
+//
+//    public static function deleteLinkCategoriesAnnonce($idAnnonce): void
+//    {
+//        $connection = PdoConnectionHandler::getPDOInstance();
+//
+//        $query = "delete from categorie_annonce where ann_id = :ann_id";
+//
+//        $request = $connection->prepare($query);
+//
+//        $request->bindParam(":ann_id", $idAnnonce);
+//
+//        $request->execute();
+//    }
 
     public static function getCategoryFromValues(): array
     {
@@ -109,20 +112,17 @@ class AnnonceService
 
         $categories = self::getCategoryFromValues();
 
-        $categories_annonces = [];
 
         foreach ($categories as $category) {
-            $category_annonce = $idAnnonce . "," . $category;
-            $categories_annonces[] = $category_annonce;
+            $query = "insert into categorie_annonce(ann_id, cat_id) values(:ann_id, :cat_id)";
+
+            $request = $connection->prepare($query);
+
+            $request->bindParam(":ann_id", $idAnnonce);
+            $request->bindParam(":cat_id", $category);
+
+            $request->execute();
         }
-
-//        $query = "insert into categorie_annonce(ann_id, cat_id) values";
-
-//        $query .= implode(",", $categories_annonces);
-
-//        $request = $connection->prepare($query);
-//
-//        $request->execute($categories_annonces);
     }
 
     public static function deleteAnnonce(): void
@@ -134,7 +134,7 @@ class AnnonceService
         $idAnnonce = getElementInRequestByAttribute("idAnnonce");
 
         // Suppression des catégories liées à l'annonce
-        self::deleteLinkCategoriesAnnonce($idAnnonce);
+        CategoryAnnonceService::deleteLinkCategoriesAnnonce($idAnnonce);
 
         // TODO : faire appelle à la fonction qui supprime les favoris liés à l'annonce
 
