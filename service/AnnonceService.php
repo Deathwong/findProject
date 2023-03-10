@@ -138,7 +138,7 @@ class AnnonceService
         CategoryAnnonceService::deleteLinkCategoriesAnnonce($idAnnonce);
 
         // TODO : faire appelle à la fonction qui supprime les favoris liés à l'annonce
-        Favorisservice::deleteLinkFavorisAnnonce($idAnnonce);
+        FavoriService::deleteLinkFavorisAnnonce($idAnnonce);
 
         $query = "delete from annonce WHERE ann_id = :idAnnonce";
 

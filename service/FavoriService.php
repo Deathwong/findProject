@@ -6,7 +6,7 @@ require_once "PdoConnectionHandler.php";
 require_once "../utils/utils.php";
 require "../model/User.php";
 
-class Favoriservice
+class FavoriService
 {
     public static function deleteLinkFavorisAnnonce($idAnnonce): void
     {
