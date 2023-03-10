@@ -3,6 +3,7 @@
 namespace service;
 
 use model\Annonce;
+use PDO;
 
 require_once 'PdoConnectionHandler.php';
 require_once "../utils/utils.php";
@@ -155,13 +156,13 @@ class AnnonceService
 
     public static function getAllAnnonce(): array
     {
-        /*
-         * 1 récupérer la connection
-         * 2 écrire la requête
-         * 3 Exécuter la requête
-         * 4 Fecth et retourner l'array de la liste des annonces
-         * (return $request->fetchAll(PDO::FETCH_CLASS, Annonce::class);)
-         */
-        return [];
+        // On récupère la connection
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        $query = "select ann.* from annonce ann";
+        $statement = $connection->query($query);
+
+
+        return $statement->fetchAll(PDO::FETCH_CLASS, Annonce::class);
     }
 }

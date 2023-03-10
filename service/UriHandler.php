@@ -13,4 +13,5 @@ class UriHandler
     public static string $DELETE_ANNONCE_URL = '/findProject/views/deleteAnnonce.php';
     public static string $LIST_ANNONCE_URL = '/findProject/views/listAnnonce.php';
     public static string $EDIT_ANNONCE_URL = '/findProject/views/editAnnonce.php';
+    public static string $GET_ALL_ANNONCE_URL = '/findProject/views/getAllAnnonce.php';
 }

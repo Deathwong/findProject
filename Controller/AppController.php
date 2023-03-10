@@ -24,7 +24,7 @@ session_start();
 
 function controller(): void
 {
-    global $users, $user, $annonce, $categories, $categoriesAnnonce;
+    global $users, $user, $annonce, $annonces, $categories, $categoriesAnnonce;
     $separator = ",";
 
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -87,6 +87,11 @@ function controller(): void
                 $categories = CategoryController::getAllCategories();
             } elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
                 AnnonceController::updateAnnonce();
+            break;
+
+        case UriHandler::$GET_ALL_ANNONCE_URL:
+            // Récupération des annonces
+            $annonces = AnnonceController::getAllAnnonce();
             break;
 
         default:
