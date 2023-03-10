@@ -57,7 +57,7 @@ class AnnonceService
 
         if (getElementInRequestByAttribute("ann_photo")) {
             $param = getElementInRequestByAttribute("ann_photo");
-            getFileNamePlusExtension($param, $idAnnonce);
+            renameAndMoveAnnoncePicture($param, $idAnnonce);
         }
 
         CategoryAnnonceService::deleteLinkCategoriesAnnonce($idAnnonce);
@@ -165,4 +165,41 @@ class AnnonceService
 
         return $statement->fetchAll(PDO::FETCH_CLASS, Annonce::class);
     }
+
+    public static function createAnnonce(): int
+    {
+
+        // Récupération de la connexion PDO
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        // Requête SQL pour insérer une nouvelle annonce
+        $query = "insert into annonce values (:use_id, :ann_nom, :ann_prix, :ann_description,:ann_photo,:ann_nombre_consultation, 
+                            now(),now())";
+
+        $request = $connection->prepare($query);
+
+        // Liaison des paramètres avec les variables correspondantes
+        $annonce = self::getAnnonceFromValues();
+
+        // Exécution de la requête
+        $request->execute();
+
+        // Récupération de l'identifiant de l'annonce créée
+        $ann_id = $connection->lastInsertId();
+
+        //pour l'image
+        renameAndMoveAnnoncePicture(':photo', $ann_id);
+
+// message d'error. Si l'annonce n'a pas été créé
+        if (!$ann_id) {
+
+
+            // Retour de l'identifiant de l'annonce créée
+            return (int)$ann_id;
+        }
+
+
+    }
+
+
 }
