@@ -9,6 +9,7 @@ use service\UriHandler;
 require_once '../service/UriHandler.php';
 require_once 'UserController.php';
 require_once 'AnnonceController.php';
+require_once 'CategoryController.php';
 
 $users = [];
 $user = new User();
@@ -16,13 +17,14 @@ $user = new User();
 $annonces = [];
 $annonce = new Annonce();
 
+$categories = [];
 $categoriesAnnonce = [];
 
 session_start();
 
 function controller(): void
 {
-    global $users, $user, $annonce, $categoriesAnnonce;
+    global $users, $user, $annonce, $annonces, $categories, $categoriesAnnonce;
     $separator = ",";
 
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -63,7 +65,7 @@ function controller(): void
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 //o récupère les détails de l'Annonce
                 $annonce = AnnonceController::getAnnonceDetails();
-                $categoriesAnnonce = explode($separator, $annonce->getCategories());
+                $categoriesAnnonce = explode($separator, getLettersOfTheString($annonce->getCategories()));
             }
             break;
 
@@ -75,6 +77,21 @@ function controller(): void
         case UriHandler::$LIST_ANNONCE_URL:
             // TODO Mettre un commentaire de la fonctionnalité
             // TODO : Appelle de la fonction qui va bien d'annonceController
+            break;
+
+        case UriHandler::$EDIT_ANNONCE_URL:
+            // Modification de l'annonce
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $annonce = AnnonceController::getAnnonceDetails();
+                $categoriesAnnonce = explode($separator, $annonce->getCategories());
+                $categories = CategoryController::getAllCategories();
+            } elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
+                AnnonceController::updateAnnonce();
+            break;
+
+        case UriHandler::$GET_ALL_ANNONCE_URL:
+            // Récupération des annonces
+            $annonces = AnnonceController::getAllAnnonce();
             break;
 
         default:

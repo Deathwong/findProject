@@ -6,8 +6,6 @@ controller();
 <html lang="fr">
 <?php require 'header.php' ?>
 <body>
-<?php
-?>
 <div>ACCUEIL</div>
 <!--<div>-->
 <!--    <div>--><?php //= $user->getUseId() ?><!--</div>-->

@@ -3,6 +3,7 @@
 namespace service;
 
 use model\Annonce;
+use PDO;
 
 require_once 'PdoConnectionHandler.php';
 require_once "../utils/utils.php";
@@ -20,7 +21,7 @@ class AnnonceService
         $idAnnonce = getElementInRequestByAttribute("idAnnonce");
 
         // Requête ramenant l'annonce et les différentes catégories séparées par une virgule
-        $query = "select ann.*, GROUP_CONCAT(cat.cat_libelle) as categories from annonce ann join categorie_annonce ca 
+        $query = "select ann.*, GROUP_CONCAT(cat.cat_id,cat.cat_libelle) as categories from annonce ann join categorie_annonce ca 
             ON ann.ann_id = ca.ann_id join categorie cat on ca.cat_id = cat.cat_id where ann.ann_id = :idAnnonce";
 
         // On fait le prépare statement
@@ -35,6 +36,7 @@ class AnnonceService
         // On retourne l'annonce
         return $request->fetchObject(Annonce::class);
     }
+
 
     public static function updateAnnonce(): void
     {
@@ -154,13 +156,13 @@ class AnnonceService
 
     public static function getAllAnnonce(): array
     {
-        /*
-         * 1 récupérer la connection
-         * 2 écrire la requête
-         * 3 Exécuter la requête
-         * 4 Fecth et retourner l'array de la liste des annonces
-         * (return $request->fetchAll(PDO::FETCH_CLASS, Annonce::class);)
-         */
-        return [];
+        // On récupère la connection
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        $query = "select ann.* from annonce ann";
+        $statement = $connection->query($query);
+
+
+        return $statement->fetchAll(PDO::FETCH_CLASS, Annonce::class);
     }
 }

@@ -22,9 +22,15 @@ class AnnonceController
         AnnonceService::deleteAnnonce();
     }
 
-    /*
-     * @joane: todo
-     * 1 : mettre un commentaire de la fonctionnalité
-     * 2 : créer une fonction qui appelle la fonction qui va bien d'annonceService
-     */
+    // La fonction permettant de supprimer une annonce
+    public static function updateAnnonce(): void
+    {
+        AnnonceService::updateAnnonce();
+    }
+
+    // La fonction permettant de récupérer toutes les annonces
+    public static function getAllAnnonce(): array
+    {
+        return AnnonceService::getAllAnnonce();
+    }
 }

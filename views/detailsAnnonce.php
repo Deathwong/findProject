@@ -8,7 +8,7 @@ controller();
 <body>
 <div>
     <div>
-        <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>">
+        <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" alt="image de l'annonce">
     </div>
     <div>
         <?= $annonce->getAnnNom() ?>

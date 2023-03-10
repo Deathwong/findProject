@@ -27,11 +27,16 @@ function submitCreationAnnonce() {
     }
 }
 
-function submitCreateAnnonceForm() {
+function validAnnonceForm() {
     validateNomAnnonceEventListener();
     validatePrixAnnonceEventListener();
     validateDescriptionAnnonceEventListener();
     validatePhotoAnnonceEventListener();
     validateCategoryAnnonceEventListener()
+}
+
+function setCategoriesSelected($values) {
+    console.log($values);
+    $('#cat_id option[value=' + $values + ']').attr('selected', true);
 }
 
