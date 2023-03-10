@@ -22,6 +22,12 @@ class AnnonceController
         AnnonceService::deleteAnnonce();
     }
 
+    // La fonction permettant de supprimer une annonce
+    public static function updateAnnonce(): void
+    {
+        AnnonceService::updateAnnonce();
+    }
+
     /*
      * @joane: todo
      * 1 : mettre un commentaire de la fonctionnalité

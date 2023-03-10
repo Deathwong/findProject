@@ -60,12 +60,52 @@ function getFileNamePlusExtension($param, $name): string
     $file = $_FILES[$param];
     $uploadFileName = $file["name"];
 
-    $positionPoint = strpos($uploadFileName, ".");
-    $extension = substr($uploadFileName, $positionPoint);
+    $extension = getFileExtension($uploadFileName);
 
-    $transformFileName = $name . $extension;
+    $transformFileName = $name . '.' . $extension;
     move_uploaded_file($file['tmp_name'], "../assets/img/annonces/" . $transformFileName);
-    
 
     return $transformFileName;
 }
+
+/**
+ * Permet de récupérer l'extension d'un fichier
+ * @param string $fileName Le nom du fichier
+ * @return string L'extension du fichier
+ */
+function getFileExtension(string $fileName): string
+{
+    if ($fileName == null) {
+        return '';
+    }
+
+    $positionPoint = strripos($fileName, "."); // TODO à tester
+
+    if (!$positionPoint) {
+        return '';
+    }
+
+    return substr($fileName, $positionPoint + 1);
+}
+
+/**
+ * Permet de récupérer uniquement les chiffres contenus dans la chaine de caractère
+ * @param $string
+ * @return string
+ */
+function getDigitsOfTheString($string): string
+{
+    return preg_replace('/[^0-9]/', '', $string);
+}
+
+/**
+ * Permet de récupérer uniquement les lettres contenues dans la chaine de caractère
+ * @param $string
+ * @return string
+ */
+function getLettersOfTheString($string): string
+{
+    return preg_replace('/[^a-zA-Z]/', '', $string);
+}
+
+

@@ -20,7 +20,7 @@ class AnnonceService
         $idAnnonce = getElementInRequestByAttribute("idAnnonce");
 
         // Requête ramenant l'annonce et les différentes catégories séparées par une virgule
-        $query = "select ann.*, GROUP_CONCAT(cat.cat_libelle) as categories from annonce ann join categorie_annonce ca 
+        $query = "select ann.*, GROUP_CONCAT(cat.cat_id,cat.cat_libelle) as categories from annonce ann join categorie_annonce ca 
             ON ann.ann_id = ca.ann_id join categorie cat on ca.cat_id = cat.cat_id where ann.ann_id = :idAnnonce";
 
         // On fait le prépare statement
@@ -35,6 +35,7 @@ class AnnonceService
         // On retourne l'annonce
         return $request->fetchObject(Annonce::class);
     }
+
 
     public static function updateAnnonce(): void
     {
