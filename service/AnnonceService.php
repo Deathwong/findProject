@@ -37,7 +37,6 @@ class AnnonceService
         return $request->fetchObject(Annonce::class);
     }
 
-
     public static function updateAnnonce(): void
     {
         // On récupère la connection
@@ -139,6 +138,7 @@ class AnnonceService
         CategoryAnnonceService::deleteLinkCategoriesAnnonce($idAnnonce);
 
         // TODO : faire appelle à la fonction qui supprime les favoris liés à l'annonce
+        Favorisservice::deleteLinkFavorisAnnonce($idAnnonce);
 
         $query = "delete from annonce WHERE ann_id = :idAnnonce";
 
