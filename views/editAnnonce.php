@@ -10,7 +10,7 @@ controller();
 <div>
     <div>Modification</div>
     <div>
-        <form method="post" action="">
+        <form method="post" action="" id="updateAnnonceForm">
             <div>
                 <div>
                     <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" alt="image de l'annonce">
@@ -63,7 +63,7 @@ controller();
             </div>
         </form>
         <div>
-            <button onclick="submitFormAnnonce()">modifier</button>
+            <button onclick="submitFormAnnonce('updateAnnonceForm')">modifier</button>
         </div>
     </div>
 </div>
