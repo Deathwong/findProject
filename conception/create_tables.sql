@@ -60,7 +60,7 @@ create table categorie_annonce
 /*==============================================================*/
 create table favoris
 (
-    fav_id bigint not NULL AUTO_INCREMENT,
+    fav_id bigint not null AUTO_INCREMENT,
     ann_id bigint,
     use_id bigint,
     primary key (fav_id)
@@ -109,6 +109,10 @@ alter table favoris
     add constraint fk_favoris_relation__user foreign key (use_id)
         references user (use_id) on delete restrict on update restrict;
 
+alter table favoris
+    add constraint fk_favoris_relation__annonce foreign key (ann_id)
+        references annonce (ann_id) on delete restrict on update restrict;
+
 alter table message
     add constraint fk_message_relation__user foreign key (mes_sender_id)
         references user (use_id) on delete restrict on update restrict;
@@ -116,9 +120,4 @@ alter table message
 alter table message
     add constraint fk_message_relation_receiver__user foreign key (use_receiver_id)
         references user (use_id) on delete restrict on update restrict;
-
-alter table favoris
-    add constraint fk_favoris_relation__annonce foreign key (ann_id)
-        references annonce (ann_id) on delete restrict on update restrict;
-
 

@@ -20,10 +20,14 @@ SET FOREIGN_KEY_CHECKS = 1;
 /*==============================================================*/
 /* Table : user                                              	*/
 /*==============================================================*/
-insert into user (use_id, use_email, use_password) values (1, 'jean@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
-insert into user (use_id, use_email, use_password) values (2, 'jean@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
-insert into user (use_id, use_email, use_password) values (3, 'jean@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
-insert into user (use_id, use_email, use_password) values (4, 'jean@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
+insert into user (use_id, use_email, use_password)
+values (1, 'jean@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
+insert into user (use_id, use_email, use_password)
+values (2, 'jean@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
+insert into user (use_id, use_email, use_password)
+values (3, 'jean@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
+insert into user (use_id, use_email, use_password)
+values (4, 'jean@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
 
 
 /*==============================================================*/
@@ -107,9 +111,12 @@ values (24, 4, 'nom', 38, 'description', '24.jpeg', 10, now(), now());
 /*==============================================================*/
 /* Table : categorie                                            */
 /*==============================================================*/
-insert into categorie (cat_id, cat_libelle) values (1,'Informatique');
-insert into categorie (cat_id, cat_libelle) values (2,'Electro-ménager');
-insert into categorie (cat_id, cat_libelle) values (3,'Immobilier');
+insert into categorie (cat_id, cat_libelle)
+values (1, 'Informatique');
+insert into categorie (cat_id, cat_libelle)
+values (2, 'Electro-ménager');
+insert into categorie (cat_id, cat_libelle)
+values (3, 'Immobilier');
 
 
 /*==============================================================*/
@@ -118,87 +125,115 @@ insert into categorie (cat_id, cat_libelle) values (3,'Immobilier');
 insert into favoris (fav_id, ann_id, use_id)
 values (1, 1, 1);
 insert into favoris (fav_id, ann_id, use_id)
-values (2, 1, 2);
+values (2, 2, 2);
 insert into favoris (fav_id, ann_id, use_id)
-values (3, 1, 3);
+values (3, 3, 3);
 insert into favoris (fav_id, ann_id, use_id)
-values (4, 1, 4);
+values (4, 4, 4);
 insert into favoris (fav_id, ann_id, use_id)
-values (5, 1, 5);
+values (5, 5, 1);
 insert into favoris (fav_id, ann_id, use_id)
-values (6, 1, 6);
+values (6, 6, 2);
 insert into favoris (fav_id, ann_id, use_id)
-values (7, 1, 1);
+values (7, 7, 3);
 insert into favoris (fav_id, ann_id, use_id)
-values (8, 1, 2);
+values (8, 8, 4);
 insert into favoris (fav_id, ann_id, use_id)
-values (9, 1, 3);
+values (9, 9, 1);
 insert into favoris (fav_id, ann_id, use_id)
-values (10, 2, 4);
+values (10, 10, 2);
 insert into favoris (fav_id, ann_id, use_id)
-values (11, 2, 5);
+values (11, 11, 3);
 insert into favoris (fav_id, ann_id, use_id)
-values (12, 2, 6);
+values (12, 12, 4);
 insert into favoris (fav_id, ann_id, use_id)
-values (13, 2, 1);
+values (13, 13, 1);
 insert into favoris (fav_id, ann_id, use_id)
-values (14, 2, 2);
+values (14, 14, 2);
 insert into favoris (fav_id, ann_id, use_id)
-values (15, 2, 3);
+values (15, 15, 3);
 insert into favoris (fav_id, ann_id, use_id)
-values (16, 2, 4);
+values (16, 16, 4);
 insert into favoris (fav_id, ann_id, use_id)
-values (17, 3, 5);
+values (17, 17, 1);
 insert into favoris (fav_id, ann_id, use_id)
-values (18, 3, 6);
+values (18, 18, 2);
 insert into favoris (fav_id, ann_id, use_id)
-values (19, 3, 1);
+values (19, 19, 3);
 insert into favoris (fav_id, ann_id, use_id)
-values (20, 3, 2);
+values (20, 20, 4);
 insert into favoris (fav_id, ann_id, use_id)
-values (21, 3, 3);
+values (21, 21, 1);
 insert into favoris (fav_id, ann_id, use_id)
-values (22, 3, 4);
+values (22, 22, 2);
 insert into favoris (fav_id, ann_id, use_id)
-values (23, 3, 5);
+values (23, 23, 3);
 insert into favoris (fav_id, ann_id, use_id)
-values (24, 3, 6);
+values (24, 24, 4);
 
 
 /*==============================================================*/
 /* Table : message	                                            */
 /*==============================================================*/
-insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at) values (1,1,2,'message','2023-01-14 7:0:0');
-insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at) values (2,2,1,'message','2023-01-18 7:0:0');
-insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at) values (3,3,4,'message','2023-01-20 7:0:0');
-insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at) values (4,4,3,'message','2023-01-26 7:0:0');
+insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (1, 1, 2, 'message', '2023-01-14 7:0:0');
+insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (2, 2, 1, 'message', '2023-01-18 7:0:0');
+insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (3, 3, 4, 'message', '2023-01-20 7:0:0');
+insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (4, 4, 3, 'message', '2023-01-26 7:0:0');
 
 
 
 /*==============================================================*/
 /* Table : categorie_annonce                                    */
 /*==============================================================*/
-insert into categorie_annonce (ann_id, cat_id) values (1,1);
-insert into categorie_annonce (ann_id, cat_id) values (2,1);
-insert into categorie_annonce (ann_id, cat_id) values (3,1);
-insert into categorie_annonce (ann_id, cat_id) values (4,1);
-insert into categorie_annonce (ann_id, cat_id) values (5,1);
-insert into categorie_annonce (ann_id, cat_id) values (6,1);
-insert into categorie_annonce (ann_id, cat_id) values (7,1);
-insert into categorie_annonce (ann_id, cat_id) values (8,1);
-insert into categorie_annonce (ann_id, cat_id) values (9,2);
-insert into categorie_annonce (ann_id, cat_id) values (10,2);
-insert into categorie_annonce (ann_id, cat_id) values (11,2);
-insert into categorie_annonce (ann_id, cat_id) values (12,2);
-insert into categorie_annonce (ann_id, cat_id) values (13,2);
-insert into categorie_annonce (ann_id, cat_id) values (14,2);
-insert into categorie_annonce (ann_id, cat_id) values (15,2);
-insert into categorie_annonce (ann_id, cat_id) values (16,2);
-insert into categorie_annonce (ann_id, cat_id) values (17,3);
-insert into categorie_annonce (ann_id, cat_id) values (18,3);
-insert into categorie_annonce (ann_id, cat_id) values (19,3);
-insert into categorie_annonce (ann_id, cat_id) values (20,3);
-insert into categorie_annonce (ann_id, cat_id) values (21,3);
-insert into categorie_annonce (ann_id, cat_id) values (22,3);
-insert into categorie_annonce (ann_id, cat_id) values (23,3);
-insert into categorie_annonce (ann_id, cat_id) values (24,3);
+insert into categorie_annonce (ann_id, cat_id)
+values (1, 1);
+insert into categorie_annonce (ann_id, cat_id)
+values (2, 1);
+insert into categorie_annonce (ann_id, cat_id)
+values (3, 1);
+insert into categorie_annonce (ann_id, cat_id)
+values (4, 1);
+insert into categorie_annonce (ann_id, cat_id)
+values (5, 1);
+insert into categorie_annonce (ann_id, cat_id)
+values (6, 1);
+insert into categorie_annonce (ann_id, cat_id)
+values (7, 1);
+insert into categorie_annonce (ann_id, cat_id)
+values (8, 1);
+insert into categorie_annonce (ann_id, cat_id)
+values (9, 2);
+insert into categorie_annonce (ann_id, cat_id)
+values (10, 2);
+insert into categorie_annonce (ann_id, cat_id)
+values (11, 2);
+insert into categorie_annonce (ann_id, cat_id)
+values (12, 2);
+insert into categorie_annonce (ann_id, cat_id)
+values (13, 2);
+insert into categorie_annonce (ann_id, cat_id)
+values (14, 2);
+insert into categorie_annonce (ann_id, cat_id)
+values (15, 2);
+insert into categorie_annonce (ann_id, cat_id)
+values (16, 2);
+insert into categorie_annonce (ann_id, cat_id)
+values (17, 3);
+insert into categorie_annonce (ann_id, cat_id)
+values (18, 3);
+insert into categorie_annonce (ann_id, cat_id)
+values (19, 3);
+insert into categorie_annonce (ann_id, cat_id)
+values (20, 3);
+insert into categorie_annonce (ann_id, cat_id)
+values (21, 3);
+insert into categorie_annonce (ann_id, cat_id)
+values (22, 3);
+insert into categorie_annonce (ann_id, cat_id)
+values (23, 3);
+insert into categorie_annonce (ann_id, cat_id)
+values (24, 3);
