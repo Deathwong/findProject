@@ -43,7 +43,7 @@ class AnnonceService
         $connection = PdoConnectionHandler::getPDOInstance();
 
         // On récupère les valeurs de l'annonce
-        $annonce = self::getAnnonceFromValues();
+        $annonce = self::getAnnoncesHttpRequestValues();
 
         $idAnnonce = $annonce["ann_id"];
 
@@ -64,7 +64,7 @@ class AnnonceService
         self::updateCategoriesAnnonce($idAnnonce);
     }
 
-    public static function getAnnonceFromValues(): array
+    public static function getAnnoncesHttpRequestValues(): array
     {
         $annonce = [
             "ann_nom" => getElementInRequestByAttribute("ann_nom"),
@@ -173,32 +173,33 @@ class AnnonceService
         $connection = PdoConnectionHandler::getPDOInstance();
 
         // Requête SQL pour insérer une nouvelle annonce
-        $query = "insert into annonce values (:use_id, :ann_nom, :ann_prix, :ann_description,:ann_photo,:ann_nombre_consultation, 
-                            now(),now())";
+        $query = "insert into annonce(use_id, ann_nom, ann_prix, ann_description, ann_nombre_consultation, 
+                    ann_create_at, ann_update_at) 
+            values (:use_id, :ann_nom, :ann_prix, :ann_description, :ann_nombre_consultation, now(), now())";
 
         $request = $connection->prepare($query);
 
-        // Liaison des paramètres avec les variables correspondantes
-        $annonce = self::getAnnonceFromValues();
+        // Récupération des valeurs issues de la requête http pour créer l'annonce
+        $annonceHttpRequestValues = self::getAnnoncesHttpRequestValues();
 
         // Exécution de la requête
-        $request->execute();
+        $request->execute($annonceHttpRequestValues);
 
         // Récupération de l'identifiant de l'annonce créée
         $ann_id = $connection->lastInsertId();
 
-        //pour l'image
-        renameAndMoveAnnoncePicture(':photo', $ann_id);
-
-// message d'error. Si l'annonce n'a pas été créé
+        // Message d'erreur. Si l'annonce n'a pas été créé
         if (!$ann_id) {
-
-
-            // Retour de l'identifiant de l'annonce créée
-            return (int)$ann_id;
+            // TODO Gestion de l'erreur. S'inspirer de la création d'un user
         }
 
+        // Transformation du nom de l'image (id de l'annonce créée
+        $transformFileName = getFileNamePlusExtension('ann_photo', $ann_id);
 
+        // TODO Enregitrer l'image en faisant un update de l'annonce qui vient d'etre créer
+
+        // Retour de l'identifiant de l'annonce créée
+        return (int)$ann_id;
     }
 
 
