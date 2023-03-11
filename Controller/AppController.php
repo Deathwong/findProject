@@ -20,11 +20,13 @@ $annonce = new Annonce();
 $categories = [];
 $categoriesAnnonce = [];
 
+$arrayOfSelectedValues = [];
+
 session_start();
 
 function controller(): void
 {
-    global $users, $user, $annonce, $annonces, $categories, $categoriesAnnonce;
+    global $users, $user, $annonce, $annonces, $categories, $categoriesAnnonce, $arrayOfSelectedValues;
     $separator = ",";
 
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -85,6 +87,11 @@ function controller(): void
                 $annonce = AnnonceController::getAnnonceDetails();
                 $categoriesAnnonce = explode($separator, $annonce->getCategories());
                 $categories = CategoryController::getAllCategories();
+
+                foreach ($categoriesAnnonce as $categoryAnnonce) {
+                    $categoryAnnonceId = getDigitsOfTheString($categoryAnnonce);
+                    $arrayOfSelectedValues[] = $categoryAnnonceId;
+                }
             } elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
                 AnnonceController::updateAnnonce();
             break;

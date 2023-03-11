@@ -18,7 +18,7 @@ function validateFormEventListener() {
     validatePasswordEventListener();
 }
 
-function submitCreationAnnonce() {
+function submitFormAnnonce() {
     const form = $("#createAnnonceForm")
 
     if (isValidNomAnnonce && isValidPrixAnnonce && isValidDescriptionAnnonce &&

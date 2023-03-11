@@ -2,13 +2,6 @@
 require '../Controller/AppController.php';
 controller();
 
-$arrayOfSelectedValues = [];
-
-foreach ($categoriesAnnonce as $categoryAnnonce) {
-    $categoryAnnonceId = getDigitsOfTheString($categoryAnnonce);
-    $arrayOfSelectedValues[] = $categoryAnnonceId;
-    $categoryAnnonce = getLettersOfTheString($categoryAnnonce);
-}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -70,7 +63,7 @@ foreach ($categoriesAnnonce as $categoryAnnonce) {
             </div>
         </form>
         <div>
-            <button onclick="">modifier</button>
+            <button onclick="submitFormAnnonce()">modifier</button>
         </div>
     </div>
 </div>
