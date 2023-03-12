@@ -19,10 +19,15 @@ function validateFormEventListener() {
 }
 
 function submitFormAnnonce(formId) {
-    const form = $("#" + formId)
+    const form = $("#" + formId);
 
-    if (isValidNomAnnonce && isValidPrixAnnonce && isValidDescriptionAnnonce &&
-        isValidPhotoAnnonce && isValidCategoryAnnonce) {
+    form.validate({
+        rules: annonceRulesHandler,
+        messages: errorMessagesAnnonceHandler
+    })
+    
+    if ((isValidNomAnnonce && isValidPrixAnnonce && isValidDescriptionAnnonce &&
+        isValidPhotoAnnonce && isValidCategoryAnnonce) || form.validate()) {
         form.submit();
     }
 }

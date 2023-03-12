@@ -12,6 +12,9 @@ controller();
     <div>
         <form method="post" action="" id="updateAnnonceForm">
             <div>
+                <input type="hidden" name="ann_id" value="1">
+            </div>
+            <div>
                 <div>
                     <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" alt="image de l'annonce">
                 </div>
@@ -20,6 +23,7 @@ controller();
                            name="ann_photo"
                            id="ann_photo"
                     >
+                    <span id="errorPhotoAnnonce"></span>
                 </div>
             </div>
             <div>
@@ -29,6 +33,7 @@ controller();
                        id="ann_nom"
                        value="<?= $annonce->getAnnNom() ?>"
                 >
+                <span id="errorNomAnnonce"></span>
             </div>
             <div>
                 <label for="ann_prix"></label>
@@ -37,6 +42,7 @@ controller();
                        id="ann_prix"
                        value="<?= $annonce->getAnnPrix() ?>"
                 >
+                <span id="errorPrixAnnonce"></span>
             </div>
             <div>
                 <label for="cat_id"></label>
@@ -60,6 +66,7 @@ controller();
                        id="ann_description"
                        value="<?= $annonce->getAnnDescription() ?>"
                 >
+                <span id="errorDescriptionAnnonce"></span>
             </div>
         </form>
         <div>

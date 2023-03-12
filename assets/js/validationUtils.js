@@ -28,10 +28,41 @@ const errorMessagesUserHandler = {
     }
 }
 
+const annonceRulesHandler = {
+    ann_nom: {
+        required: true
+    },
+    ann_prix: {
+        required: true,
+        digits: true
+    },
+    cat_id: {
+        required: true
+    },
+    ann_description: {
+        required: true
+    }
+}
+
+const errorMessagesAnnonceHandler = {
+    ann_nom: {
+        required: stringFormat(stringFormat(formControlErrorMessage.required, "Nom"))
+    },
+    ann_prix: {
+        required: stringFormat(stringFormat(formControlErrorMessage.required, "Prix")),
+        numeric: stringFormat(stringFormat(formControlErrorMessage.digit))
+    },
+    cat_id: {
+        required: stringFormat(stringFormat(formControlErrorMessage.required, "Category"))
+    },
+    ann_description: {
+        required: stringFormat(stringFormat(formControlErrorMessage.required, "Description"))
+    }
+}
+
 function validatePasswordEventListener() {
 
     $("#password").on("keyup", () => {
-        const form = $("#formUser");
         const champError = $("#errorPassword");
         const nomChamp = "Password";
         const password = $("#password").val();
@@ -50,7 +81,6 @@ function validatePasswordEventListener() {
 function validateEmailEventListener() {
 
     $("#email").on("keyup", () => {
-        const form = $("#formUser");
         const nomChamp = "Email";
         const champError = $("#errorEmail");
         const email = $("#email").val();
@@ -120,7 +150,7 @@ function validateCategoryAnnonceEventListener() {
         const categoryAnnonce = $("#cat_id").val();
         console.log(categoryAnnonce);
 
-        if (checkEmpty(categoryAnnonce)) {
+        if (checkEmptyArray(categoryAnnonce)) {
             champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
         } else {
             champError.text("");
@@ -146,12 +176,12 @@ function validatePhotoAnnonceEventListener() {
 
 function checkIsNotEmail(value) {
     const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(\\".+\\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    return regex.test(value);
+    return regex.test(value.trim());
 }
 
 function checkIsNotDigit(value) {
     const regex = /^\d+$/;
-    return regex.test(value);
+    return regex.test(value.trim());
 }
 
 function checkMinLength(element, length) {
@@ -160,4 +190,8 @@ function checkMinLength(element, length) {
 
 function checkEmpty(element) {
     return element.trim().length === 0;
+}
+
+function checkEmptyArray(element) {
+    return element.length === 0;
 }
