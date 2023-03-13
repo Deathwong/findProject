@@ -15,10 +15,7 @@ class FavoriController
         $userConnect = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
 
         if (isset($userConnect)) {
-//            header(AppConstant::$HEADER_LOCATION_LABEL . AppConstant::$SIGNUP_LOCATION_URL);
             FavoriService::deleteLinkFavorisAnnonce($userConnect);
-//            exit('success');
-//            return http_response_code(200);
             echo "OK";
         }
 

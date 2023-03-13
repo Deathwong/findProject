@@ -61,29 +61,16 @@ function addOrRemoveFavori(idAnnonce) {
             url: URL,
             data: data,
             dataType: "json"
-            // ,
-            // success: function (response) {
-            //     console.log("success: ", response);
-            //     // if (typeof successCallback === 'function') {
-            //     //     successCallback(response);
-            //     // }
-            // },
-            // error: function (error) {
-            //     console.log("error: ", error);
-            //     $(location).attr('href', 'http://localhost/findProject/views/signup.php');
-            //     // if (typeof errorCallback === 'function') {
-            //     //     errorCallback(error);
-            //     // }
-            // }
         }).always(function (response) {
             if (response.responseText === 'OK') {
                 // Handle success
                 console.log("success: ", response);
             } else {
                 // Handle error
-                $(location).attr('href', 'http://localhost/findProject/views/signup.php');
+                console.log("User is not connected: ", response);
+                const SIGN_UP_URL = 'http://localhost/findProject/views/signup.php';
+                $(location).attr('href', SIGN_UP_URL);
             }
         });
-        ;
     }
 }
