@@ -2,6 +2,7 @@
 
 namespace service;
 
+use model\AppConstant;
 use model\User;
 use PDO;
 use PDOException;
@@ -73,7 +74,7 @@ class UserService
         if (!empty($user)) {
             $passwordUser = $user->getUsePassword();
             if ($passwordUser == $passwordTyped) {
-                $_SESSION["use_id"] = $user;
+                $_SESSION[AppConstant::USE_ID_SESSION_KEY] = $user;
                 header("location:../views/");
             } else {
                 $_SESSION["errorPassword"] = "Mauvais Mot de passe";
