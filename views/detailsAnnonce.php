@@ -27,6 +27,10 @@ controller();
     <div>
         <?= $annonce->getAnnDescription() ?>
     </div>
+    <div>
+        <label for="favori">Favori</label>
+        <input type="checkbox" id="favori" name="favori" onchange="addOrRemoveFavori(<?= $annonce->getUseId() ?>)">
+    </div>
 </div>
 <?php require 'footer.php' ?>
 </body>
