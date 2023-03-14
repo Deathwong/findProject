@@ -1,15 +1,17 @@
 <?php
 
 use Controller\AnnonceController;
+use Controller\FavoriController;
 use Controller\UserController;
 use model\Annonce;
+use model\AppConstant;
 use model\User;
-use service\UriHandler;
 
-require_once '../service/UriHandler.php';
+require_once '../model/AppConstant.php';
 require_once 'UserController.php';
 require_once 'AnnonceController.php';
 require_once 'CategoryController.php';
+require_once 'FavoriController.php';
 
 $users = [];
 $user = new User();
@@ -32,17 +34,17 @@ function controller(): void
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
     switch ($uri) {
-        case UriHandler::$INDEX_URL:
+        case AppConstant::$INDEX_URL:
             if (isset($_SESSION["use_id"])) {
                 $user = $_SESSION["use_id"];
             }
             break;
 
-        case UriHandler::$LISTE_USERS_URL:
+        case AppConstant::$LISTE_USERS_URL:
             $users = UserController::getUsers();
             break;
 
-        case UriHandler::$DETAILS_USER_URL:
+        case AppConstant::$DETAILS_USER_URL:
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 UserController::createUser();
             } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -50,11 +52,11 @@ function controller(): void
             }
             break;
 
-        case UriHandler::$SIGNUP_URL:
+        case AppConstant::$SIGNUP_URL:
             // Pour éviter les erreurs 404. À l'enregistrement, on pointe sur details
             break;
 
-        case UriHandler::$SIGNIN_URL:
+        case AppConstant::$SIGNIN_URL:
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // todo Validation
                 // Connexion de l'utilisateur
@@ -62,7 +64,7 @@ function controller(): void
             }
             break;
 
-        case UriHandler::$DETAILS_ANNONCE_URL:
+        case AppConstant::$DETAILS_ANNONCE_URL:
             //on vérifie si la requête est un GET
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 //o récupère les détails de l'Annonce
@@ -71,17 +73,17 @@ function controller(): void
             }
             break;
 
-        case UriHandler::$DELETE_ANNONCE_URL:
+        case AppConstant::$DELETE_ANNONCE_URL:
             // Suppression d'une annonce via son Id
             AnnonceController::deleteAnnonce();
             break;
 
-        case UriHandler::$LIST_ANNONCE_URL:
+        case AppConstant::$LIST_ANNONCE_URL:
             // TODO Mettre un commentaire de la fonctionnalité
             // TODO : Appelle de la fonction qui va bien d'annonceController
             break;
 
-        case UriHandler::$EDIT_ANNONCE_URL:
+        case AppConstant::$EDIT_ANNONCE_URL:
             // Modification de l'annonce
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $annonce = AnnonceController::getAnnonceDetails();
@@ -96,9 +98,19 @@ function controller(): void
                 AnnonceController::updateAnnonce();
             break;
 
-        case UriHandler::$GET_ALL_ANNONCE_URL:
+        case AppConstant::$GET_ALL_ANNONCE_URL:
             // Récupération des annonces
             $annonces = AnnonceController::getAllAnnonce();
+            break;
+
+        case AppConstant::$DELETE_FAVORI_BY_ANNONCE_URL:
+            // Suppression des favoris d'une annonce
+            FavoriController::deleteLinkFavorisAnnonce();
+            break;
+
+        case AppConstant::ADD_FAVORI_BY_ANNONCE_URL:
+            // Suppression des favoris d'une annonce
+            FavoriController::addLinkFavorisAnnonce();
             break;
 
         default:

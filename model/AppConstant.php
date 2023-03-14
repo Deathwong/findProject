@@ -1,9 +1,12 @@
 <?php
 
-namespace service;
+namespace model;
 
-class UriHandler
+class AppConstant
 {
+
+    public static string $HEADER_LOCATION_LABEL = 'location:';
+
     public static string $INDEX_URL = '/findProject/views/';
     public static string $LISTE_USERS_URL = '/findProject/views/listeUsers.php';
     public static string $DETAILS_USER_URL = '/findProject/views/detailsUser.php';
@@ -14,4 +17,9 @@ class UriHandler
     public static string $LIST_ANNONCE_URL = '/findProject/views/listAnnonce.php';
     public static string $EDIT_ANNONCE_URL = '/findProject/views/editAnnonce.php';
     public static string $GET_ALL_ANNONCE_URL = '/findProject/views/getAllAnnonce.php';
+    public static string $DELETE_FAVORI_BY_ANNONCE_URL = '/findProject/views/deleteFavoriByAnnonce.php';
+    public const ADD_FAVORI_BY_ANNONCE_URL = '/findProject/views/addFavoriByAnnonce.php';
+
+    public const USE_ID_SESSION_KEY = 'use_id';
+    public const HTTP_REQUEST_SUCCESS = 'success';
 }

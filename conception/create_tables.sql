@@ -61,8 +61,8 @@ create table categorie_annonce
 create table favoris
 (
     fav_id bigint not null AUTO_INCREMENT,
-    ann_id bigint,
-    use_id bigint,
+    ann_id bigint not null,
+    use_id bigint not null,
     primary key (fav_id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;

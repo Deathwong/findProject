@@ -3,6 +3,7 @@
 namespace service;
 
 use model\Annonce;
+use model\AppConstant;
 use PDO;
 
 require_once 'PdoConnectionHandler.php';
@@ -151,7 +152,7 @@ class AnnonceService
         // On exécute la requête
         $request->execute();
 
-        header('location:' . UriHandler::$LISTE_USERS_URL);
+        header('location:' . AppConstant::$LISTE_USERS_URL);
     }
 
     public static function getAllAnnonce(): array

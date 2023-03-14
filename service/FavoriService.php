@@ -2,26 +2,47 @@
 
 namespace service;
 
+use model\User;
+
 require_once "PdoConnectionHandler.php";
 require_once "../utils/utils.php";
-require "../model/User.php";
+
+//require "../model/User.php";
 
 class FavoriService
 {
-    public static function deleteLinkFavorisAnnonce($idAnnonce): void
+    public static function deleteLinkFavorisAnnonce(User $user): void
     {
-        //on réccupère la connection
+        //on récupère la connection
         $connection = PdoConnectionHandler::getPDOInstance();
 
-        // On récupère l'id de l'annonce qui vient de la requete http
-        $query = "delete from favoris where fav_annonces = :idAnnonce";
-
-        // On fait le prépare statement
+        // On récupère l'id de l'annonce qui vient de la requête http
+        $query = "delete from favoris where ann_id = :idAnnonce and use_id = :userId";
         $request = $connection->prepare($query);
-        //on fait le biding
-        $request->bindParam(":ann_id", $idAnnonce);
-        //on execute la requete
-        $request->execute();
 
+        // Récupération des paramètres et binding
+        $idAnnonce = getElementInRequestByAttribute("idAnnonce");
+        $useId = $user->getUseId();
+        $request->bindParam(":idAnnonce", $idAnnonce);
+        $request->bindParam(":userId", $useId);
+
+        //on execute la requête
+        $request->execute();
+    }
+
+    public static function addLinkFavorisAnnonce(User $user): void
+    {
+        //on récupère la connection
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        $query = "insert into favoris(ann_id, use_id) values (:annonceId, :userId)";
+        $request = $connection->prepare($query);
+
+        $params = [
+            "annonceId" => getElementInRequestByAttribute("idAnnonce"),
+            "userId" => $user->getUseId()
+        ];
+
+        $request->execute($params);
     }
 }

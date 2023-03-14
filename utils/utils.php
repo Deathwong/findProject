@@ -108,4 +108,15 @@ function getLettersOfTheString($string): string
     return preg_replace('/[^a-zA-Z]/', '', $string);
 }
 
+/**
+ * Permet de récupérer un élément mis dans la session de l'application.
+ * @param $param string Représentant la clé de l'élément en session.
+ * @return mixed|null Element correspondant au param. On renvoie null si param est vide, null ou n'existe pas dans la
+ * session en tant que clé
+ */
+function getElementInSession(string $param): mixed
+{
+    return !isset($param) || !isset($_SESSION[$param]) ? null : $_SESSION[$param];
+}
 
+;
