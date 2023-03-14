@@ -5,7 +5,6 @@ namespace service;
 use model\AppConstant;
 use model\User;
 use PDO;
-use PDOException;
 
 require_once "PdoConnectionHandler.php";
 require_once "../utils/utils.php";
@@ -14,14 +13,6 @@ require "../model/User.php";
 
 class UserService
 {
-    public static function getUserFromValues(): array
-    {
-        return [
-            "use_email" => getElementInRequestByAttribute("email"),
-            "use_password" => getElementInRequestByAttribute("password")
-        ];
-    }
-
     public static function getUsers(): array
     {
         $connection = PdoConnectionHandler::getPDOInstance();
@@ -38,52 +29,67 @@ class UserService
     {
         $connection = PdoConnectionHandler::getPDOInstance();
 
-        $query = "insert into user (use_email, use_password) VALUE (:use_email,:use_password)";
+        // Gestion de la récupération des inputs du formulaire
+        $email = getElementInRequestByAttribute("email");
+        $password = getElementInRequestByAttribute("password");
+        $encryptedMd5Password = md5($password);
 
-        $userValues = self::getUserFromValues();
+        $query = "insert into user (use_email, use_password) VALUE (:email, :password)";
+        $params = [
+            "email" => $email,
+            "password" => $encryptedMd5Password
+        ];
 
         $request = $connection->prepare($query);
 
         // Execute the query
-        try {
-            $request->execute($userValues);
-            $lastInsertID = $connection->lastInsertId();
-            header("location:detailsUser.php?userId=$lastInsertID");
-        } catch (PDOException $error) {
-            print "Connection to data base failed: " . $error->getMessage();
-            die();
-        }
+        $request->execute($params);
+        $lastInsertID = $connection->lastInsertId();
+
+        header("location:detailsUser.php?userId=$lastInsertID");
     }
 
     public static function connectUser(): void
     {
-        $connection = PdoConnectionHandler::getPDOInstance();
+        $password = getElementInRequestByAttribute("password");
+        $encryptedMd5Password = md5($password);
+        $email = getElementInRequestByAttribute("email");
 
-        $passwordTyped = getElementInRequestByAttribute("password");
-        $emailTyped = getElementInRequestByAttribute("email");
-
-        $query = "select u.* from user u where use_email = :emailTyped";
-        $request = $connection->prepare($query);
-        $request->bindParam(':emailTyped', $emailTyped);
-
-        $request->execute();
-        $user = $request->fetchObject(User::class);
+        // Recherche de l'utilisateur grâce à l'email qui est tapé par la personne qui veut se connecter
+        $user = self::getUserByEmail($email);
 
         self::initErrorConnection();
 
         if (!empty($user)) {
-            $passwordUser = $user->getUsePassword();
-            if ($passwordUser == $passwordTyped) {
+
+            $passwordBdd = $user->getUsePassword();
+
+            if ($passwordBdd == $encryptedMd5Password) {
+
                 $_SESSION[AppConstant::USE_ID_SESSION_KEY] = $user;
                 header("location:../views/");
             } else {
                 $_SESSION["errorPassword"] = "Mauvais Mot de passe";
                 header("location:../views/signin.php");
             }
+
         } else {
             $_SESSION["errorEmail"] = "Ce nom d'utilisateur n'existe pas";
             header("location:../views/signin.php");
         }
+
+    }
+
+    public static function getUserByEmail($email): bool|User
+    {
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        $query = "select u.* from user u where use_email = :email";
+        $request = $connection->prepare($query);
+        $request->bindParam(':email', $email);
+
+        $request->execute();
+        return $request->fetchObject(User::class);
     }
 
     public static function getUserDetails(): User
