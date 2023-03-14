@@ -16,8 +16,18 @@ class FavoriController
 
         if (isset($userConnect)) {
             FavoriService::deleteLinkFavorisAnnonce($userConnect);
-            echo "OK";
+            echo AppConstant::HTTP_REQUEST_SUCCESS;
         }
+    }
 
+    public static function addLinkFavorisAnnonce()
+    {
+        // Récupération de l'User
+        $userConnect = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
+
+        if (isset($userConnect)) {
+            FavoriService::addLinkFavorisAnnonce($userConnect);
+            echo AppConstant::HTTP_REQUEST_SUCCESS;
+        }
     }
 }

@@ -108,6 +108,11 @@ function controller(): void
             FavoriController::deleteLinkFavorisAnnonce();
             break;
 
+        case AppConstant::ADD_FAVORI_BY_ANNONCE_URL:
+            // Suppression des favoris d'une annonce
+            FavoriController::addLinkFavorisAnnonce();
+            break;
+
         default:
             header('Status: 404 Not Found');
             echo '<html lang="fr"><body><h1>Page Not Found</h1></body></html>';

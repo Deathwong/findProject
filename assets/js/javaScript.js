@@ -46,31 +46,58 @@ function setCategoriesSelected($values) {
 }
 
 function addOrRemoveFavori(idAnnonce) {
+
     let isChecked = $('#favori').is(':checked');
+    let data = {'idAnnonce': idAnnonce};
 
     if (isChecked) {
         console.log('Ajout en favori de l\'annonce qui a pour id = ', idAnnonce);
+        addFavori(data)
     } else {
         console.log('Suppression en favori de l\'annonce qui a pour id = ', idAnnonce);
-
-        const URL = '/findProject/views/deleteFavoriByAnnonce.php';
-        let data = {'idAnnonce': idAnnonce};
-
-        $.ajax({
-            type: 'GET',
-            url: URL,
-            data: data,
-            dataType: "json"
-        }).always(function (response) {
-            if (response.responseText === 'OK') {
-                // Handle success
-                console.log("success: ", response);
-            } else {
-                // Handle error
-                console.log("User is not connected: ", response);
-                const SIGN_UP_URL = 'http://localhost/findProject/views/signup.php';
-                $(location).attr('href', SIGN_UP_URL);
-            }
-        });
+        removeFavori(data);
     }
+}
+
+function removeFavori(data) {
+
+    const URL = '/findProject/views/deleteFavoriByAnnonce.php';
+    const SIGN_UP_URL = 'http://localhost/findProject/views/signup.php';
+
+    $.ajax({
+        type: 'POST',
+        url: URL,
+        data: data,
+        dataType: "json"
+    }).always(function (response) {
+        if (response.responseText === 'success') {
+            // Handle success
+            console.log("success: ", response);
+        } else {
+            // Handle error
+            console.log("User is not connected: ", response);
+            $(location).attr('href', SIGN_UP_URL);
+        }
+    });
+}
+
+function addFavori(data) {
+    const URL = '/findProject/views/addFavoriByAnnonce.php';
+    const SIGN_UP_URL = 'http://localhost/findProject/views/signup.php';
+
+    $.ajax({
+        type: 'POST',
+        url: URL,
+        data: data,
+        dataType: "json"
+    }).always(function (response) {
+        if (response.responseText === 'success') {
+            // Handle success
+            console.log("success: ", response);
+        } else {
+            // Handle error
+            console.log("User is not connected: ", response);
+            $(location).attr('href', SIGN_UP_URL);
+        }
+    });
 }

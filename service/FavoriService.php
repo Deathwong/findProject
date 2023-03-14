@@ -16,7 +16,7 @@ class FavoriService
         //on récupère la connection
         $connection = PdoConnectionHandler::getPDOInstance();
 
-        // On récupère l'id de l'annonce qui vient de la requete http
+        // On récupère l'id de l'annonce qui vient de la requête http
         $query = "delete from favoris where ann_id = :idAnnonce and use_id = :userId";
         $request = $connection->prepare($query);
 
@@ -26,7 +26,23 @@ class FavoriService
         $request->bindParam(":idAnnonce", $idAnnonce);
         $request->bindParam(":userId", $useId);
 
-        //on execute la requete
+        //on execute la requête
         $request->execute();
+    }
+
+    public static function addLinkFavorisAnnonce(User $user): void
+    {
+        //on récupère la connection
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        $query = "insert into favoris(ann_id, use_id) values (:annonceId, :userId)";
+        $request = $connection->prepare($query);
+
+        $params = [
+            "annonceId" => getElementInRequestByAttribute("idAnnonce"),
+            "userId" => $user->getUseId()
+        ];
+
+        $request->execute($params);
     }
 }
