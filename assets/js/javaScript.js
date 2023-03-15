@@ -101,3 +101,50 @@ function addFavori(data) {
         }
     });
 }
+
+function rechercheAjax() {
+    let data = {};
+
+    // Récupération des input du formulaire de recherche
+    // Nom
+    const nom = $("#nom").val();
+    if (!checkEmpty(nom)) {
+        data.nom = nom;
+    }
+
+    // Prix min
+    const prixMin = $("#prix_min").val();
+    if (!checkEmpty(prixMin)) {
+        data.prixMin = prixMin;
+    }
+
+    // Prix max
+    const prixMax = $("#prix_max").val();
+    if (!checkEmpty(prixMax)) {
+        data.prixMax = prixMax;
+    }
+
+    //
+    const categorieId = $("#categorie_id").val();
+    if (!checkEmpty(categorieId)) {
+        data.categorieId = categorieId;
+    }
+
+    const URL = '/findProject/views';
+
+    $.ajax({
+        type: 'GET',
+        url: URL,
+        data: data,
+        dataType: "json"
+    }).always(function (response) {
+        if (response.statusText === 'OK') {
+            // Handle success
+            console.log("success: ", response);
+        } else {
+            // Handle error
+            console.log("ERROR ", response);
+            $(location).attr('href', URL);
+        }
+    });
+}

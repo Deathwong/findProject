@@ -35,6 +35,13 @@ function controller(): void
 
     switch ($uri) {
         case AppConstant::$INDEX_URL:
+
+            $categories = CategoryController::getAllCategories();
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+                $annonces = AnnonceController::getAllAnnonce();
+            }
+
             if (isset($_SESSION["use_id"])) {
                 $user = $_SESSION["use_id"];
             }

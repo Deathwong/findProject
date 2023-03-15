@@ -135,10 +135,49 @@ class AnnonceService
     {
         // On récupère la connection
         $connection = PdoConnectionHandler::getPDOInstance();
+        $mainQuery = "select ann.* from annonce ann ";
 
-        $query = "select ann.* from annonce ann";
-        $statement = $connection->query($query);
+        $conditions = [];
+        $parameters = [];
 
+        // Conditions de la requête. On filtre sur les catégories, le nom et le prix.
+
+        // Nom de l'annonce
+        if (isset($nom)) {
+            $nom = getElementInRequestByAttribute("nom");
+            $conditions[] = 'ann.ann_nom LIKE :nom';
+            $parameters[] = '%' . $nom . "%";
+        }
+
+        // Catégories de l'annonce
+        $categorie = getElementInRequestByAttribute("categorieId");
+        if (isset($nom)) {
+            $joinQuery = 'join categorie_annonce ca on ann.ann_id = ca.ann_id join categorie cat on cat.cat_id = ca.cat_id';
+            $mainQuery .= $joinQuery;
+            $conditions[] = 'cat.cat_id = :categorieId';
+            $parameters[] = $categorie;
+        }
+
+        // Prix  Minimum
+        if (isset($prixMin)) {
+            $prixMin = getElementInRequestByAttribute("prix_min");
+            $conditions[] = 'ann.$prix >= :prixMin';
+            $parameters[] = $prixMin;
+        }
+
+        // Prix  Maximum
+        if (isset($prixMax)) {
+            $prixMax = getElementInRequestByAttribute("prix_max");
+            $conditions[] = 'ann.$prix <= :prixMax';
+            $parameters[] = $prixMin;
+        }
+
+        if ($conditions) {
+            $mainQuery .= " WHERE " . implode(" AND ", $conditions);
+        }
+
+        $statement = $connection->prepare($mainQuery);
+        $statement->execute($parameters);
 
         return $statement->fetchAll(PDO::FETCH_CLASS, Annonce::class);
     }

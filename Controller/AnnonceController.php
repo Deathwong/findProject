@@ -3,6 +3,7 @@
 namespace Controller;
 
 use model\Annonce;
+use model\AppConstant;
 use service\AnnonceService;
 
 require '../service/AnnonceService.php';
@@ -31,7 +32,9 @@ class AnnonceController
     // La fonction permettant de récupérer toutes les annonces
     public static function getAllAnnonce(): array
     {
-        return AnnonceService::getAllAnnonce();
+        $allAnnonce = AnnonceService::getAllAnnonce();
+        echo AppConstant::HTTP_REQUEST_SUCCESS;
+        return $allAnnonce;
     }
 
     public static function createAnnonce(): int
