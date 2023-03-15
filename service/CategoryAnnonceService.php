@@ -4,7 +4,6 @@ namespace service;
 
 require_once 'PdoConnectionHandler.php';
 require_once "../utils/utils.php";
-require '../model/Annonce.php';
 
 class CategoryAnnonceService
 {

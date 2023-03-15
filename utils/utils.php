@@ -1,11 +1,11 @@
 <?php
 
-function getElementInRequestByAttribute(string $param): ?string
+function getElementInRequestByAttribute(string $param): string|array|null
 {
     $value = null;
     switch ($param) {
         case isset($_POST[$param]):
-            $value = strip_tags($_POST[$param]);
+            $value = is_array($_POST[$param]) ? $_POST[$param] : strip_tags($_POST[$param]);
             $value = empty($value) ? null : $value;
             break;
         case isset($_GET[$param]):

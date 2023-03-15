@@ -1,7 +1,6 @@
 <?php
 require '../Controller/AppController.php';
 controller();
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -10,7 +9,7 @@ controller();
 <div>
     <div>Modification</div>
     <div>
-        <form method="post" action="" id="updateAnnonceForm">
+        <form method="post" action="" id="updateAnnonceForm" enctype="multipart/form-data">
             <div>
                 <input type="hidden" name="ann_id" value="1">
             </div>
@@ -45,8 +44,8 @@ controller();
                 <span id="errorPrixAnnonce"></span>
             </div>
             <div>
-                <label for="cat_id"></label>
-                <select name="cat_id" id="cat_id" multiple>
+                <label for="cat_id[]"></label>
+                <select name="cat_id[]" id="cat_id[]" multiple>
                     <?php
                     foreach ($categories as $category) {
                         $categoryLibelle = $category->getCatLibelle();

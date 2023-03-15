@@ -11,7 +11,7 @@ require_once "../utils/utils.php";
 
 class FavoriService
 {
-    public static function deleteLinkFavorisAnnonce(User $user): void
+    public static function deleteLinkFavorisAnnonceByUser(User $user): void
     {
         //on récupère la connection
         $connection = PdoConnectionHandler::getPDOInstance();
@@ -25,6 +25,22 @@ class FavoriService
         $useId = $user->getUseId();
         $request->bindParam(":idAnnonce", $idAnnonce);
         $request->bindParam(":userId", $useId);
+
+        //on execute la requête
+        $request->execute();
+    }
+
+    public static function deleteLinkFavorisByIdAnnonce(int $idAnnonce): void
+    {
+        //on récupère la connection
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        // On récupère l'id de l'annonce qui vient de la requête http
+        $query = "delete from favoris where ann_id = :idAnnonce";
+        $request = $connection->prepare($query);
+
+        // binding
+        $request->bindParam(":idAnnonce", $idAnnonce);
 
         //on execute la requête
         $request->execute();

@@ -6,6 +6,7 @@ class AppConstant
 {
 
     public static string $HEADER_LOCATION_LABEL = 'location:';
+    public static string $EDIT_ANNONCE_LOCATION_LABEL = '../views/editAnnonce.php';
 
     public static string $INDEX_URL = '/findProject/views/';
     public static string $LISTE_USERS_URL = '/findProject/views/listeUsers.php';

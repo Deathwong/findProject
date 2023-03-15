@@ -9,6 +9,7 @@ use PDO;
 require_once 'PdoConnectionHandler.php';
 require_once "../utils/utils.php";
 require '../model/Annonce.php';
+require_once 'CategoryAnnonceService.php';
 
 class AnnonceService
 {
@@ -49,20 +50,21 @@ class AnnonceService
         $idAnnonce = $annonce["ann_id"];
 
         $query = "update annonce a set a.ann_nom = :ann_nom , a.ann_prix = :ann_prix, 
-                     a.ann_description = :ann_description where ann_id = :ann_id ";
+                     a.ann_description = :ann_description, a.ann_update_at = now() where ann_id = :ann_id ";
 
         $request = $connection->prepare($query);
 
         $request->execute($annonce);
 
-        if (getElementInRequestByAttribute("ann_photo")) {
-            $param = getElementInRequestByAttribute("ann_photo");
-            renameAndMoveAnnoncePicture($param, $idAnnonce);
+        if (getElementInRequestByAttribute("ann_photo") !== null) {
+            self::insertPhotoNameInAnnonce($idAnnonce, $connection);
         }
 
         CategoryAnnonceService::deleteLinkCategoriesAnnonce($idAnnonce);
 
         self::updateCategoriesAnnonce($idAnnonce);
+
+        header(AppConstant::$HEADER_LOCATION_LABEL . AppConstant::$EDIT_ANNONCE_LOCATION_LABEL . '?idAnnonce=' . $idAnnonce);
     }
 
     public static function getAnnoncesHttpRequestValues(): array
@@ -74,46 +76,20 @@ class AnnonceService
         ];
 
         // On vérifie si l'on reçoit bien un id d'annonce
-        if (getElementInRequestByAttribute("ann_id")) {
+        if (getElementInRequestByAttribute("ann_id") !== null) {
             // On ajoute l'id d'annonce
-            $annonce[] = getElementInRequestByAttribute("ann_id");
+            $annonce["ann_id"] = getElementInRequestByAttribute("ann_id");
             //array_push($annonce,getElementInRequestByAttribute("ann_id"));
         }
 
         return $annonce;
-    }
-//
-//    public static function deleteLinkCategoriesAnnonce($idAnnonce): void
-//    {
-//        $connection = PdoConnectionHandler::getPDOInstance();
-//
-//        $query = "delete from categorie_annonce where ann_id = :ann_id";
-//
-//        $request = $connection->prepare($query);
-//
-//        $request->bindParam(":ann_id", $idAnnonce);
-//
-//        $request->execute();
-//    }
-
-    public static function getCategoryFromValues(): array
-    {
-        // Le séparateur sur lequel on se basera pour créer le tableau de catégories
-        $separator = ",";
-
-        // On récupère les différentes catégories
-        $categories = getElementInRequestByAttribute("categories");
-
-        // On retourne un tableau de catégories
-        return explode($separator, $categories);
     }
 
     public static function updateCategoriesAnnonce($idAnnonce): void
     {
         $connection = PdoConnectionHandler::getPDOInstance();
 
-        $categories = self::getCategoryFromValues();
-
+        $categories = getElementInRequestByAttribute("cat_id");
 
         foreach ($categories as $category) {
             $query = "insert into categorie_annonce(ann_id, cat_id) values(:ann_id, :cat_id)";
@@ -139,7 +115,7 @@ class AnnonceService
         CategoryAnnonceService::deleteLinkCategoriesAnnonce($idAnnonce);
 
         // TODO : faire appelle à la fonction qui supprime les favoris liés à l'annonce
-        FavoriService::deleteLinkFavorisAnnonce($idAnnonce);
+        FavoriService::deleteLinkFavorisByIdAnnonce($idAnnonce);
 
         $query = "delete from annonce WHERE ann_id = :idAnnonce";
 
@@ -203,5 +179,22 @@ class AnnonceService
         return (int)$ann_id;
     }
 
+    /**
+     * @param mixed $idAnnonce
+     * @param PDO $connection
+     * @return void
+     */
+    public static function insertPhotoNameInAnnonce(mixed $idAnnonce, PDO $connection): void
+    {
+        $photo = getFileNamePlusExtension("ann_photo", $idAnnonce);
 
+        $query = "UPDATE annonce a SET a.ann_photo = :photo WHERE ann_id = :idAnnonce";
+
+        $requestPhotoAnnonce = $connection->prepare($query);
+
+        $requestPhotoAnnonce->bindParam(':photo', $photo);
+        $requestPhotoAnnonce->bindParam(':idAnnonce', $idAnnonce);
+
+        $requestPhotoAnnonce->execute();
+    }
 }
