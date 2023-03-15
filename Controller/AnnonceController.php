@@ -33,4 +33,9 @@ class AnnonceController
     {
         return AnnonceService::getAllAnnonce();
     }
+
+    public static function createAnnonce(): int
+    {
+        return AnnonceService::createAnnonce();
+    }
 }

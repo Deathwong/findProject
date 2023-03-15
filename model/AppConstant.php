@@ -13,6 +13,7 @@ class AppConstant
     public static string $DETAILS_USER_URL = '/findProject/views/detailsUser.php';
     public static string $SIGNUP_URL = '/findProject/views/signup.php';
     public static string $SIGNIN_URL = '/findProject/views/signin.php';
+    public static string $CREATE_ANNONCE_URL = '/findProject/views/createAnnonce.php';
     public static string $DETAILS_ANNONCE_URL = '/findProject/views/detailsAnnonce.php';
     public static string $DELETE_ANNONCE_URL = '/findProject/views/deleteAnnonce.php';
     public static string $LIST_ANNONCE_URL = '/findProject/views/listAnnonce.php';

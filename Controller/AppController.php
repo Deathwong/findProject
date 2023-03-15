@@ -64,6 +64,16 @@ function controller(): void
             }
             break;
 
+        case AppConstant::$CREATE_ANNONCE_URL:
+            //Création d'une annonce
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // todo Validation
+                // Connexion de l'utilisateur
+                AnnonceController::createAnnonce();
+            }
+            break;
+
+
         case AppConstant::$DETAILS_ANNONCE_URL:
             //on vérifie si la requête est un GET
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -116,5 +126,8 @@ function controller(): void
         default:
             header('Status: 404 Not Found');
             echo '<html lang="fr"><body><h1>Page Not Found</h1></body></html>';
+
     }
+
+
 }
