@@ -17,11 +17,13 @@ class UserController
 
     public static function createUser(): void
     {
+        UserService::validateUser();
         UserService::createUser();
     }
 
     public static function connectUser(): void
     {
+        UserService::validateUser();
         UserService::connectUser();
     }
 

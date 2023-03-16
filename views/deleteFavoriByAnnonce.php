@@ -2,3 +2,4 @@
 require '../Controller/AppController.php';
 controller();
 ?>
+?>

@@ -6,59 +6,6 @@ let isValidDescriptionAnnonce = false;
 let isValidPhotoAnnonce = false;
 let isValidCategoryAnnonce = false;
 
-const userRulesHandler = {
-    email: {
-        required: true,
-        email: true
-    },
-    password: {
-        required: true,
-        minlength: 10
-    }
-}
-
-const errorMessagesUserHandler = {
-    email: {
-        required: stringFormat(formControlErrorMessage.required, "email"),
-        email: stringFormat(formControlErrorMessage.email)
-    },
-    password: {
-        required: stringFormat(formControlErrorMessage.required, "password"),
-        minlength: stringFormat(formControlErrorMessage.minlength, "password", 10)
-    }
-}
-
-const annonceRulesHandler = {
-    ann_nom: {
-        required: true
-    },
-    ann_prix: {
-        required: true,
-        digits: true
-    },
-    cat_id: {
-        required: true
-    },
-    ann_description: {
-        required: true
-    }
-}
-
-const errorMessagesAnnonceHandler = {
-    ann_nom: {
-        required: stringFormat(stringFormat(formControlErrorMessage.required, "Nom"))
-    },
-    ann_prix: {
-        required: stringFormat(stringFormat(formControlErrorMessage.required, "Prix")),
-        numeric: stringFormat(stringFormat(formControlErrorMessage.digit))
-    },
-    cat_id: {
-        required: stringFormat(stringFormat(formControlErrorMessage.required, "Category"))
-    },
-    ann_description: {
-        required: stringFormat(stringFormat(formControlErrorMessage.required, "Description"))
-    }
-}
 
 function validatePassword() {
     const champError = $("#errorPassword");

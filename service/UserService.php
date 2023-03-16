@@ -122,4 +122,21 @@ class UserService
         $_SESSION["errorPassword"] = null;
         $_SESSION["errorEmail"] = null;
     }
+
+    /**
+     * Valide les champs du user
+     * @return void
+     */
+    public static function validateUser(): void
+    {
+        $_SESSION['errorValidationUser'] = null;
+
+        if (getElementInRequestByAttribute('email') === null ||
+            getElementInRequestByAttribute('password') === null) {
+
+            $_SESSION['errorValidationUser'] = 'Veuillez renseignez les champs obligatoires';
+            header("location:../views/signin.php");
+            exit();
+        }
+    }
 }
