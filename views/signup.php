@@ -26,13 +26,13 @@ controller();
             >
         </div>
 
-        <input type="submit" value="s'inscrire" onclick="submitSigninUserForm()">
     </form>
+    <input type="submit" value="s'inscrire" onclick="submitSignUpUserForm()">
 
 </div>
 <?php require 'footer.php' ?>
 <script type="text/javascript">
-    validateFormEventListener();
+    validateSignUpFormEventListener();
 </script>
 </body>
 </html>

@@ -1,38 +1,75 @@
 function submitSigninUserForm() {
     const form = $("#formUser");
 
-    form.validate({
-        rules: userRulesHandler,
-        messages: errorMessagesUserHandler,
-    });
+    validateEmail();
 
-    if (form.validate() && (isValidEmail && isValidPassword)) {
+    if (isValidEmail && isValidPassword) {
         form.submit();
     } else {
         form.preventDefault();
     }
 }
 
-function validateFormEventListener() {
+function submitSignUpUserForm() {
+    const form = $("#formUser");
+
+    validateEmail();
+    validatePassword();
+
+    if (isValidEmail && isValidPassword) {
+        form.submit();
+    } else {
+        form.preventDefault();
+    }
+}
+
+function validateSignUpFormEventListener() {
     validateEmailEventListener();
     validatePasswordEventListener();
 }
 
-function submitFormAnnonce(formId) {
-    const form = $("#" + formId);
+function validateSignInFormEventListener() {
+    validateEmailEventListener();
+}
 
-    form.validate({
-        rules: annonceRulesHandler,
-        messages: errorMessagesAnnonceHandler
-    })
+function submitUpdateFormAnnonce() {
+    const form = $("#updateAnnonceForm");
 
-    if ((isValidNomAnnonce && isValidPrixAnnonce && isValidDescriptionAnnonce &&
-        isValidPhotoAnnonce && isValidCategoryAnnonce) || form.validate()) {
+    validateNomAnnonce();
+    validatePrixAnnonce();
+    validateDescriptionAnnonce();
+    validateCategoryAnnonce();
+
+    if (isValidNomAnnonce && isValidPrixAnnonce && isValidDescriptionAnnonce &&
+        isValidCategoryAnnonce) {
         form.submit();
     }
 }
 
-function validAnnonceForm() {
+function validAnnonceUpdateForm() {
+    validateNomAnnonceEventListener();
+    validatePrixAnnonceEventListener();
+    validateDescriptionAnnonceEventListener();
+    validateCategoryAnnonceEventListener()
+}
+
+
+function submitCreateFormAnnonce() {
+    const form = $("#updateAnnonceForm");
+
+    validateNomAnnonce();
+    validatePrixAnnonce();
+    validatePhotoAnnonce();
+    validateDescriptionAnnonce();
+    validateCategoryAnnonce();
+
+    if (isValidNomAnnonce && isValidPrixAnnonce && isValidDescriptionAnnonce && isValidPhotoAnnonce &&
+        isValidCategoryAnnonce) {
+        form.submit();
+    }
+}
+
+function validCreateAnnonceForm() {
     validateNomAnnonceEventListener();
     validatePrixAnnonceEventListener();
     validateDescriptionAnnonceEventListener();
@@ -40,9 +77,9 @@ function validAnnonceForm() {
     validateCategoryAnnonceEventListener()
 }
 
-function setCategoriesSelected($values) {
-    console.log($values);
-    $('#cat_id option[value=' + $values + ']').attr('selected', true);
+function setCategoriesSelected(...values) {
+    console.log(values);
+    $('#cat_id option[value=' + values + ']').attr('selected', true);
 }
 
 function addOrRemoveFavori(idAnnonce) {

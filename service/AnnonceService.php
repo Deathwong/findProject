@@ -10,6 +10,7 @@ require_once 'PdoConnectionHandler.php';
 require_once "../utils/utils.php";
 require '../model/Annonce.php';
 require_once 'CategoryAnnonceService.php';
+require_once 'PhotoService.php';
 
 class AnnonceService
 {
@@ -57,7 +58,7 @@ class AnnonceService
         $request->execute($annonce);
 
         if (getElementInRequestByAttribute("ann_photo") !== null) {
-            self::insertPhotoNameInAnnonce($idAnnonce, $connection);
+            PhotoService::insertPhotoNameInAnnonce($idAnnonce, $connection);
         }
 
         CategoryAnnonceService::deleteLinkCategoriesAnnonce($idAnnonce);
@@ -177,24 +178,5 @@ class AnnonceService
 
         // Retour de l'identifiant de l'annonce créée
         return (int)$ann_id;
-    }
-
-    /**
-     * @param mixed $idAnnonce
-     * @param PDO $connection
-     * @return void
-     */
-    public static function insertPhotoNameInAnnonce(mixed $idAnnonce, PDO $connection): void
-    {
-        $photo = getFileNamePlusExtension("ann_photo", $idAnnonce);
-
-        $query = "UPDATE annonce a SET a.ann_photo = :photo WHERE ann_id = :idAnnonce";
-
-        $requestPhotoAnnonce = $connection->prepare($query);
-
-        $requestPhotoAnnonce->bindParam(':photo', $photo);
-        $requestPhotoAnnonce->bindParam(':idAnnonce', $idAnnonce);
-
-        $requestPhotoAnnonce->execute();
     }
 }

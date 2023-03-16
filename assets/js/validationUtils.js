@@ -60,117 +60,145 @@ const errorMessagesAnnonceHandler = {
     }
 }
 
+function validatePassword() {
+    const champError = $("#errorPassword");
+    const nomChamp = "Password";
+    const password = $("#password").val();
+
+    if (checkEmpty(password)) {
+        champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
+    } else if (checkMinLength(password, 10)) {
+        champError.text(stringFormat(formControlErrorMessage.minlength, 10));
+    } else {
+        champError.text("")
+        isValidPassword = true;
+    }
+}
+
 function validatePasswordEventListener() {
 
     $("#password").on("keyup", () => {
-        const champError = $("#errorPassword");
-        const nomChamp = "Password";
-        const password = $("#password").val();
-
-        if (checkEmpty(password)) {
-            champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
-        } else if (checkMinLength(password, 10)) {
-            champError.text(stringFormat(formControlErrorMessage.minlength, 10));
-        } else {
-            champError.text("")
-            isValidPassword = true;
-        }
+        validatePassword();
     });
+}
+
+function validateEmail() {
+    const nomChamp = "Email";
+    const champError = $("#errorEmail");
+    const email = $("#email").val();
+
+    if (checkEmpty(email)) {
+        champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
+    } else if (!checkIsNotEmail(email)) {
+        champError.text(stringFormat(formControlErrorMessage.email));
+    } else {
+        champError.text("");
+        isValidEmail = true;
+    }
 }
 
 function validateEmailEventListener() {
 
     $("#email").on("keyup", () => {
-        const nomChamp = "Email";
-        const champError = $("#errorEmail");
-        const email = $("#email").val();
-
-        if (checkEmpty(email)) {
-            champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
-        } else if (!checkIsNotEmail(email)) {
-            champError.text(stringFormat(formControlErrorMessage.email));
-        } else {
-            champError.text("");
-            isValidEmail = true;
-        }
+        validateEmail();
     });
+}
+
+function validateNomAnnonce() {
+    const nomChamp = "nom de l'annonce";
+    const champError = $("#errorNomAnnonce");
+    const nomAnnonce = $("#ann_nom").val();
+
+    if (checkEmpty(nomAnnonce)) {
+        champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
+    } else {
+        champError.text("");
+        isValidNomAnnonce = true;
+    }
 }
 
 function validateNomAnnonceEventListener() {
     $("#ann_nom").on("keyup", () => {
-        const nomChamp = "nom de l'annonce";
-        const champError = $("#errorNomAnnonce");
-        const nomAnnonce = $("#ann_nom").val();
-
-        if (checkEmpty(nomAnnonce)) {
-            champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
-        } else {
-            champError.text("");
-            isValidNomAnnonce = true;
-        }
+        validateNomAnnonce();
     })
+}
+
+function validatePrixAnnonce() {
+    const nomChamp = "prix de l'annonce";
+    const champError = $("#errorPrixAnnonce");
+    const prixAnnonce = $("#ann_prix").val();
+
+    if (checkEmpty(prixAnnonce)) {
+        champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
+    } else if (!checkIsNotDigit(prixAnnonce)) {
+        champError.text(formControlErrorMessage.digit);
+    } else {
+        champError.text("");
+        isValidPrixAnnonce = true;
+    }
 }
 
 function validatePrixAnnonceEventListener() {
     $("#ann_prix").on("keyup", () => {
-        const nomChamp = "prix de l'annonce";
-        const champError = $("#errorPrixAnnonce");
-        const prixAnnonce = $("#ann_prix").val();
-
-        if (checkEmpty(prixAnnonce)) {
-            champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
-        } else if (!checkIsNotDigit(prixAnnonce)) {
-            champError.text(formControlErrorMessage.digit);
-        } else {
-            champError.text("");
-            isValidPrixAnnonce = true;
-        }
+        validatePrixAnnonce();
     })
+}
+
+function validateDescriptionAnnonce() {
+    const nomChamp = "description de l'annonce";
+    const champError = $("#errorDescriptionAnnonce");
+    const descriptionAnnonce = $("#ann_description").val();
+
+    if (checkEmpty(descriptionAnnonce)) {
+        champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
+    } else {
+        champError.text("");
+        isValidDescriptionAnnonce = true;
+    }
 }
 
 function validateDescriptionAnnonceEventListener() {
     $("#ann_description").on("keyup", () => {
-        const nomChamp = "description de l'annonce";
-        const champError = $("#errorDescriptionAnnonce");
-        const descriptionAnnonce = $("#ann_description").val();
-
-        if (checkEmpty(descriptionAnnonce)) {
-            champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
-        } else {
-            champError.text("");
-            isValidDescriptionAnnonce = true;
-        }
+        validateDescriptionAnnonce();
     })
+}
+
+function validateCategoryAnnonce() {
+    const nomChamp = "category de l'annonce";
+    const champError = $("#errorCategoryAnnonce");
+    const categoryAnnonce = $("#cat_id").val();
+    console.log(categoryAnnonce);
+
+    if (checkEmptyArray(categoryAnnonce)) {
+        champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
+    } else {
+        champError.text("");
+        isValidCategoryAnnonce = true;
+    }
 }
 
 function validateCategoryAnnonceEventListener() {
     $("#cat_id").on("change", () => {
-        const nomChamp = "category de l'annonce";
-        const champError = $("#errorCategoryAnnonce");
-        const categoryAnnonce = $("#cat_id").val();
-        console.log(categoryAnnonce);
-
-        if (checkEmptyArray(categoryAnnonce)) {
-            champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
-        } else {
-            champError.text("");
-            isValidCategoryAnnonce = true;
-        }
+        validateCategoryAnnonce();
     })
+}
+
+function validatePhotoAnnonce() {
+    const nomChamp = "photo de l'annonce";
+    const champError = $("#errorPhotoAnnonce");
+    const photoAnnonce = $("#ann_photo").val();
+
+    if (checkEmpty(photoAnnonce)) {
+        champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
+    } else {
+        champError.text("");
+        isValidPhotoAnnonce = true;
+    }
 }
 
 function validatePhotoAnnonceEventListener() {
     $("#ann_photo").on("change", () => {
-        const nomChamp = "photo de l'annonce";
-        const champError = $("#errorPhotoAnnonce");
-        const photoAnnonce = $("#ann_photo").val();
-
-        if (checkEmpty(photoAnnonce)) {
-            champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
-        } else {
-            champError.text("");
-            isValidPhotoAnnonce = true;
-        }
+        validatePhotoAnnonce();
     })
 }
 

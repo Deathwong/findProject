@@ -69,15 +69,15 @@ controller();
             </div>
         </form>
         <div>
-            <button onclick="submitFormAnnonce('updateAnnonceForm')">modifier</button>
+            <button onclick="submitUpdateFormAnnonce()">modifier</button>
         </div>
     </div>
 </div>
 
 <?php require 'footer.php' ?>
 <script type="text/javascript">
-    setCategoriesSelected();
-    validAnnonceForm()
+    setCategoriesSelected(<?= $arrayOfSelectedValues ?>);
+    validAnnonceUpdateForm();
 </script>
 </body>
 </html>

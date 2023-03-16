@@ -73,7 +73,6 @@ function controller(): void
             }
             break;
 
-
         case AppConstant::$DETAILS_ANNONCE_URL:
             //on vérifie si la requête est un GET
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -104,8 +103,9 @@ function controller(): void
                     $categoryAnnonceId = getDigitsOfTheString($categoryAnnonce);
                     $arrayOfSelectedValues[] = $categoryAnnonceId;
                 }
-            } elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
+            } elseif ($_SERVER['REQUEST_METHOD'] === 'POST'){
                 AnnonceController::updateAnnonce();
+            }
             break;
 
         case AppConstant::$GET_ALL_ANNONCE_URL:
