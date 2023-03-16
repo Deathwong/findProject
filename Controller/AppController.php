@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 use Controller\AnnonceController;
 use Controller\FavoriController;
@@ -23,8 +24,6 @@ $categories = [];
 $categoriesAnnonce = [];
 
 $arrayOfSelectedValues = [];
-
-session_start();
 
 function controller(): void
 {
@@ -103,7 +102,7 @@ function controller(): void
                     $categoryAnnonceId = getDigitsOfTheString($categoryAnnonce);
                     $arrayOfSelectedValues[] = $categoryAnnonceId;
                 }
-            } elseif ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 AnnonceController::updateAnnonce();
             }
             break;
