@@ -16,6 +16,7 @@ controller();
                    id="email"
                    placeholder="votre email"
             >
+            <span id="errorEmail"></span>
         </div>
         <div>
             <label for="password"></label>
@@ -24,6 +25,7 @@ controller();
                    id="password"
                    placeholder="mot de passe"
             >
+            <span id="errorPassword"></span>
         </div>
 
     </form>

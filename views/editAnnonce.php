@@ -45,7 +45,7 @@ controller();
             </div>
             <div>
                 <label for="cat_id[]"></label>
-                <select name="cat_id[]" id="cat_id[]" multiple>
+                <select name="cat_id[]" id="cat_id[]" class="cat_id" multiple>
                     <?php
                     foreach ($categories as $category) {
                         $categoryLibelle = $category->getCatLibelle();
@@ -57,6 +57,7 @@ controller();
                     }
                     ?>
                 </select>
+                <span id="errorCategoryAnnonce"></span>
             </div>
             <div>
                 <label for="ann_description"></label>
@@ -76,7 +77,8 @@ controller();
 
 <?php require 'footer.php' ?>
 <script type="text/javascript">
-    setCategoriesSelected(<?= $arrayOfSelectedValues ?>);
+    let arrayValuesSelected = [<?php echo '"' . implode('","', $arrayOfSelectedValues) . '"' ?>];
+    setCategoriesSelected(arrayValuesSelected);
     validAnnonceUpdateForm();
 </script>
 </body>

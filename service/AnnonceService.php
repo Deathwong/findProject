@@ -36,6 +36,8 @@ class AnnonceService
         // On exécute la requête
         $request->execute();
 
+        //todo incrementer le nombre de consultations
+
         // On retourne l'annonce
         return $request->fetchObject(Annonce::class);
     }
@@ -90,7 +92,7 @@ class AnnonceService
     {
         $connection = PdoConnectionHandler::getPDOInstance();
 
-        $categories = getElementInRequestByAttribute("cat_id");
+        $categories = getElementInRequestByAttribute("cat_id[]");
 
         foreach ($categories as $category) {
             $query = "insert into categorie_annonce(ann_id, cat_id) values(:ann_id, :cat_id)";

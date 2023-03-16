@@ -2,6 +2,8 @@ function submitSigninUserForm() {
     const form = $("#formUser");
 
     validateEmail();
+    validatePassword();
+
 
     if (isValidEmail && isValidPassword) {
         form.submit();
@@ -30,6 +32,7 @@ function validateSignUpFormEventListener() {
 
 function validateSignInFormEventListener() {
     validateEmailEventListener();
+    validatePasswordEventListener();
 }
 
 function submitUpdateFormAnnonce() {
@@ -77,9 +80,9 @@ function validCreateAnnonceForm() {
     validateCategoryAnnonceEventListener()
 }
 
-function setCategoriesSelected(...values) {
+function setCategoriesSelected(values) {
     console.log(values);
-    $('#cat_id option[value=' + values + ']').attr('selected', true);
+    $('.cat_id option[value=' + values + ']').attr('selected', true);
 }
 
 function addOrRemoveFavori(idAnnonce) {
