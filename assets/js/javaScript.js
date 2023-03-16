@@ -143,11 +143,12 @@ function rechercheAjax() {
         success: function (data) {
             annonces = JSON.parse(data);
 
-            $.each(annonces, function (field) {
-
-                console.log(field[0].toString());
-                console.log(field[0].ann_id + ': ' + field.ann_nom);
-            });
+            console.log(data[0].ann_id + ': ' + data['ann_id'] + ': ' + annonces['ann_nom']);
+            // $.each(annonces, function (field) {
+            //
+            //     console.log(field[0].toString());
+            //     console.log(field[0].ann_id + ': ' + field.ann_nom);
+            // });
             // ann = data;
         },
         error: function (data) {
