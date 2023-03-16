@@ -4,7 +4,6 @@ namespace Controller;
 
 use model\Annonce;
 use service\AnnonceService;
-use service\FavoriService;
 
 require '../service/AnnonceService.php';
 
@@ -40,9 +39,4 @@ class AnnonceController
     {
         return AnnonceService::createAnnonce();
     }
-}
-// La fonction permettant de supprimer un favori
-public static function deleteFavori(): void
-{
-    FavoriService::deleteFavori();
 }

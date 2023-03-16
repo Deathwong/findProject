@@ -125,17 +125,17 @@ class UserService
 
     /**
      * Valide les champs du user
+     * Paramètre Chemin de redirection
+     * @param $string
      * @return void
      */
-    public static function validateUser(): void
+    public static function validateUser($string): void
     {
-        $_SESSION['errorValidationUser'] = null;
-
         if (getElementInRequestByAttribute('email') === null ||
             getElementInRequestByAttribute('password') === null) {
 
             $_SESSION['errorValidationUser'] = 'Veuillez renseignez les champs obligatoires';
-            header("location:../views/signin.php");
+            header("location:" . $string);
             exit();
         }
     }

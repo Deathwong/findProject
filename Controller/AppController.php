@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 use Controller\AnnonceController;
 use Controller\FavoriController;
@@ -24,6 +23,8 @@ $categories = [];
 $categoriesAnnonce = [];
 
 $arrayOfSelectedValues = [];
+
+session_start();
 
 function controller(): void
 {
@@ -125,8 +126,5 @@ function controller(): void
         default:
             header('Status: 404 Not Found');
             echo '<html lang="fr"><body><h1>Page Not Found</h1></body></html>';
-
     }
-
-
 }

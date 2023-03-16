@@ -4,7 +4,6 @@ function submitSigninUserForm() {
     validateEmail();
     validatePassword();
 
-
     if (isValidEmail && isValidPassword) {
         form.submit();
     } else {
