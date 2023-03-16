@@ -3,7 +3,6 @@
 namespace Controller;
 
 use model\Annonce;
-use model\AppConstant;
 use service\AnnonceService;
 
 require '../service/AnnonceService.php';
@@ -33,7 +32,10 @@ class AnnonceController
     public static function getAllAnnonce(): array
     {
         $allAnnonce = AnnonceService::getAllAnnonce();
-        echo AppConstant::HTTP_REQUEST_SUCCESS;
+//        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//
+//            echo json_encode($allAnnonce);
+//        }
         return $allAnnonce;
     }
 

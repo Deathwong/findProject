@@ -126,25 +126,43 @@ function rechercheAjax() {
 
     //
     const categorieId = $("#categorie_id").val();
-    if (!checkEmpty(categorieId)) {
+    if (!checkEmpty(categorieId) && categorieId !== '---Catégories---') {
         data.categorieId = categorieId;
     }
 
-    const URL = '/findProject/views';
+    // const URL = '/findProject/views';
+    const URL = '/findProject/views/getAllAnnonce.php';
+    let annonces = null;
 
     $.ajax({
-        type: 'GET',
+        method: "POST",
+        type: "POST",
         url: URL,
         data: data,
-        dataType: "json"
-    }).always(function (response) {
-        if (response.statusText === 'OK') {
-            // Handle success
-            console.log("success: ", response);
-        } else {
-            // Handle error
-            console.log("ERROR ", response);
-            $(location).attr('href', URL);
+        // dataType: "JSON",
+        success: function (data) {
+            annonces = JSON.parse(data);
+
+            $.each(annonces, function (field) {
+
+                console.log(field[0].toString());
+                console.log(field[0].ann_id + ': ' + field.ann_nom);
+            });
+            // ann = data;
+        },
+        error: function (data) {
+            console.log('Error');
         }
     });
+
+    //     .always(function (response) {
+    //     if (response.statusText === 'OK') {
+    //         // Handle success
+    //         console.log("success: ", response);
+    //     } else {
+    //         // Handle error
+    //         console.log("ERROR ", response);
+    //         $(location).attr('href', URL);
+    //     }
+    // });
 }

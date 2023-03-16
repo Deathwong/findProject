@@ -143,33 +143,33 @@ class AnnonceService
         // Conditions de la requête. On filtre sur les catégories, le nom et le prix.
 
         // Nom de l'annonce
-        if (isset($nom)) {
+        if (isset($_GET["nom"]) || isset($_POST["nom"])) {
             $nom = getElementInRequestByAttribute("nom");
             $conditions[] = 'ann.ann_nom LIKE :nom';
-            $parameters[] = '%' . $nom . "%";
+            $parameters['nom'] = '%' . $nom . "%";
         }
 
         // Catégories de l'annonce
-        $categorie = getElementInRequestByAttribute("categorieId");
-        if (isset($nom)) {
+        if (isset($categorie)) {
+            $categorie = getElementInRequestByAttribute("categorieId");
             $joinQuery = 'join categorie_annonce ca on ann.ann_id = ca.ann_id join categorie cat on cat.cat_id = ca.cat_id';
             $mainQuery .= $joinQuery;
             $conditions[] = 'cat.cat_id = :categorieId';
-            $parameters[] = $categorie;
+            $parameters['categorieId'] = $categorie;
         }
 
         // Prix  Minimum
         if (isset($prixMin)) {
             $prixMin = getElementInRequestByAttribute("prix_min");
             $conditions[] = 'ann.$prix >= :prixMin';
-            $parameters[] = $prixMin;
+            $parameters['prix_min'] = $prixMin;
         }
 
         // Prix  Maximum
         if (isset($prixMax)) {
             $prixMax = getElementInRequestByAttribute("prix_max");
             $conditions[] = 'ann.$prix <= :prixMax';
-            $parameters[] = $prixMin;
+            $parameters['prix_max'] = $prixMax;
         }
 
         if ($conditions) {
