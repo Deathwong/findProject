@@ -16,7 +16,7 @@ function submitSignUpUserForm() {
 
     validateEmail();
     validatePassword();
-    
+
     if (isValidEmail && isValidPassword) {
         form.submit();
     } else {
@@ -137,6 +137,63 @@ function addFavori(data) {
             // Handle error
             console.log("User is not connected: ", response);
             $(location).attr('href', SIGN_UP_URL);
+        }
+    });
+}
+
+function rechercheAjax() {
+    let data = {};
+
+    // Récupération des input du formulaire de recherche
+    // Nom
+    const nom = $("#nom").val();
+    if (!checkEmpty(nom)) {
+        data.nom = nom;
+    }
+
+    // Prix min
+    const prixMin = $("#prix_min").val();
+    if (!checkEmpty(prixMin)) {
+        data.prixMin = prixMin;
+    }
+
+    // Prix max
+    const prixMax = $("#prix_max").val();
+    if (!checkEmpty(prixMax)) {
+        data.prixMax = prixMax;
+    }
+
+    //
+    const categorieId = $("#categorie_id").val();
+    if (!checkEmpty(categorieId) && categorieId !== '---Catégories---') {
+        data.categorieId = categorieId;
+    }
+
+    const URL = '/findProject/views/getAllAnnonce.php';
+    let annonces = null;
+
+    $.ajax({
+        method: "POST",
+        type: "POST",
+        url: URL,
+        data: data,
+        success: function (data) {
+            const annonces = JSON.parse(data);
+            let annonceTable = $("#annonce-tab");
+            annonceTable.find("tr:gt(0)").remove();
+
+            for (var i = 0; i < annonces.length; i++) {
+                let json_data = '<tr>' +
+                    "<td> <img src='../assets/img/annonces/" + annonces[i].ann_photo + "' alt='image annonce'></td>" +
+                    '<td>' + annonces[i].ann_nom + '</td>' +
+                    '<td>' + annonces[i].ann_prix + '</td>' +
+                    '<td>' + annonces[i].ann_description + '</td>' +
+                    '</tr>';
+                annonceTable.append(json_data);
+            }
+        },
+        error: function (data) {
+            console.log('Error');
         }
     });
 }

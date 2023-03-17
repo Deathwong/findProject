@@ -35,6 +35,13 @@ function controller(): void
 
     switch ($uri) {
         case AppConstant::$INDEX_URL:
+
+            $categories = CategoryController::getAllCategories();
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+                $annonces = AnnonceController::getAllAnnonce();
+            }
+
             if (isset($_SESSION["use_id"])) {
                 $user = $_SESSION["use_id"];
             }
@@ -111,6 +118,11 @@ function controller(): void
         case AppConstant::$GET_ALL_ANNONCE_URL:
             // Récupération des annonces
             $annonces = AnnonceController::getAllAnnonce();
+
+            // Cas d'une recherche ajax.
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                echo json_encode($annonces);
+            }
             break;
 
         case AppConstant::$DELETE_FAVORI_BY_ANNONCE_URL:

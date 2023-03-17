@@ -221,11 +221,78 @@ class AnnonceService
     {
         // On récupère la connection
         $connection = PdoConnectionHandler::getPDOInstance();
+        $mainQuery = "select ann.* from annonce ann ";
 
-        $query = "select ann.* from annonce ann";
-        $statement = $connection->query($query);
+        // Initialisation des tableaux ses conditions et paramètres de la requête de la recherche
+        $conditions = [];
+        $parameters = [];
+
+        // On filtre sur les catégories, le nom et le prix.
+        // Nom de l'annonce
+        if (isset($_POST['nom']) || isset($_GET['nom'])) {
+            $nom = getElementInRequestByAttribute("nom");
+            $conditions[] = 'ann.ann_nom LIKE :nom';
+            $parameters['nom'] = '%' . $nom . "%";
+        }
+
+        // Catégories de l'annonce
+        if (isset($_POST['categorieId']) || isset($_GET['categorieId'])) {
+            $categorie = getElementInRequestByAttribute("categorieId");
+            $joinQuery = 'join categorie_annonce ca on ann.ann_id = ca.ann_id join categorie cat on cat.cat_id = ca.cat_id';
+            $mainQuery .= $joinQuery;
+            $conditions[] = 'cat.cat_id = :categorieId';
+            $parameters['categorieId'] = $categorie;
+        }
+
+        // Prix  Minimum
+        if (isset($_POST['prix_min']) || isset($_GET['prix_min'])) {
+            $prixMin = getElementInRequestByAttribute("prix_min");
+            $conditions[] = 'ann.$prix >= :prixMin';
+            $parameters['prix_min'] = $prixMin;
+        }
+
+        // Prix  Maximum
+        if (isset($_POST['prix_max']) || isset($_GET['prix_max'])) {
+            $prixMax = getElementInRequestByAttribute("prix_max");
+            $conditions[] = 'ann.$prix <= :prixMax';
+            $parameters['prix_max'] = $prixMax;
+        }
+
+        if ($conditions) {
+            $mainQuery .= " WHERE " . implode(" AND ", $conditions);
+        }
+
+        // Ajout du tri. Les dernières annonces créées ou mise à jour (tri descendant)
+        $sortQuery = ' order by ann_update_at desc';
+        $mainQuery .= $sortQuery;
 
 
+        $statement = $connection->prepare($mainQuery);
+        $statement->execute($parameters);
+
+        // Cas d'une requête AJAX envoyé en méthode Http POST
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $result = $statement->fetchAll(PDO::FETCH_BOTH);
+
+            // Construction de la liste d'annonce afin de l'envoyé au format JSON
+            $listAnnonce = [];
+            foreach ($result as $annonce) {
+                $listAnnonce[] = array(
+                    'ann_id' => $annonce['ann_id'],
+                    'use_id' => $annonce['use_id'],
+                    'ann_nom' => $annonce['ann_nom'],
+                    'ann_prix' => $annonce['ann_prix'],
+                    'ann_description' => $annonce['ann_description'],
+                    'ann_photo' => $annonce['ann_photo'],
+                    'ann_nombre_consultation' => $annonce['ann_nombre_consultation'],
+                    'ann_create_at' => $annonce['ann_create_at'],
+                    'ann_update_at' => $annonce['ann_update_at']);
+            }
+            return $listAnnonce;
+        }
+
+        // Cas d'une requête de recherche envoyé en méthode Http GET
         return $statement->fetchAll(PDO::FETCH_CLASS, Annonce::class);
     }
 
