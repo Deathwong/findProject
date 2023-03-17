@@ -10,6 +10,7 @@ require_once 'PdoConnectionHandler.php';
 require_once "../utils/utils.php";
 require '../model/Annonce.php';
 require_once 'CategoryAnnonceService.php';
+require_once 'PhotoService.php';
 
 class AnnonceService
 {
@@ -35,6 +36,9 @@ class AnnonceService
         // On exécute la requête
         $request->execute();
 
+        // Incrementation du nombre de consultations
+        self::incrementConsultationAnnonce($idAnnonce, $connection);
+
         // On retourne l'annonce
         return $request->fetchObject(Annonce::class);
     }
@@ -57,16 +61,38 @@ class AnnonceService
         $request->execute($annonce);
 
         if (getElementInRequestByAttribute("ann_photo") !== null) {
-            self::insertPhotoNameInAnnonce($idAnnonce, $connection);
+            PhotoService::insertPhotoNameInAnnonce($idAnnonce, $connection);
         }
 
         CategoryAnnonceService::deleteLinkCategoriesAnnonce($idAnnonce);
 
         self::updateCategoriesAnnonce($idAnnonce);
 
-        header(AppConstant::$HEADER_LOCATION_LABEL . AppConstant::$EDIT_ANNONCE_LOCATION_LABEL . '?idAnnonce=' . $idAnnonce);
+        header(AppConstant::$HEADER_LOCATION_LABEL . AppConstant::$EDIT_ANNONCE_LOCATION_LABEL . '?idAnnonce='
+            . $idAnnonce);
     }
 
+    /**
+     * Incrémente la consultation de l'annonce
+     * @param $idAnnonce
+     * @param $connexion
+     * @return void
+     */
+    public static function incrementConsultationAnnonce($idAnnonce, $connexion): void
+    {
+        $query = "update annonce ann set ann.ann_nombre_consultation = ann.ann_nombre_consultation + 1 
+                   where ann.ann_id = :idAnnonce";
+
+        $request = $connexion->prepare($query);
+
+        $request->bindParam(":idAnnonce", $idAnnonce);
+
+        $request->execute();
+    }
+
+    /**Récupère les champs du formulaire de l'annonce contenu dans la requête http
+     * @return array
+     */
     public static function getAnnoncesHttpRequestValues(): array
     {
         $annonce = [
@@ -83,6 +109,66 @@ class AnnonceService
         }
 
         return $annonce;
+    }
+
+    public static function validateCreateChampsAnnonce(): void
+    {
+        if (getElementInRequestByAttribute('ann_nom') === null ||
+            getElementInRequestByAttribute('ann_prix') === null ||
+            getElementInRequestByAttribute('ann_description') === null ||
+            getElementInRequestByAttribute("ann_photo") === null ||
+            getElementInRequestByAttribute("cat_id[]") !== null) {
+
+            $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires';
+            header("location:../views/editAnnonce.php");
+            exit();
+        }
+    }
+
+    public static function validateUpdateChampsAnnonce(): void
+    {
+        $annId = getElementInRequestByAttribute('ann_id');
+        $annNon = getElementInRequestByAttribute('ann_nom');
+        $annPrix = getElementInRequestByAttribute('ann_prix');
+        $annDescription = getElementInRequestByAttribute('ann_description');
+        $catID = getElementInRequestByAttribute("cat_id");
+
+        if ($annId === null || $annNon === null || $annPrix === null || $annDescription === null || $catID === null) {
+
+            $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires suivants: ';
+            $champsErrors = '';
+
+
+            if ($annNon === null) {
+                $champsErrors .= ' Nom';
+            }
+
+            if ($annPrix === null) {
+                $champsErrors = addVirguleIfIsSet($champsErrors);
+                $champsErrors .= ' Prix';
+            }
+
+            if ($annDescription === null) {
+                $champsErrors = addVirguleIfIsSet($champsErrors);
+                $champsErrors .= ' Description';
+            }
+
+            if ($catID === null) {
+                $champsErrors = addVirguleIfIsSet($champsErrors);
+                $champsErrors .= ' Catégories';
+            }
+
+            $_SESSION['errorValidateUpdateAnnonce'] .= $champsErrors;
+
+            header("location:../views/editAnnonce.php?idAnnonce=" . $annId);
+            exit();
+        }
+
+        if (!validatePrice($annPrix)) {
+            $_SESSION['errorValidateUpdateAnnonce'] = "Veuillez saisir le prix sous un bon format</br>exemple : 9.99 ou 9";
+            header("location:../views/editAnnonce.php?idAnnonce=" . $annId);
+            exit();
+        }
     }
 
     public static function updateCategoriesAnnonce($idAnnonce): void
@@ -244,24 +330,5 @@ class AnnonceService
 
         // Retour de l'identifiant de l'annonce créée
         return (int)$ann_id;
-    }
-
-    /**
-     * @param mixed $idAnnonce
-     * @param PDO $connection
-     * @return void
-     */
-    public static function insertPhotoNameInAnnonce(mixed $idAnnonce, PDO $connection): void
-    {
-        $photo = getFileNamePlusExtension("ann_photo", $idAnnonce);
-
-        $query = "UPDATE annonce a SET a.ann_photo = :photo WHERE ann_id = :idAnnonce";
-
-        $requestPhotoAnnonce = $connection->prepare($query);
-
-        $requestPhotoAnnonce->bindParam(':photo', $photo);
-        $requestPhotoAnnonce->bindParam(':idAnnonce', $idAnnonce);
-
-        $requestPhotoAnnonce->execute();
     }
 }

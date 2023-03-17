@@ -25,6 +25,7 @@ class AnnonceController
     // La fonction permettant de supprimer une annonce
     public static function updateAnnonce(): void
     {
+        AnnonceService::validateUpdateChampsAnnonce();
         AnnonceService::updateAnnonce();
     }
 
@@ -32,6 +33,7 @@ class AnnonceController
     public static function getAllAnnonce(): array
     {
         return AnnonceService::getAllAnnonce();
+
     }
 
     // Permet de créer une annonce

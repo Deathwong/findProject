@@ -9,6 +9,16 @@ controller();
 <div>
     <div>Modification</div>
     <div>
+        <div>
+            <span>
+                <?php
+                if (isset($_SESSION['errorValidateUpdateAnnonce'])) {
+                    echo $_SESSION['errorValidateUpdateAnnonce'];
+                }
+                $_SESSION['errorValidateUpdateAnnonce'] = null;
+                ?>
+            </span>
+        </div>
         <form method="post" action="" id="updateAnnonceForm" enctype="multipart/form-data">
             <div>
                 <input type="hidden" name="ann_id" value="1">
@@ -45,7 +55,7 @@ controller();
             </div>
             <div>
                 <label for="cat_id[]"></label>
-                <select name="cat_id[]" id="cat_id[]" multiple>
+                <select name="cat_id[]" id="cat_id[]" class="cat_id" multiple>
                     <?php
                     foreach ($categories as $category) {
                         $categoryLibelle = $category->getCatLibelle();
@@ -57,6 +67,7 @@ controller();
                     }
                     ?>
                 </select>
+                <span id="errorCategoryAnnonce"></span>
             </div>
             <div>
                 <label for="ann_description"></label>
@@ -69,15 +80,16 @@ controller();
             </div>
         </form>
         <div>
-            <button onclick="submitFormAnnonce('updateAnnonceForm')">modifier</button>
+            <button onclick="submitUpdateFormAnnonce()">modifier</button>
         </div>
     </div>
 </div>
 
 <?php require 'footer.php' ?>
 <script type="text/javascript">
-    setCategoriesSelected();
-    validAnnonceForm()
+    let arrayValuesSelected = [<?php echo '"' . implode('","', $arrayOfSelectedValues) . '"' ?>];
+    setCategoriesSelected(arrayValuesSelected);
+    validAnnonceUpdateForm();
 </script>
 </body>
 </html>

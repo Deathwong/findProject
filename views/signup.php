@@ -7,6 +7,16 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <div>
+    <div>
+        <span>
+            <?php
+            if (isset($_SESSION['errorValidationUser'])) {
+                echo $_SESSION['errorValidationUser'];
+                $_SESSION['errorValidationUser'] = null;
+            }
+            ?>
+        </span>
+    </div>
 
     <form action="detailsUser.php" method="post" id="formUser">
         <div>
@@ -16,6 +26,7 @@ controller();
                    id="email"
                    placeholder="votre email"
             >
+            <span id="errorEmail"></span>
         </div>
         <div>
             <label for="password"></label>
@@ -24,15 +35,16 @@ controller();
                    id="password"
                    placeholder="mot de passe"
             >
+            <span id="errorPassword"></span>
         </div>
 
-        <input type="submit" value="s'inscrire" onclick="submitSigninUserForm()">
     </form>
+    <input type="submit" value="s'inscrire" onclick="submitSignUpUserForm()">
 
 </div>
 <?php require 'footer.php' ?>
 <script type="text/javascript">
-    validateFormEventListener();
+    validateSignUpFormEventListener();
 </script>
 </body>
 </html>

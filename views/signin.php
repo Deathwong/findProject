@@ -40,11 +40,12 @@ controller();
             </span>
         </div>
 
-        <input type="submit" value="se connecter" onclick="submitSigninUserForm()">
     </form>
+    <input type="submit" value="se connecter" onclick="submitSigninUserForm()">
 </div>
 <?php require 'footer.php' ?>
 <script type="text/javascript">
-    validateFormEventListener();
-    </body>
-    </html>
+    validateSignInFormEventListener();
+</script>
+</body>
+</html>
