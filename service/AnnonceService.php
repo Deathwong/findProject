@@ -302,6 +302,10 @@ class AnnonceService
         // Récupération de la connexion PDO
         $connection = PdoConnectionHandler::getPDOInstance();
 
+        //récupération de l'user connect"
+        $userConnect = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
+
+
         // Requête SQL pour insérer une nouvelle annonce
         $query = "insert into annonce(use_id, ann_nom, ann_prix, ann_description, ann_nombre_consultation, 
                     ann_create_at, ann_update_at) 
@@ -312,21 +316,32 @@ class AnnonceService
         // Récupération des valeurs issues de la requête http pour créer l'annonce
         $annonceHttpRequestValues = self::getAnnoncesHttpRequestValues();
 
+        //Initialisation à 0 du nombre de consultation
+        $annonceHttpRequestValues['ann_nombre_consultation'] = 0;
+
+        $annonceHttpRequestValues['use_id'] = $userConnect->getUseId();
+
         // Exécution de la requête
         $request->execute($annonceHttpRequestValues);
 
         // Récupération de l'identifiant de l'annonce créée
         $ann_id = $connection->lastInsertId();
 
+
+        // TODO Gestion de l'erreur. S'inspirer de la création d'un user
         // Message d'erreur. Si l'annonce n'a pas été créé
-        if (!$ann_id) {
-            // TODO Gestion de l'erreur. S'inspirer de la création d'un user
+        if (empty($ann_id)) {
+            $_SESSION["errorCreation"] = "l'annonce n'a pas été créée";
+            header("location:../views/createAnnonce.php");
         }
 
-        // Transformation du nom de l'image (id de l'annonce créée
+        // Transformation du nom de l'image (id de l'annonce créée)
         $transformFileName = getFileNamePlusExtension('ann_photo', $ann_id);
 
         // TODO Enregitrer l'image en faisant un update de l'annonce qui vient d'etre créer
+        PhotoService::insertPhotoNameInAnnonceByIdAnonce($ann_id, $connection, $transformFileName);
+
+        self::updateCategoriesAnnonce($ann_id);
 
         // Retour de l'identifiant de l'annonce créée
         return (int)$ann_id;

@@ -78,6 +78,7 @@ function controller(): void
                 // Connexion de l'utilisateur
                 AnnonceController::createAnnonce();
             }
+            $categories = CategoryController::getAllCategories();
             break;
 
         case AppConstant::$DETAILS_ANNONCE_URL:
