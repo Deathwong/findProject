@@ -130,7 +130,6 @@ function rechercheAjax() {
         data.categorieId = categorieId;
     }
 
-    // const URL = '/findProject/views';
     const URL = '/findProject/views/getAllAnnonce.php';
     let annonces = null;
 
@@ -139,31 +138,23 @@ function rechercheAjax() {
         type: "POST",
         url: URL,
         data: data,
-        // dataType: "JSON",
         success: function (data) {
-            annonces = JSON.parse(data);
+            const annonces = JSON.parse(data);
+            let annonceTable = $("#annonce-tab");
+            annonceTable.find("tr:gt(0)").remove();
 
-            console.log(data[0].ann_id + ': ' + data['ann_id'] + ': ' + annonces['ann_nom']);
-            // $.each(annonces, function (field) {
-            //
-            //     console.log(field[0].toString());
-            //     console.log(field[0].ann_id + ': ' + field.ann_nom);
-            // });
-            // ann = data;
+            for (var i = 0; i < annonces.length; i++) {
+                let json_data = '<tr>' +
+                    "<td> <img src='../assets/img/annonces/" + annonces[i].ann_photo + "' alt='image annonce'></td>" +
+                    '<td>' + annonces[i].ann_nom + '</td>' +
+                    '<td>' + annonces[i].ann_prix + '</td>' +
+                    '<td>' + annonces[i].ann_description + '</td>' +
+                    '</tr>';
+                annonceTable.append(json_data);
+            }
         },
         error: function (data) {
             console.log('Error');
         }
     });
-
-    //     .always(function (response) {
-    //     if (response.statusText === 'OK') {
-    //         // Handle success
-    //         console.log("success: ", response);
-    //     } else {
-    //         // Handle error
-    //         console.log("ERROR ", response);
-    //         $(location).attr('href', URL);
-    //     }
-    // });
 }

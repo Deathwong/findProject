@@ -31,14 +31,10 @@ class AnnonceController
     // La fonction permettant de récupérer toutes les annonces
     public static function getAllAnnonce(): array
     {
-        $allAnnonce = AnnonceService::getAllAnnonce();
-//        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//
-//            echo json_encode($allAnnonce);
-//        }
-        return $allAnnonce;
+        return AnnonceService::getAllAnnonce();
     }
 
+    // Permet de créer une annonce
     public static function createAnnonce(): int
     {
         return AnnonceService::createAnnonce();

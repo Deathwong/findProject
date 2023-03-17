@@ -118,7 +118,11 @@ function controller(): void
         case AppConstant::$GET_ALL_ANNONCE_URL:
             // Récupération des annonces
             $annonces = AnnonceController::getAllAnnonce();
-            echo json_encode($annonces);
+
+            // Cas d'une recherche ajax.
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                echo json_encode($annonces);
+            }
             break;
 
         case AppConstant::$DELETE_FAVORI_BY_ANNONCE_URL:

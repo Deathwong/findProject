@@ -27,7 +27,7 @@ controller();
             <input type="text" id="prix_max" name="prix_max">
         </div>
         <div>
-            <label for="categorie"></label>
+            <label for="categorie_id"></label>
             <select name="categorieId" id="categorie_id">
                 <option>---Catégories---</option>
                 <?php
@@ -47,19 +47,29 @@ controller();
 
 <div>
     <h1>Liste Annonces</h1>
-    <?php
-    foreach ($annonces as $annonce) {
-        ?>
-        <div>
-            <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" alt="image de l'annonce">
-        </div>
-        <div><?= $annonce->getAnnNom() ?></div>
-        <div><?= $annonce->getAnnPrix() ?></div>
-        <div><?= $annonce->getAnnDescription() ?></div>
-        <div>--------------</div>
+    <table id="annonce-tab">
+        <tr>
+            <th>Photo</th>
+            <th>Titre</th>
+            <th>Prix</th>
+            <th>Description</th>
+        </tr>
+
         <?php
-    }
-    ?>
+        foreach ($annonces as $annonce) {
+            ?>
+            <tr>
+                <td>
+                    <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" alt="image de l'annonce">
+                </td>
+                <td><?= $annonce->getAnnNom() ?></td>
+                <td><?= $annonce->getAnnPrix() ?></td>
+                <td><?= $annonce->getAnnDescription() ?></td>
+            </tr>
+            <?php
+        }
+        ?>
+    </table>
 </div>
 <?php require 'footer.php' ?>
 </body>
