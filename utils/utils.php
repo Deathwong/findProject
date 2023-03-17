@@ -119,4 +119,59 @@ function getElementInSession(string $param): mixed
     return !isset($param) || !isset($_SESSION[$param]) ? null : $_SESSION[$param];
 }
 
-;
+/**
+ * Valide les prix sous le format 9 ou 9.99
+ * @param $price
+ * @return bool
+ */
+function validatePrice($price): bool
+{
+    $isValidPrice = false;
+    $regex = '/^[0-9]+(\.[0-9]{2})?$/';
+
+    if (preg_match($regex, $price)) {
+        $isValidPrice = true;
+    }
+    return $isValidPrice;
+}
+
+/**
+ * Valide l'Email
+ * @param string $email
+ * @return bool
+ */
+function validateEmail(string $email): bool
+{
+    $isValidMail = false;
+    $regex = '/^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/';
+
+    if (preg_match($regex, $email)) {
+        $isValidMail = true;
+    }
+    return $isValidMail;
+}
+
+/**
+ * Valid la longueur d'une chaine de caractère
+ * @param int $length
+ * @param string $value
+ * @return bool
+ */
+function validateLength(int $length, string $value): bool
+{
+    return strlen(trim($value)) >= $length;
+}
+
+/**
+ * Ajoute une virgule s'il contient un element
+ * @param string $param
+ * @return string
+ */
+function addVirguleIfIsSet(string $param): string
+{
+    $virgule = ", ";
+    if (!empty($param)) {
+        $param .= $virgule;
+    }
+    return $param;
+}

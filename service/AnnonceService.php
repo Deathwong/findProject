@@ -36,7 +36,8 @@ class AnnonceService
         // On exécute la requête
         $request->execute();
 
-        //todo incrementer le nombre de consultations
+        // Incrementation du nombre de consultations
+        self::incrementConsultationAnnonce($idAnnonce, $connection);
 
         // On retourne l'annonce
         return $request->fetchObject(Annonce::class);
@@ -67,9 +68,31 @@ class AnnonceService
 
         self::updateCategoriesAnnonce($idAnnonce);
 
-        header(AppConstant::$HEADER_LOCATION_LABEL . AppConstant::$EDIT_ANNONCE_LOCATION_LABEL . '?idAnnonce=' . $idAnnonce);
+        header(AppConstant::$HEADER_LOCATION_LABEL . AppConstant::$EDIT_ANNONCE_LOCATION_LABEL . '?idAnnonce='
+            . $idAnnonce);
     }
 
+    /**
+     * Incrémente la consultation de l'annonce
+     * @param $idAnnonce
+     * @param $connexion
+     * @return void
+     */
+    public static function incrementConsultationAnnonce($idAnnonce, $connexion): void
+    {
+        $query = "update annonce ann set ann.ann_nombre_consultation = ann.ann_nombre_consultation + 1 
+                   where ann.ann_id = :idAnnonce";
+
+        $request = $connexion->prepare($query);
+
+        $request->bindParam(":idAnnonce", $idAnnonce);
+
+        $request->execute();
+    }
+
+    /**Récupère les champs du formulaire de l'annonce contenu dans la requête http
+     * @return array
+     */
     public static function getAnnoncesHttpRequestValues(): array
     {
         $annonce = [
@@ -88,11 +111,71 @@ class AnnonceService
         return $annonce;
     }
 
+    public static function validateCreateChampsAnnonce(): void
+    {
+        if (getElementInRequestByAttribute('ann_nom') === null ||
+            getElementInRequestByAttribute('ann_prix') === null ||
+            getElementInRequestByAttribute('ann_description') === null ||
+            getElementInRequestByAttribute("ann_photo") === null ||
+            getElementInRequestByAttribute("cat_id[]") !== null) {
+
+            $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires';
+            header("location:../views/editAnnonce.php");
+            exit();
+        }
+    }
+
+    public static function validateUpdateChampsAnnonce(): void
+    {
+        $annId = getElementInRequestByAttribute('ann_id');
+        $annNon = getElementInRequestByAttribute('ann_nom');
+        $annPrix = getElementInRequestByAttribute('ann_prix');
+        $annDescription = getElementInRequestByAttribute('ann_description');
+        $catID = getElementInRequestByAttribute("cat_id");
+
+        if ($annId === null || $annNon === null || $annPrix === null || $annDescription === null || $catID === null) {
+
+            $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires suivants: ';
+            $champsErrors = '';
+
+
+            if ($annNon === null) {
+                $champsErrors .= ' Nom';
+            }
+
+            if ($annPrix === null) {
+                $champsErrors = addVirguleIfIsSet($champsErrors);
+                $champsErrors .= ' Prix';
+            }
+
+            if ($annDescription === null) {
+                $champsErrors = addVirguleIfIsSet($champsErrors);
+                $champsErrors .= ' Description';
+            }
+
+            if ($catID === null) {
+                $champsErrors = addVirguleIfIsSet($champsErrors);
+                $champsErrors .= ' Catégories';
+            }
+
+            $_SESSION['errorValidateUpdateAnnonce'] .= $champsErrors;
+
+            header("location:../views/editAnnonce.php?idAnnonce=" . $annId);
+            exit();
+        }
+
+        if (!validatePrice($annPrix)) {
+            $_SESSION['errorValidateUpdateAnnonce'] = "Veuillez saisir le prix sous un bon format</br>exemple : 9.99 ou 9";
+            header("location:../views/editAnnonce.php?idAnnonce=" . $annId);
+            exit();
+        }
+    }
+
     public static function updateCategoriesAnnonce($idAnnonce): void
     {
         $connection = PdoConnectionHandler::getPDOInstance();
 
-        $categories = getElementInRequestByAttribute("cat_id[]");
+        $categories = getElementInRequestByAttribute("cat_id");
 
         foreach ($categories as $category) {
             $query = "insert into categorie_annonce(ann_id, cat_id) values(:ann_id, :cat_id)";

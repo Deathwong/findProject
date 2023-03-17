@@ -9,6 +9,16 @@ controller();
 <div>
     <div>Modification</div>
     <div>
+        <div>
+            <span>
+                <?php
+                if (isset($_SESSION['errorValidateUpdateAnnonce'])) {
+                    echo $_SESSION['errorValidateUpdateAnnonce'];
+                }
+                $_SESSION['errorValidateUpdateAnnonce'] = null;
+                ?>
+            </span>
+        </div>
         <form method="post" action="" id="updateAnnonceForm" enctype="multipart/form-data">
             <div>
                 <input type="hidden" name="ann_id" value="1">

@@ -131,12 +131,81 @@ class UserService
      */
     public static function validateUser($string): void
     {
-        if (getElementInRequestByAttribute('email') === null ||
-            getElementInRequestByAttribute('password') === null) {
+        // On récupère les Données du formulaire
+        $email = getElementInRequestByAttribute('email');
+        $password = getElementInRequestByAttribute('password');
 
-            $_SESSION['errorValidationUser'] = 'Veuillez renseignez les champs obligatoires';
+        // On valide s'il Sont Vide
+        $isValidEmptyValues = self::validateEmptyValuesUser($email, $password, $string);
+
+        if ($isValidEmptyValues) {
             header("location:" . $string);
             exit();
         }
+
+        // On valide avec les critères
+        $isValidNotRespectCriteria = self::validateUserValuesWithCriteria($email, $password, $string);
+
+        if ($isValidNotRespectCriteria) {
+            header("location:" . $string);
+            exit();
+        }
+    }
+
+    /**
+     * Valide si les champs sont vides
+     * @param string|null $email
+     * @param string|null $password
+     * @return bool Renvoi true s'il existe des champs vides et false sinon
+     */
+    public static function validateEmptyValuesUser(string|null $email, string|null $password): bool
+    {
+        $isValid = false;
+
+        if ($email === null || $password === null) {
+
+            $_SESSION['errorValidationUser'] = 'Veuillez renseignez les champs obligatoires suivants: ';
+
+            if ($email === null) {
+                $_SESSION['errorValidationUser'] .= 'Email ';
+            }
+
+            if ($password === null) {
+                $_SESSION['errorValidationUser'] = addVirguleIfIsSet($_SESSION['errorValidationUser']);
+                $_SESSION['errorValidationUser'] .= 'mot de passe';
+            }
+
+            $isValid = true;
+        }
+
+        return $isValid;
+    }
+
+    /**
+     * Valide l'Email et la Password avec ses différents critères
+     * @param string|null $email
+     * @param string|null $password
+     * @return bool
+     */
+    public static function validateUserValuesWithCriteria(string|null $email, string|null $password): bool
+    {
+        $isValid = false;
+
+        if (!validateEmail($email) || !validateLength(10, $password)) {
+
+            $_SESSION['errorValidationUser'] = '';
+
+            if (!validateEmail($email)) {
+                $_SESSION['errorValidationUser'] .= 'Veuillez un email valide sous un bon format</br>exemple : exemple@find.com</br>';
+            }
+
+            if (!validateLength(10, $password)) {
+                $_SESSION['errorValidationUser'] .= 'Votre Mot de passe dot contenir au moins 10 caractères';
+            }
+
+            $isValid = true;
+        }
+
+        return $isValid;
     }
 }
