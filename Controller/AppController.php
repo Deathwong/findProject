@@ -27,12 +27,15 @@ $categoriesAnnonce = [];
 $arrayOfSelectedValues = [];
 
 $usersChatBox = [];
+$userConnectChatBox = null;
+$userIDChatBox = null;
 
 session_start();
 
 function controller(): void
 {
-    global $users, $user, $annonce, $annonces, $categories, $categoriesAnnonce, $arrayOfSelectedValues, $usersChatBox;
+    global $users, $user, $annonce, $annonces, $categories, $categoriesAnnonce, $arrayOfSelectedValues, $usersChatBox,
+           $userConnectChatBox, $userIDChatBox;
     $separator = ",";
 
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -128,8 +131,11 @@ function controller(): void
             break;
 
         case AppConstant::$MESSAGE_URL:
-            // Suppression des favoris d'une annonce
+            // On récupère les utilisateurs auquel l'utilisateur a écrit
             $usersChatBox = MessageController::getUserChatBox();
+            // On récupère l'utilisateur connecté
+            $userConnectChatBox = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
+            $userIDChatBox = $userConnectChatBox->getUseId();
             break;
 
         default:

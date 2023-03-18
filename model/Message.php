@@ -5,6 +5,7 @@ namespace model;
 class Message
 {
     private int $mes_id;
+    private int $ann_id;
     private int $mes_sender_id;
     private int $use_receiver_id;
     private string $mes_content;
@@ -12,6 +13,22 @@ class Message
 
     public function __construct()
     {
+    }
+
+    /**
+     * @return int
+     */
+    public function getAnnId(): int
+    {
+        return $this->ann_id;
+    }
+
+    /**
+     * @param int $ann_id
+     */
+    public function setAnnId(int $ann_id): void
+    {
+        $this->ann_id = $ann_id;
     }
 
     /**
