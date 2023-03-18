@@ -175,14 +175,14 @@ values (24, 24, 4);
 /*==============================================================*/
 /* Table : message	                                            */
 /*==============================================================*/
-insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-values (1, 1, 1, 2, 'message', '2023-01-14 7:0:0');
-insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-values (2, 1, 2, 1, 'message', '2023-01-18 7:0:0');
-insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-values (3, 1, 3, 4, 'message', '2023-01-20 7:0:0');
-insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-values (4, 1, 4, 3, 'message', '2023-01-26 7:0:0');
+insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (1, 2, 1, 'message', '2023-01-14 7:0:0');
+insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (2, 1, 2, 'message', '2023-01-18 7:0:0');
+insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (3, 3, 4, 'message', '2023-01-20 7:0:0');
+insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (4, 4, 3, 'message', '2023-01-26 7:0:0');
 
 
 

@@ -48,7 +48,8 @@ class MessageService
         // On récupère l'id de l'interlocuteur
         $idInterlocuteur = getElementInRequestByAttribute("use_id");
 
-        $query = "select  * from  message where  (mes_sender_id = :idUser and use_receiver_id = :userId) or (mes_sender_id = :userId and use_receiver_id = :idUser)";
+        $query = "select  * from  message where  (mes_sender_id = :idUser and use_receiver_id = :userId) or 
+                               (mes_sender_id = :userId and use_receiver_id = :idUser)";
 
         // On récupère l'id du user connecté
         $useId = $user->getUseId();
