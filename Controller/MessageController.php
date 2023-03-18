@@ -16,4 +16,10 @@ class MessageController
 
         return MessageService::getUserChatBox($userConnect);
     }
+
+    public static function sendMessage(): void
+    {
+        $userConnect = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
+        MessageService::sendMessage($userConnect);
+    }
 }

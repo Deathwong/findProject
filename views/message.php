@@ -6,9 +6,9 @@ controller();
 <html lang="fr">
 <?php require 'header.php' ?>
 <body>
-<div>Message</div>
 <div>
-    <ul>
+    <div>Message</div>
+    <div>
         <label for="chatUsers"></label>
         <select name="chatUsers" id="chatUsers" multiple>
 
@@ -21,10 +21,11 @@ controller();
                 <?php
 //            }
             }
-            
+
             ?>
         </select>
-    </ul>
+    </div>
+    
 </div>
 <?php require 'footer.php' ?>
 </body>

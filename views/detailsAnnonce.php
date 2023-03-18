@@ -31,6 +31,11 @@ controller();
         <label for="favori">Favori</label>
         <input type="checkbox" id="favori" name="favori" onchange="addOrRemoveFavori(<?= $annonce->getUseId() ?>)">
     </div>
+    <!--todo le boutton doit s'afficher seulement si l'utilisateur n'a pas crée l'annonce-->
+    <div>
+        <button>contacter</button>
+    </div>
+
 </div>
 <?php require 'footer.php' ?>
 </body>

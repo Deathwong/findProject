@@ -83,7 +83,7 @@ function controller(): void
         case AppConstant::$DETAILS_ANNONCE_URL:
             //on vérifie si la requête est un GET
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                //o récupère les détails de l'Annonce
+                // On récupère les détails de l'Annonce
                 $annonce = AnnonceController::getAnnonceDetails();
                 $categoriesAnnonce = explode($separator, getLettersOfTheString($annonce->getCategories()));
             }
@@ -136,6 +136,13 @@ function controller(): void
             // On récupère l'utilisateur connecté
             $userConnectChatBox = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
             $userIDChatBox = $userConnectChatBox->getUseId();
+            break;
+
+        case AppConstant::$SEND_MESSAGE_URL:
+            $annonce = AnnonceController::getAnnonceDetails();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                MessageController::sendMessage();
+            }
             break;
 
         default:

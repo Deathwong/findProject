@@ -63,4 +63,31 @@ class MessageService
 
         return $request->fetchAll(PDO::FETCH_CLASS, Message::class);
     }
+
+    public static function sendMessage(User $user): void
+    {
+        // On récupère la connection
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        //  Récupération des valeurs issues de la requête http pour créer le message
+        $messageHttpRequestValues = self::getMessageHttpRequestValues();
+
+        $messageHttpRequestValues["mes_sender_id"] = $user->getUseId();
+
+        $query = "INSERT INTO find.message(ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+                    VALUES(:ann_id, :mes_sender_id, :use_receiver_id, :mes_content, now())";
+
+        $request = $connection->prepare($query);
+
+        $request->execute($messageHttpRequestValues);
+    }
+
+    public static function getMessageHttpRequestValues(): array
+    {
+        return [
+            "ann_id" => getElementInRequestByAttribute("ann_id"),
+            "use_receiver_id" => getElementInRequestByAttribute("use_receiver_id"),
+            "mes_content" => getElementInRequestByAttribute("mes_content"),
+        ];
+    }
 }

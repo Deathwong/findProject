@@ -16,7 +16,7 @@ function submitSignUpUserForm() {
 
     validateEmail();
     validatePassword();
-    
+
     if (isValidEmail && isValidPassword) {
         form.submit();
     } else {
@@ -82,6 +82,14 @@ function validCreateAnnonceForm() {
 function setCategoriesSelected(values) {
     console.log(values);
     $('.cat_id option[value=' + values + ']').attr('selected', true);
+}
+
+function hideOrShowContactForAnnonceButton(userConnectID, userAnnonceID) {
+
+}
+
+function redirectOnSendMessagePage(idAnnonce) {
+    
 }
 
 function addOrRemoveFavori(idAnnonce) {
