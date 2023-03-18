@@ -2,6 +2,7 @@
 
 use Controller\AnnonceController;
 use Controller\FavoriController;
+use Controller\MessageController;
 use Controller\UserController;
 use model\Annonce;
 use model\AppConstant;
@@ -12,6 +13,7 @@ require_once 'UserController.php';
 require_once 'AnnonceController.php';
 require_once 'CategoryController.php';
 require_once 'FavoriController.php';
+require_once 'MessageController.php';
 
 $users = [];
 $user = new User();
@@ -24,11 +26,13 @@ $categoriesAnnonce = [];
 
 $arrayOfSelectedValues = [];
 
+$usersChatBox = [];
+
 session_start();
 
 function controller(): void
 {
-    global $users, $user, $annonce, $annonces, $categories, $categoriesAnnonce, $arrayOfSelectedValues;
+    global $users, $user, $annonce, $annonces, $categories, $categoriesAnnonce, $arrayOfSelectedValues, $usersChatBox;
     $separator = ",";
 
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -121,6 +125,11 @@ function controller(): void
         case AppConstant::ADD_FAVORI_BY_ANNONCE_URL:
             // Suppression des favoris d'une annonce
             FavoriController::addLinkFavorisAnnonce();
+            break;
+
+        case AppConstant::$MESSAGE_URL:
+            // Suppression des favoris d'une annonce
+            $usersChatBox = MessageController::getUserChatBox();
             break;
 
         default:
