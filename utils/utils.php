@@ -1,6 +1,6 @@
 <?php
 
-function getElementInRequestByAttribute(string $param): string|array|null
+function getElementInRequestByAttribute(string $param): string
 {
     $value = null;
     switch ($param) {

@@ -158,7 +158,7 @@ class UserService
      * @param string|null $password
      * @return bool Renvoi true s'il existe des champs vides et false sinon
      */
-    public static function validateEmptyValuesUser(string|null $email, string|null $password): bool
+    public static function validateEmptyValuesUser($email, $password): bool
     {
         $isValid = false;
 
@@ -187,7 +187,7 @@ class UserService
      * @param string|null $password
      * @return bool
      */
-    public static function validateUserValuesWithCriteria(string|null $email, string|null $password): bool
+    public static function validateUserValuesWithCriteria($email, $password): bool
     {
         $isValid = false;
 
