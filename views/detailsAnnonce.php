@@ -1,4 +1,5 @@
 <?php
+
 require '../Controller/AppController.php';
 controller();
 ?>
@@ -32,11 +33,18 @@ controller();
         <input type="checkbox" id="favori" name="favori" onchange="addOrRemoveFavori(<?= $annonce->getUseId() ?>)">
     </div>
     <!--todo le boutton doit s'afficher seulement si l'utilisateur n'a pas crée l'annonce-->
-    <div>
-        <button>contacter</button>
+    <div hidden="hidden" id="contact-me">
+        <button id="contactButton">contacter moi</button>
     </div>
 
 </div>
 <?php require 'footer.php' ?>
+<script>
+    // On récupère l'id du user connecté
+    userConnectId = <?=  $user->getUseId() ?>;
+    // Récupération de l'id du créateur de l'annonce
+    userAnnonceId = <?= $annonce->getUseId() ?>;
+    showContactForAnnonceButton(userConnectId, userAnnonceId);
+</script>
 </body>
 </html>

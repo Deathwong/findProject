@@ -85,6 +85,7 @@ function controller(): void
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 // On récupère les détails de l'Annonce
                 $annonce = AnnonceController::getAnnonceDetails();
+                $user = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
                 $categoriesAnnonce = explode($separator, getLettersOfTheString($annonce->getCategories()));
             }
             break;

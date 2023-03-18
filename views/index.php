@@ -14,4 +14,8 @@ controller();
 <!--</div>-->
 <?php require 'footer.php' ?>
 </body>
+<script>
+    // On récupère l'id du user connecté
+    userConnectId = <?=  $user->getUseId() ?>;
+</script>
 </html>
