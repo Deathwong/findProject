@@ -94,8 +94,8 @@ function showContactForAnnonceButton(userConnectID, userAnnonceID) {
 }
 
 function redirectOnSendMessagePage(idAnnonce) {
-    const MESSAGE = 's';
-    $(location).attr('href',);
+    const MESSAGE = 'sendMessage.php?idAnnonce=';
+    $(location).attr('href', MESSAGE + idAnnonce);
 }
 
 function addOrRemoveFavori(idAnnonce) {

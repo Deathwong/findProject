@@ -34,7 +34,8 @@ controller();
     </div>
     <!--todo le boutton doit s'afficher seulement si l'utilisateur n'a pas crée l'annonce-->
     <div hidden="hidden" id="contact-me">
-        <button id="contactButton">contacter moi</button>
+        <button id="contactButton" onclick="redirectOnSendMessagePage(<?= $annonce->getAnnId() ?>)">contacter moi
+        </button>
     </div>
 
 </div>
@@ -43,7 +44,7 @@ controller();
     // On récupère l'id du user connecté
     userConnectId = <?=  $user->getUseId() ?>;
     // Récupération de l'id du créateur de l'annonce
-    userAnnonceId = <?= $annonce->getUseId() ?>;
+    userAnnonceId = <?= $annonce->getAnnId() ?>;
     showContactForAnnonceButton(userConnectId, userAnnonceId);
 </script>
 </body>
