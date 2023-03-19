@@ -203,7 +203,7 @@ class AnnonceService
         // TODO : faire appelle à la fonction qui supprime les favoris liés à l'annonce
         FavoriService::deleteLinkFavorisByIdAnnonce($idAnnonce);
 
-        $query = "delete from annonce WHERE ann_id = :idAnnonce";
+        $query = "delete from annonce WHERE ann_id = :idAnnonce; delete from favoris where ann_id = :idAnnonce";
 
         // On fait le prépare statement
         $request = $connection->prepare($query);

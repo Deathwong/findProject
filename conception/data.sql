@@ -28,6 +28,9 @@ insert into user (use_id, use_email, use_password)
 values (3, 'jean@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
 insert into user (use_id, use_email, use_password)
 values (4, 'jean@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
+insert into user (use_id, use_email, use_password)
+values (5, 'joanendg@gmail.com', '6dfed4000c9c7cd74e41f1fe79057230');
+
 
 
 /*==============================================================*/
