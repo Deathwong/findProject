@@ -164,7 +164,8 @@ function checkMinLength(element, length) {
 }
 
 function checkEmpty(element) {
-    return element.trim().length === 0;
+
+    return element ? element.trim().length === 0 : false;
 }
 
 function checkEmptyArray(element) {
