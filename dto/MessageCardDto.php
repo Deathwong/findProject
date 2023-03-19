@@ -2,14 +2,50 @@
 
 namespace dto;
 
-class MessageCard
+class MessageCardDto
 {
+    private int $receiverId;
+    private int $idAnnonce;
     private string $receiver;
     private string $nomAnnonce;
+    private string $photo;
+
+    /**
+     * @return string
+     */
+    public function getPhoto(): string
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param string $photo
+     */
+    public function setPhoto(string $photo): void
+    {
+        $this->photo = $photo;
+    }
+
     private string $message;
 
     public function __construct()
     {
+    }
+
+    /**
+     * @return string
+     */
+    public function getReceiverId(): string
+    {
+        return $this->receiverId;
+    }
+
+    /**
+     * @param string $receiverId
+     */
+    public function setReceiverId(string $receiverId): void
+    {
+        $this->receiverId = $receiverId;
     }
 
     /**
@@ -26,6 +62,22 @@ class MessageCard
     public function setReceiver(string $receiver): void
     {
         $this->receiver = $receiver;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdAnnonce(): string
+    {
+        return $this->idAnnonce;
+    }
+
+    /**
+     * @param string $idAnnonce
+     */
+    public function setIdAnnonce(string $idAnnonce): void
+    {
+        $this->idAnnonce = $idAnnonce;
     }
 
     /**
@@ -59,4 +111,5 @@ class MessageCard
     {
         $this->message = $message;
     }
+
 }

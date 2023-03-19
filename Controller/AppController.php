@@ -26,7 +26,7 @@ $categoriesAnnonce = [];
 
 $arrayOfSelectedValues = [];
 
-$usersChatBox = [];
+$messageCards = [];
 $userConnectChatBox = null;
 $userIDChatBox = null;
 
@@ -34,7 +34,7 @@ session_start();
 
 function controller(): void
 {
-    global $users, $user, $annonce, $annonces, $categories, $categoriesAnnonce, $arrayOfSelectedValues, $usersChatBox,
+    global $users, $user, $annonce, $annonces, $categories, $categoriesAnnonce, $arrayOfSelectedValues, $messageCards,
            $userConnectChatBox, $userIDChatBox;
     $separator = ",";
 
@@ -133,7 +133,7 @@ function controller(): void
 
         case AppConstant::$MESSAGE_URL:
             // On récupère les utilisateurs auquel l'utilisateur a écrit
-            $usersChatBox = MessageController::getUserChatBox();
+            $messageCards = MessageController::getMessageCards();
             // On récupère l'utilisateur connecté
             $userConnectChatBox = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
             $userIDChatBox = $userConnectChatBox->getUseId();

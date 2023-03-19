@@ -9,23 +9,39 @@ controller();
 <div>
     <div>Message</div>
     <div>
-        <label for="chatUsers"></label>
-        <select name="chatUsers" id="chatUsers" multiple>
-
+        <div>
             <?php
-            //    var_dump($usersChatBox);
-            foreach ($usersChatBox as $userChatBox) {
-//            if ($userIDChatBox != $userChatBox) {
-                ?>
-                <option value="<?= $userChatBox->getUseId() ?>"><?= $userChatBox->getUseEmail() ?></option>
-                <?php
-//            }
+            foreach ($messageCards as $messageCard) {
+                $receiverId = $messageCard->getReceiverId();
+                if ($receiverId != $userIDChatBox) {
+                    ?>
+                    <div class="nowrap message-card">
+                        <div>
+                            <div>
+                                <img class="message-card-photo"
+                                     src="../assets/img/annonces/<?= $messageCard->getPhoto() ?>"
+                                     alt="image de l'annonce">
+                            </div>
+                        </div>
+                        <div class="">
+                            <div>
+                                <?= $messageCard->getReceiver() ?>
+                            </div>
+                            <div>
+                                <?= $messageCard->getNomAnnonce() ?>
+                            </div>
+                            <div>
+                                <?= $messageCard->getMessage() ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
             }
-
             ?>
-        </select>
+        </div>
     </div>
-    
+
 </div>
 <?php require 'footer.php' ?>
 </body>

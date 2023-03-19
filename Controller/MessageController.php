@@ -9,12 +9,12 @@ require '../service/MessageService.php';
 
 class MessageController
 {
-    public static function getUserChatBox(): array
+    public static function getMessageCards(): array
     {
         // Récupération de l'User
         $userConnect = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
 
-        return MessageService::getUserChatBox($userConnect);
+        return MessageService::getMessageCards($userConnect);
     }
 
     public static function sendMessage(): void

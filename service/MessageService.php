@@ -2,6 +2,7 @@
 
 namespace service;
 
+use dto\MessageCardDto;
 use model\Message;
 use model\User;
 use PDO;
@@ -9,6 +10,7 @@ use PDO;
 require_once 'PdoConnectionHandler.php';
 require_once "../utils/utils.php";
 require '../model/Message.php';
+require '../dto/MessageCardDto.php';
 
 class MessageService
 {
@@ -18,7 +20,7 @@ class MessageService
 //
 //    }
 
-    public static function getUserChatBox(User $user): array
+    public static function getMessageCards(User $user): array
     {
         // On récupère la connection
         $connection = PdoConnectionHandler::getPDOInstance();
@@ -26,9 +28,17 @@ class MessageService
         $useId = $user->getUseId();
 
         // La requête
-        $query = "select distinct  u.* from message m 
-                        join user u on m.use_receiver_id and m.mes_sender_id = u.use_id 
-                     where m.mes_sender_id = :idUser or m.use_receiver_id = :idUser";
+//        $query = "select distinct  u.* from message m
+//                        join user u on m.use_receiver_id and m.mes_sender_id = u.use_id
+//                     where m.mes_sender_id = :idUser or m.use_receiver_id = :idUser";
+
+        $query = "SELECT u.use_id as receiverId, u.use_email as receiver, m.mes_content as message, 
+                        a.ann_nom as nomAnnonce, a.ann_id as idAnnonce, a.ann_photo as photo
+                FROM user u
+                INNER JOIN message m ON u.use_id = m.mes_sender_id
+                INNER JOIN annonce a ON a.ann_id = m.ann_id
+                WHERE m.use_receiver_id = :idUser
+                ORDER BY m.mes_create_at DESC";
 
         $request = $connection->prepare($query);
 
@@ -37,7 +47,7 @@ class MessageService
 
         $request->execute();
 
-        return $request->fetchAll(PDO::FETCH_CLASS, User::class);
+        return $request->fetchAll(PDO::FETCH_CLASS, MessageCardDto::class);
     }
 
     public static function getMessages(User $user): array
