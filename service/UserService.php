@@ -136,7 +136,7 @@ class UserService
         $password = getElementInRequestByAttribute('password');
 
         // On valide s'il Sont Vide
-        $isValidEmptyValues = self::validateEmptyValuesUser($email, $password, $string);
+        $isValidEmptyValues = self::validateEmptyValuesUser($email, $password);
 
         if ($isValidEmptyValues) {
             header("location:" . $string);
@@ -144,7 +144,7 @@ class UserService
         }
 
         // On valide avec les critères
-        $isValidNotRespectCriteria = self::validateUserValuesWithCriteria($email, $password, $string);
+        $isValidNotRespectCriteria = self::validateUserValuesWithCriteria($email, $password);
 
         if ($isValidNotRespectCriteria) {
             header("location:" . $string);
@@ -196,7 +196,8 @@ class UserService
             $_SESSION['errorValidationUser'] = '';
 
             if (!validateEmail($email)) {
-                $_SESSION['errorValidationUser'] .= 'Veuillez un email valide sous un bon format</br>exemple : exemple@find.com</br>';
+                $_SESSION['errorValidationUser'] .= 'Veuillez un email valide sous un bon format</br>exemple : 
+                        exemple@find.com</br>';
             }
 
             if (!validateLength(10, $password)) {

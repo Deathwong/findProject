@@ -34,13 +34,17 @@ function validateSignInFormEventListener() {
     validatePasswordEventListener();
 }
 
-function submitUpdateFormAnnonce() {
-    const form = $("#updateAnnonceForm");
-
+function validatedUpdateAnnonceForm() {
     validateNomAnnonce();
     validatePrixAnnonce();
     validateDescriptionAnnonce();
     validateCategoryAnnonce();
+}
+
+function submitUpdateFormAnnonce() {
+    const form = $("#updateAnnonceForm");
+
+    validatedUpdateAnnonceForm();
 
     if (isValidNomAnnonce && isValidPrixAnnonce && isValidDescriptionAnnonce &&
         isValidCategoryAnnonce) {

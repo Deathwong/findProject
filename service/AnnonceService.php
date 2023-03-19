@@ -24,8 +24,9 @@ class AnnonceService
         $idAnnonce = getElementInRequestByAttribute("idAnnonce");
 
         // Requête ramenant l'annonce et les différentes catégories séparées par une virgule
-        $query = "select ann.*, GROUP_CONCAT(cat.cat_id,cat.cat_libelle) as categories from annonce ann join categorie_annonce ca 
-            ON ann.ann_id = ca.ann_id join categorie cat on ca.cat_id = cat.cat_id where ann.ann_id = :idAnnonce";
+        $query = "select ann.*, GROUP_CONCAT(cat.cat_id,cat.cat_libelle) as categories from annonce ann 
+                join categorie_annonce ca ON ann.ann_id = ca.ann_id join categorie cat on ca.cat_id = cat.cat_id 
+                                                                     where ann.ann_id = :idAnnonce";
 
         // On fait le prépare statement
         $request = $connection->prepare($query);
@@ -111,19 +112,19 @@ class AnnonceService
         return $annonce;
     }
 
-    public static function validateCreateChampsAnnonce(): void
-    {
-        if (getElementInRequestByAttribute('ann_nom') === null ||
-            getElementInRequestByAttribute('ann_prix') === null ||
-            getElementInRequestByAttribute('ann_description') === null ||
-            getElementInRequestByAttribute("ann_photo") === null ||
-            getElementInRequestByAttribute("cat_id[]") !== null) {
-
-            $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires';
-            header("location:../views/editAnnonce.php");
-            exit();
-        }
-    }
+//    public static function validateCreateChampsAnnonce(): void
+//    {
+//        if (getElementInRequestByAttribute('ann_nom') === null ||
+//            getElementInRequestByAttribute('ann_prix') === null ||
+//            getElementInRequestByAttribute('ann_description') === null ||
+//            getElementInRequestByAttribute("ann_photo") === null ||
+//            getElementInRequestByAttribute("cat_id[]") !== null) {
+//
+//            $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires';
+//            header("location:../views/editAnnonce.php");
+//            exit();
+//        }
+//    }
 
     public static function validateUpdateChampsAnnonce(): void
     {
@@ -133,6 +134,7 @@ class AnnonceService
         $annDescription = getElementInRequestByAttribute('ann_description');
         $catID = getElementInRequestByAttribute("cat_id");
 
+        // Contrôle des champs obligatoire
         if ($annId === null || $annNon === null || $annPrix === null || $annDescription === null || $catID === null) {
 
             $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires suivants: ';
@@ -157,6 +159,7 @@ class AnnonceService
                 $champsErrors = addVirguleIfIsSet($champsErrors);
                 $champsErrors .= ' Catégories';
             }
+
 
             $_SESSION['errorValidateUpdateAnnonce'] .= $champsErrors;
 
