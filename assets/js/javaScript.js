@@ -1,3 +1,6 @@
+let userAnnonceId;
+let userConnectId;
+
 function submitSigninUserForm() {
     const form = $("#formUser");
 
@@ -86,6 +89,17 @@ function validCreateAnnonceForm() {
 function setCategoriesSelected(values) {
     console.log(values);
     $('.cat_id option[value=' + values + ']').attr('selected', true);
+}
+
+function showContactForAnnonceButton(userConnectID, userAnnonceID) {
+    if (userConnectID !== userAnnonceID) {
+        $("#contact-me").show();
+    }
+}
+
+function redirectOnSendMessagePage(idAnnonce) {
+    const MESSAGE = 'sendMessage.php?idAnnonce=';
+    $(location).attr('href', MESSAGE + idAnnonce);
 }
 
 function addOrRemoveFavori(idAnnonce) {

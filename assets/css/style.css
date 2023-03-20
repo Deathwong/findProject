@@ -1,0 +1,17 @@
+.message-card-photo {
+    height: 70px;
+}
+
+.nowrap {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.wrap {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.message-card {
+    height: 70px;
+}

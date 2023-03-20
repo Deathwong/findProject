@@ -5,12 +5,6 @@
 
 drop table if exists categorie_annonce;
 
-drop table if exists annonce;
-
-drop table if exists categorie;
-
-drop table if exists favoris;
-
 drop table if exists message;
 
 drop table if exists user;
@@ -73,8 +67,8 @@ create table favoris
 create table message
 (
     mes_id          bigint       not NULL AUTO_INCREMENT,
-    mes_sender_id   bigint,
-    use_receiver_id bigint,
+    mes_sender_id   bigint       not null,
+    use_receiver_id bigint       not null,
     mes_content     varchar(255) not null,
     mes_create_at   datetime     not null,
     primary key (mes_id)

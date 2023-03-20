@@ -2,6 +2,7 @@
 
 use Controller\AnnonceController;
 use Controller\FavoriController;
+use Controller\MessageController;
 use Controller\UserController;
 use model\Annonce;
 use model\AppConstant;
@@ -12,6 +13,7 @@ require_once 'UserController.php';
 require_once 'AnnonceController.php';
 require_once 'CategoryController.php';
 require_once 'FavoriController.php';
+require_once 'MessageController.php';
 
 $users = [];
 $user = new User();
@@ -24,11 +26,16 @@ $categoriesAnnonce = [];
 
 $arrayOfSelectedValues = [];
 
+$messageCards = [];
+$userConnectChatBox = null;
+$userIDChatBox = null;
+
 session_start();
 
 function controller(): void
 {
-    global $users, $user, $annonce, $annonces, $categories, $categoriesAnnonce, $arrayOfSelectedValues;
+    global $users, $user, $annonce, $annonces, $categories, $categoriesAnnonce, $arrayOfSelectedValues, $messageCards,
+           $userConnectChatBox, $userIDChatBox;
     $separator = ",";
 
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -84,8 +91,9 @@ function controller(): void
         case AppConstant::$DETAILS_ANNONCE_URL:
             //on vérifie si la requête est un GET
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                //o récupère les détails de l'Annonce
+                // On récupère les détails de l'Annonce
                 $annonce = AnnonceController::getAnnonceDetails();
+                $user = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
                 $categoriesAnnonce = explode($separator, getLettersOfTheString($annonce->getCategories()));
             }
             break;
@@ -134,6 +142,21 @@ function controller(): void
         case AppConstant::ADD_FAVORI_BY_ANNONCE_URL:
             // Suppression des favoris d'une annonce
             FavoriController::addLinkFavorisAnnonce();
+            break;
+
+        case AppConstant::$MESSAGE_URL:
+            // On récupère les utilisateurs auquel l'utilisateur a écrit
+            $messageCards = MessageController::getMessageCards();
+            // On récupère l'utilisateur connecté
+            $userConnectChatBox = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
+            $userIDChatBox = $userConnectChatBox->getUseId();
+            break;
+
+        case AppConstant::$SEND_MESSAGE_URL:
+            $annonce = AnnonceController::getAnnonceDetails();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                MessageController::sendMessage();
+            }
             break;
 
         default:

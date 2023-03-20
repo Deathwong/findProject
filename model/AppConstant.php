@@ -20,6 +20,8 @@ class AppConstant
     public static string $EDIT_ANNONCE_URL = '/findProject/views/editAnnonce.php';
     public static string $GET_ALL_ANNONCE_URL = '/findProject/views/getAllAnnonce.php';
     public static string $DELETE_FAVORI_BY_ANNONCE_URL = '/findProject/views/deleteFavoriByAnnonce.php';
+    public static string $MESSAGE_URL = "/findProject/views/message.php";
+    public static string $SEND_MESSAGE_URL = '/findProject/views/sendMessage.php';
     public const ADD_FAVORI_BY_ANNONCE_URL = '/findProject/views/addFavoriByAnnonce.php';
 
     public const USE_ID_SESSION_KEY = 'use_id';
