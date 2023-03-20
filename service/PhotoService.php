@@ -31,6 +31,18 @@ class PhotoService
         $requestPhotoAnnonce->execute();
     }
 
+    public static function insertPhotoNameInAnnonceByIdAnonce(int $idAnnonce, PDO $connection, string $photo): void
+    {
+        $query = "UPDATE annonce a SET a.ann_photo = :photo WHERE ann_id = :idAnnonce";
+
+        $requestPhotoAnnonce = $connection->prepare($query);
+
+        $requestPhotoAnnonce->bindParam(':photo', $photo);
+        $requestPhotoAnnonce->bindParam(':idAnnonce', $idAnnonce);
+
+        $requestPhotoAnnonce->execute();
+    }
+
     /**
      * Récupère le nom de la photo dans la base de donnée à partir de l'id de l'annonce
      * @param int $idAnnonce

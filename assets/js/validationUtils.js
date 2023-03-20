@@ -160,13 +160,13 @@ function checkIsNotDigit(value) {
 }
 
 function checkMinLength(element, length) {
-    return element.trim().length < length && element.trim().length !== 0;
+    return element && element.trim().length < length && element.trim().length !== 0;
 }
 
 function checkEmpty(element) {
-    return element.trim().length === 0;
+    return !element || element.trim().length === 0;
 }
 
 function checkEmptyArray(element) {
-    return element.length === 0;
+    return !element || element.length === 0;
 }
