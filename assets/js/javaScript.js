@@ -55,7 +55,7 @@ function submitUpdateFormAnnonce() {
     }
 }
 
-function validAnnonceUpdateForm() {
+function validAnnonceUpdateEventListnerForm() {
     validateNomAnnonceEventListener();
     validatePrixAnnonceEventListener();
     validateDescriptionAnnonceEventListener();
@@ -97,9 +97,41 @@ function showContactForAnnonceButton(userConnectID, userAnnonceID) {
     }
 }
 
-function redirectOnSendMessagePage(idAnnonce) {
-    const MESSAGE = 'sendMessage.php?idAnnonce=';
-    $(location).attr('href', MESSAGE + idAnnonce);
+function showUpdateAnnonceButton(userConnectID, userAnnonceID) {
+    if (userConnectID === userAnnonceID) {
+        $("#update-annonce").show();
+    }
+}
+
+/**
+ * Cache ou affiche un élément en fonction de l'id de l'utilisateur connecté
+ * @param userConnectID L'id de l'utilisateur connecté
+ * @param userAnnonceID L'id du créateur de l'annonce
+ * @param elementID L'id de l'élement à afficher
+ * @param condition La condition : True pour l'afficher quand les deux ids sont
+ * les memes et false pour afficher lorsqu'ils sont différents
+ */
+function showElementByUserConnectedId(userConnectID,
+                                      userAnnonceID, elementID,
+                                      condition) {
+    if (condition === true) {
+        if (userConnectID === userAnnonceID) {
+            $("#" + elementID).show();
+        }
+    } else if (condition === false) {
+        if (userConnectID !== userAnnonceID) {
+            $("#" + elementID).show();
+        }
+    }
+}
+
+/**
+ * Permet de rediriger vers une page avec en paramètre dans le get l'id de l'annonce
+ * @param idAnnonce Id de L'annonce
+ * @param URL URL de la page
+ */
+function redirectOnAPage(idAnnonce, URL) {
+    $(location).attr('href', URL + '?idAnnonce=' + idAnnonce);
 }
 
 function addOrRemoveFavori(idAnnonce) {

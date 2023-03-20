@@ -21,12 +21,13 @@ SET FOREIGN_KEY_CHECKS = 1;
 /* Table : user                                              	*/
 /*==============================================================*/
 insert into user (use_id, use_email, use_password)
-values (1, 'jean@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
+values (1, 'jean@gmail.com', 'f6fdffe48c908deb0f4c3bd36c032e72');
 insert into user (use_id, use_email, use_password)
 values (2, 'christ@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
 insert into user (use_id, use_email, use_password)
-values (4, 'peggy@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
-values (5, 'joanendg@gmail.com', '6dfed4000c9c7cd74e41f1fe79057230');
+values (3, 'peggy@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
+insert into user (use_id, use_email, use_password)
+values (4, 'joanendg@gmail.com', '6dfed4000c9c7cd74e41f1fe79057230');
 
 
 /*==============================================================*/

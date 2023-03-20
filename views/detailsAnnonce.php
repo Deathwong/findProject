@@ -17,7 +17,6 @@ controller();
     <div>
         <?= $annonce->getAnnPrix() ?>
     </div>
-
     <div>
         <?php
         foreach ($categoriesAnnonce as $categoryAnnonce) {
@@ -28,24 +27,42 @@ controller();
     <div>
         <?= $annonce->getAnnDescription() ?>
     </div>
-    <div>
+    <div hidden="hidden" id="favori-annonce">
         <label for="favori">Favori</label>
         <input type="checkbox" id="favori" name="favori" onchange="addOrRemoveFavori(<?= $annonce->getUseId() ?>)">
     </div>
-    <!--todo le boutton doit s'afficher seulement si l'utilisateur n'a pas crée l'annonce-->
     <div hidden="hidden" id="contact-me">
-        <button id="contactButton" onclick="redirectOnSendMessagePage(<?= $annonce->getAnnId() ?>)">contacter moi
+        <button id="contactButton" onclick="redirectOnAPage(<?= $annonce->getAnnId() ?>,'sendMessage.php')">contacter
+            moi
         </button>
     </div>
-
+    <div hidden="hidden" id="update-annonce">
+        <button id="updateButton" onclick="redirectOnAPage(<?= $annonce->getAnnId() ?>,'editAnnonce.php')">Modifier
+        </button>
+    </div>
+    <div hidden="hidden" id="delete-annonce">
+        <button id="deleteButton" onclick="redirectOnAPage(<?= $annonce->getAnnId() ?>,'deleteAnnonce.php')">Supprimer
+        </button>
+    </div>
 </div>
 <?php require 'footer.php' ?>
 <script>
     // On récupère l'id du user connecté
     userConnectId = <?=  $user->getUseId() ?>;
     // Récupération de l'id du créateur de l'annonce
-    userAnnonceId = <?= $annonce->getAnnId() ?>;
-    showContactForAnnonceButton(userConnectId, userAnnonceId);
+    userAnnonceId = <?= $annonce->getUseId() ?>;
+    // Affichage du bouton vers la modification en fonction des deux ids
+    showElementByUserConnectedId(userConnectId, userAnnonceId,
+        'update-annonce', true)
+    // Affichage du bouton vers la suppression en fonction des deux ids
+    showElementByUserConnectedId(userConnectId, userAnnonceId,
+        'delete-annonce', true)
+    // Affichage du bouton de contact en fonction des deux ids
+    showElementByUserConnectedId(userConnectId, userAnnonceId,
+        'contact-me', false)
+    // Affichage du bouton de mise en favoris en fonction des deux ids
+    showElementByUserConnectedId(userConnectId, userAnnonceId,
+        'favori-annonce', false)
 </script>
 </body>
 </html>
