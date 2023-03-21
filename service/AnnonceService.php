@@ -112,20 +112,6 @@ class AnnonceService
         return $annonce;
     }
 
-//    public static function validateCreateChampsAnnonce(): void
-//    {
-//        if (getElementInRequestByAttribute('ann_nom') === null ||
-//            getElementInRequestByAttribute('ann_prix') === null ||
-//            getElementInRequestByAttribute('ann_description') === null ||
-//            getElementInRequestByAttribute("ann_photo") === null ||
-//            getElementInRequestByAttribute("cat_id[]") !== null) {
-//
-//            $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires';
-//            header("location:../views/editAnnonce.php");
-//            exit();
-//        }
-//    }
-
     public static function validateUpdateChampsAnnonce(): void
     {
         $annId = getElementInRequestByAttribute('ann_id');
@@ -135,43 +121,10 @@ class AnnonceService
         $catID = getElementInRequestByAttribute("cat_id");
 
         // Contrôle des champs obligatoire
-        if ($annId === null || $annNon === null || $annPrix === null || $annDescription === null || $catID === null) {
+        self::validateAnnonceUpdateRequiredFields($annId, $annNon, $annPrix, $annDescription, $catID);
 
-            $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires suivants: ';
-            $champsErrors = '';
+        self::validateUpdateAnnonceFields($annNon, $annDescription, $annPrix, $annId);
 
-
-            if ($annNon === null) {
-                $champsErrors .= ' Nom';
-            }
-
-            if ($annPrix === null) {
-                $champsErrors = addVirguleIfIsSet($champsErrors);
-                $champsErrors .= ' Prix';
-            }
-
-            if ($annDescription === null) {
-                $champsErrors = addVirguleIfIsSet($champsErrors);
-                $champsErrors .= ' Description';
-            }
-
-            if ($catID === null) {
-                $champsErrors = addVirguleIfIsSet($champsErrors);
-                $champsErrors .= ' Catégories';
-            }
-
-
-            $_SESSION['errorValidateUpdateAnnonce'] .= $champsErrors;
-
-            header("location:../views/editAnnonce.php?idAnnonce=" . $annId);
-            exit();
-        }
-
-        if (!validatePrice($annPrix)) {
-            $_SESSION['errorValidateUpdateAnnonce'] = "Veuillez saisir le prix sous un bon format</br>exemple : 9.99 ou 9";
-            header("location:../views/editAnnonce.php?idAnnonce=" . $annId);
-            exit();
-        }
     }
 
     public static function updateCategoriesAnnonce($idAnnonce): void
@@ -348,5 +301,78 @@ class AnnonceService
 
         // Retour de l'identifiant de l'annonce créée
         return (int)$ann_id;
+    }
+
+    /**
+     * @param string $annId
+     * @param string $annNon
+     * @param string $annPrix
+     * @param string $annDescription
+     * @param string $catID
+     * @return void
+     */
+    public static function validateAnnonceUpdateRequiredFields(string $annId, string $annNon, string $annPrix, string $annDescription, string $catID): void
+    {
+        if ($annId === null || $annNon === null || $annPrix === null || $annDescription === null || $catID === null) {
+
+            $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires suivants: ';
+            $champsErrors = '';
+
+
+            if ($annNon === null) {
+                $champsErrors .= ' Nom';
+            }
+
+            if ($annPrix === null) {
+                $champsErrors = addVirguleIfIsSet($champsErrors);
+                $champsErrors .= ' Prix';
+            }
+
+            if ($annDescription === null) {
+                $champsErrors = addVirguleIfIsSet($champsErrors);
+                $champsErrors .= ' Description';
+            }
+
+            if ($catID === null) {
+                $champsErrors = addVirguleIfIsSet($champsErrors);
+                $champsErrors .= ' Catégories';
+            }
+
+
+            $_SESSION['errorValidateUpdateAnnonce'] .= $champsErrors;
+
+            header("location:../views/editAnnonce.php?idAnnonce=" . $annId);
+            exit();
+        }
+    }
+
+    /**
+     * @param string $annNon
+     * @param string $annDescription
+     * @param string $annPrix
+     * @return void
+     */
+    public static function validateUpdateAnnonceFields(string $annNon, string $annDescription, string $annPrix,
+                                                              $annId): void
+    {
+        if (!validateMaxLength(100, $annNon) || !validateMaxLength(4000, $annDescription) ||
+            !validatePrice($annPrix)) {
+
+            $_SESSION['errorValidateUpdateAnnonce'] = '';
+            if (!validateMaxLength(100, $annNon)) {
+                $_SESSION['errorValidateUpdateAnnonce'] .= "Le nom doit avoir au plus 100 caractères </br>";
+            }
+
+            if (!validateMaxLength(4000, $annDescription)) {
+                $_SESSION['errorValidateUpdateAnnonce'] .= "Le nom doit avoir au plus 100 caractères </br>";
+            }
+
+            if (!validatePrice($annPrix)) {
+                $_SESSION['errorValidateUpdateAnnonce'] .= "Veuillez saisir le prix sous un bon format</br>exemple : 9.99 ou 9";
+            }
+
+            header("location:../views/editAnnonce.php?idAnnonce=" . $annId);
+            exit();
+        }
     }
 }

@@ -15,7 +15,8 @@ controller();
                 $receiverId = $messageCard->getReceiverId();
                 if ($receiverId != $userIDChatBox) {
                     ?>
-                    <div class="nowrap message-card">
+                    <div class="nowrap message-card"
+                         onclick="getDiscussion(<?= $messageCard->getIdAnnonce() ?>,<?= $messageCard->getReceiverId() ?>)">
                         <div>
                             <div>
                                 <img class="message-card-photo"
@@ -24,10 +25,10 @@ controller();
                             </div>
                         </div>
                         <div class="">
-                            <div>
+                            <div id="idReceiver">
                                 <?= $messageCard->getReceiver() ?>
                             </div>
-                            <div>
+                            <div id="idAnnonce">
                                 <?= $messageCard->getNomAnnonce() ?>
                             </div>
                             <div>
@@ -39,6 +40,9 @@ controller();
                 }
             }
             ?>
+        </div>
+        <div id="message-container">
+
         </div>
     </div>
 

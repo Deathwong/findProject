@@ -136,6 +136,17 @@ function validatePrice($price): bool
 }
 
 /**
+ * Valid la longueur maximum d'une chaine de caractère
+ * @param int $length
+ * @param string $value
+ * @return bool
+ */
+function validateMaxLength(int $length, string $value): bool
+{
+    return strlen(trim($value)) < $length;
+}
+
+/**
  * Valide l'Email
  * @param string $email
  * @return bool
@@ -152,12 +163,12 @@ function validateEmail(string $email): bool
 }
 
 /**
- * Valid la longueur d'une chaine de caractère
+ * Valid la longueur minimum d'une chaine de caractère
  * @param int $length
  * @param string $value
  * @return bool
  */
-function validateLength(int $length, string $value): bool
+function validateMinLength(int $length, string $value): bool
 {
     return strlen(trim($value)) >= $length;
 }

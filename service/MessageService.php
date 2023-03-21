@@ -50,16 +50,18 @@ class MessageService
         return $request->fetchAll(PDO::FETCH_CLASS, MessageCardDto::class);
     }
 
-    public static function getMessages(User $user): array
+    public static function getDiscussion(User $user): array
     {
         // On récupère la connection
         $connection = PdoConnectionHandler::getPDOInstance();
 
         // On récupère l'id de l'interlocuteur
         $idInterlocuteur = getElementInRequestByAttribute("use_id");
+        $idAnnonce = getElementInRequestByAttribute("ann_id");
 
-        $query = "select  * from  message where  (mes_sender_id = :idUser and use_receiver_id = :userId) or 
-                               (mes_sender_id = :userId and use_receiver_id = :idUser)";
+        $query = "select  * from  message where  ((mes_sender_id = :idUser and use_receiver_id = :userId) or
+                                (mes_sender_id = :userId and use_receiver_id = :idUser)) and ann_id = :idAnnonce  
+                        order by mes_create_at desc";
 
         // On récupère l'id du user connecté
         $useId = $user->getUseId();
@@ -69,6 +71,7 @@ class MessageService
         // Récupération des paramètres et binding
         $request->bindParam(":idUser", $useId);
         $request->bindParam(":userId", $idInterlocuteur);
+        $request->bindParam(":idAnnonce", $idAnnonce);
 
         $request->execute();
 

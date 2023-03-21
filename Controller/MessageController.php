@@ -22,4 +22,10 @@ class MessageController
         $userConnect = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
         MessageService::sendMessage($userConnect);
     }
+
+    public static function getDiscussion(): array
+    {
+        $userConnect = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
+        return MessageService::getDiscussion($userConnect);
+    }
 }

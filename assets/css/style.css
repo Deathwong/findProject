@@ -13,5 +13,8 @@
 }
 
 .message-card {
+    border: 2px black solid;
     height: 70px;
+    width: 200px;
+    margin-bottom: 2px;
 }

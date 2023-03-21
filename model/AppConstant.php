@@ -22,6 +22,7 @@ class AppConstant
     public static string $DELETE_FAVORI_BY_ANNONCE_URL = '/findProject/views/deleteFavoriByAnnonce.php';
     public static string $MESSAGE_URL = "/findProject/views/message.php";
     public static string $SEND_MESSAGE_URL = '/findProject/views/sendMessage.php';
+    public static string $GET_DISCUSSION = '/findProject/views/getDiscussion.php';
     public const ADD_FAVORI_BY_ANNONCE_URL = '/findProject/views/addFavoriByAnnonce.php';
 
     public const USE_ID_SESSION_KEY = 'use_id';

@@ -191,7 +191,7 @@ class UserService
     {
         $isValid = false;
 
-        if (!validateEmail($email) || !validateLength(10, $password)) {
+        if (!validateEmail($email) || !validateMinLength(10, $password)) {
 
             $_SESSION['errorValidationUser'] = '';
 
@@ -200,7 +200,7 @@ class UserService
                         exemple@find.com</br>';
             }
 
-            if (!validateLength(10, $password)) {
+            if (!validateMinLength(10, $password)) {
                 $_SESSION['errorValidationUser'] .= 'Votre Mot de passe dot contenir au moins 10 caractères';
             }
 

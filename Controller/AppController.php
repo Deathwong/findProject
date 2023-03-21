@@ -158,6 +158,10 @@ function controller(): void
                 MessageController::sendMessage();
             }
             break;
+        case AppConstant::$GET_DISCUSSION:
+            $annonce = MessageController::getDiscussion();
+            MessageController::sendMessage();
+            break;
 
         default:
             header('Status: 404 Not Found');
