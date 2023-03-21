@@ -32,16 +32,19 @@ controller();
         <input type="checkbox" id="favori" name="favori" onchange="addOrRemoveFavori(<?= $annonce->getUseId() ?>)">
     </div>
     <div hidden="hidden" id="contact-me">
-        <button id="contactButton" onclick="redirectOnAPage(<?= $annonce->getAnnId() ?>,'sendMessage.php')">contacter
+        <button id="contactButton" onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,'sendMessage.php')">
+            contacter
             moi
         </button>
     </div>
     <div hidden="hidden" id="update-annonce">
-        <button id="updateButton" onclick="redirectOnAPage(<?= $annonce->getAnnId() ?>,'editAnnonce.php')">Modifier
+        <button id="updateButton" onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,'editAnnonce.php')">
+            Modifier
         </button>
     </div>
     <div hidden="hidden" id="delete-annonce">
-        <button id="deleteButton" onclick="redirectOnAPage(<?= $annonce->getAnnId() ?>,'deleteAnnonce.php')">Supprimer
+        <button id="deleteButton" onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,'deleteAnnonce.php')">
+            Supprimer
         </button>
     </div>
 </div>
@@ -52,17 +55,13 @@ controller();
     // Récupération de l'id du créateur de l'annonce
     userAnnonceId = <?= $annonce->getUseId() ?>;
     // Affichage du bouton vers la modification en fonction des deux ids
-    showElementByUserConnectedId(userConnectId, userAnnonceId,
-        'update-annonce', true)
+    showElementByUserConnectedId(userConnectId, userAnnonceId, 'update-annonce', true);
     // Affichage du bouton vers la suppression en fonction des deux ids
-    showElementByUserConnectedId(userConnectId, userAnnonceId,
-        'delete-annonce', true)
+    showElementByUserConnectedId(userConnectId, userAnnonceId, 'delete-annonce', true);
     // Affichage du bouton de contact en fonction des deux ids
-    showElementByUserConnectedId(userConnectId, userAnnonceId,
-        'contact-me', false)
+    showElementByUserConnectedId(userConnectId, userAnnonceId, 'contact-me', false);
     // Affichage du bouton de mise en favoris en fonction des deux ids
-    showElementByUserConnectedId(userConnectId, userAnnonceId,
-        'favori-annonce', false)
+    showElementByUserConnectedId(userConnectId, userAnnonceId, 'favori-annonce', false);
 </script>
 </body>
 </html>

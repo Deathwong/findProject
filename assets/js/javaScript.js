@@ -131,8 +131,17 @@ function showElementByUserConnectedId(userConnectID,
  * @param idAnnonce Id de L'annonce
  * @param URL URL de la page
  */
-function redirectOnAPage(idAnnonce, URL) {
-    $(location).attr('href', URL + '?idAnnonce=' + idAnnonce);
+function redirectOnAnnoncePages(idAnnonce, url) {
+    $(location).attr('href', url + '?idAnnonce=' + idAnnonce);
+}
+
+/**
+ * Permet de rediriger vers une page
+ * @param idAnnonce Id de L'annonce
+ * @param URL URL de la page
+ */
+function redirectOnPage(url) {
+    $(location).attr('href', url);
 }
 
 function addOrRemoveFavori(idAnnonce) {
@@ -289,4 +298,15 @@ function getDiscussion() {
     //         console.log('Error');
     //     }
     // });
+}
+
+function showOrHideElementByUserConnected(elementId, userIsConnected, show) {
+
+    if (userIsConnected && show) {
+        $("#" + elementId).attr('hidden', false);
+    } else if (!userIsConnected && !show) {
+        $("#" + elementId).attr('hidden', false);
+    } else {
+        $("#" + elementId).attr('hidden', true);
+    }
 }

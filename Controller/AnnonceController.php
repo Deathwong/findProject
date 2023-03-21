@@ -36,7 +36,6 @@ class AnnonceController
     public static function getAllAnnonce(): array
     {
         return AnnonceService::getAllAnnonce();
-
     }
 
     // Permet de créer une annonce

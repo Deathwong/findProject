@@ -6,6 +6,7 @@ controller();
 <html lang="fr">
 <?php require 'header.php' ?>
 <body>
+<?php require 'menu.php' ?>
 <div> Création d'une Annonce</div>
 <div>
     <form method="post" action="" id="createAnnonceForm" enctype="multipart/form-data">

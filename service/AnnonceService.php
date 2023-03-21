@@ -201,17 +201,17 @@ class AnnonceService
         }
 
         // Prix  Minimum
-        if (isset($_POST['prix_min']) || isset($_GET['prix_min'])) {
-            $prixMin = getElementInRequestByAttribute("prix_min");
-            $conditions[] = 'ann.$prix >= :prixMin';
-            $parameters['prix_min'] = $prixMin;
+        if (isset($_POST['prixMin']) || isset($_GET['prixMin'])) {
+            $prixMin = getElementInRequestByAttribute("prixMin");
+            $conditions[] = 'ann.ann_prix >= :prixMin';
+            $parameters['prixMin'] = $prixMin;
         }
 
         // Prix  Maximum
-        if (isset($_POST['prix_max']) || isset($_GET['prix_max'])) {
-            $prixMax = getElementInRequestByAttribute("prix_max");
-            $conditions[] = 'ann.$prix <= :prixMax';
-            $parameters['prix_max'] = $prixMax;
+        if (isset($_POST['prixMax']) || isset($_GET['prixMax'])) {
+            $prixMax = getElementInRequestByAttribute("prixMax");
+            $conditions[] = 'ann.ann_prix <= :prixMax';
+            $parameters['prixMax'] = $prixMax;
         }
 
         if ($conditions) {
