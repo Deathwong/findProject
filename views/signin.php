@@ -6,6 +6,7 @@ controller();
 <html lang="fr">
 <?php require 'header.php' ?>
 <body>
+<?php require 'menu.php' ?>
 <div>
 
     <form action="" method="post" id="formUser">

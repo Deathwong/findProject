@@ -23,4 +23,17 @@
     <script type="text/javascript" src="../assets/js/messages.js"></script>
     <script type="text/javascript" src="../assets/js/validationUtils.js"></script>
     <script type="text/javascript" src="../assets/js/javaScript.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // On récupère l'id du user connecté
+            userConnectId = '<?=  $userIsConnected ?>';
+
+            // Affichage du bouton vers la page de connexion de l'utilisateur
+            showOrHideElementByUserConnected('user-signup-link', userConnectId, false);
+            showOrHideElementByUserConnected('user-signing-link', userConnectId, false);
+            showOrHideElementByUserConnected('user-logout-link', userConnectId, true);
+            showOrHideElementByUserConnected('user-label', userConnectId, true);
+        });
+    </script>
 </div>
