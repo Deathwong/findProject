@@ -67,6 +67,7 @@ create table favoris
 create table message
 (
     mes_id          bigint       not NULL AUTO_INCREMENT,
+    ann_id          bigint(20)   not null,
     mes_sender_id   bigint       not null,
     use_receiver_id bigint       not null,
     mes_content     varchar(255) not null,
@@ -115,3 +116,6 @@ alter table message
     add constraint fk_message_relation_receiver__user foreign key (use_receiver_id)
         references user (use_id) on delete restrict on update restrict;
 
+alter table message
+    add constraint fk_message_relation__annonce foreign key (ann_id)
+        references annonce (ann_id) on delete restrict on update restrict;
