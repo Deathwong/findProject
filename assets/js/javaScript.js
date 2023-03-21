@@ -1,3 +1,6 @@
+let userAnnonceId;
+let userConnectId;
+
 function submitSigninUserForm() {
     const form = $("#formUser");
 
@@ -34,13 +37,17 @@ function validateSignInFormEventListener() {
     validatePasswordEventListener();
 }
 
-function submitUpdateFormAnnonce() {
-    const form = $("#updateAnnonceForm");
-
+function validatedUpdateAnnonceForm() {
     validateNomAnnonce();
     validatePrixAnnonce();
     validateDescriptionAnnonce();
     validateCategoryAnnonce();
+}
+
+function submitUpdateFormAnnonce() {
+    const form = $("#updateAnnonceForm");
+
+    validatedUpdateAnnonceForm();
 
     if (isValidNomAnnonce && isValidPrixAnnonce && isValidDescriptionAnnonce &&
         isValidCategoryAnnonce) {
@@ -48,7 +55,7 @@ function submitUpdateFormAnnonce() {
     }
 }
 
-function validAnnonceUpdateForm() {
+function validAnnonceUpdateEventListnerForm() {
     validateNomAnnonceEventListener();
     validatePrixAnnonceEventListener();
     validateDescriptionAnnonceEventListener();
@@ -57,8 +64,8 @@ function validAnnonceUpdateForm() {
 
 
 function submitCreateFormAnnonce() {
-    const form = $("#updateAnnonceForm");
-
+    const form = $("#createAnnonceForm");
+    //Demander si c'est bon
     validateNomAnnonce();
     validatePrixAnnonce();
     validatePhotoAnnonce();
@@ -77,11 +84,55 @@ function validCreateAnnonceForm() {
     validateDescriptionAnnonceEventListener();
     validatePhotoAnnonceEventListener();
     validateCategoryAnnonceEventListener()
+
 }
 
 function setCategoriesSelected(values) {
     console.log(values);
     $('.cat_id option[value=' + values + ']').attr('selected', true);
+}
+
+function showContactForAnnonceButton(userConnectID, userAnnonceID) {
+    if (userConnectID !== userAnnonceID) {
+        $("#contact-me").show();
+    }
+}
+
+function showUpdateAnnonceButton(userConnectID, userAnnonceID) {
+    if (userConnectID === userAnnonceID) {
+        $("#update-annonce").show();
+    }
+}
+
+/**
+ * Cache ou affiche un élément en fonction de l'id de l'utilisateur connecté
+ * @param userConnectID L'id de l'utilisateur connecté
+ * @param userAnnonceID L'id du créateur de l'annonce
+ * @param elementID L'id de l'élement à afficher
+ * @param condition La condition : True pour l'afficher quand les deux ids sont
+ * les memes et false pour afficher lorsqu'ils sont différents
+ */
+function showElementByUserConnectedId(userConnectID,
+                                      userAnnonceID, elementID,
+                                      condition) {
+    if (condition === true) {
+        if (userConnectID === userAnnonceID) {
+            $("#" + elementID).show();
+        }
+    } else if (condition === false) {
+        if (userConnectID !== userAnnonceID) {
+            $("#" + elementID).show();
+        }
+    }
+}
+
+/**
+ * Permet de rediriger vers une page avec en paramètre dans le get l'id de l'annonce
+ * @param idAnnonce Id de L'annonce
+ * @param URL URL de la page
+ */
+function redirectOnAPage(idAnnonce, URL) {
+    $(location).attr('href', URL + '?idAnnonce=' + idAnnonce);
 }
 
 function addOrRemoveFavori(idAnnonce) {
@@ -196,4 +247,46 @@ function rechercheAjax() {
             console.log('Error');
         }
     });
+}
+
+function getDiscussion() {
+    let data = {};
+
+    // Récupération des données de chargement de la discussion
+    // idReceiver
+    const idReceiver = $("#idReceiver").text().trim();
+    if (!checkEmpty(idReceiver)) {
+        data.nom = idReceiver;
+    }
+
+    // idAnnonce
+    const idAnnonce = $("#idAnnonce").text().trim();
+    if (!checkEmpty(idAnnonce)) {
+        data.prixMin = idAnnonce;
+    }
+
+    // const URL = '/findProject/views/getDiscussion.php';
+    // let discussion = null;
+    //
+    // $.ajax({
+    //     method: "POST",
+    //     type: "POST",
+    //     url: URL,
+    //     data: data,
+    //     success: function (data) {
+    //         const discussion = JSON.parse(data);
+    //         let messageContainer = $("#message-container");
+    //         messageContainer.find("tr:gt(0)").remove();
+    //
+    //         for (let i = 0; i < discussion.length; i++) {
+    //             let json_data = '<tr>' +
+    //                 '<td>' + discussion[i].ann_nom + '</td>' +
+    //                 '</tr>';
+    //             discussion.append(json_data);
+    //         }
+    //     },
+    //     error: function (data) {
+    //         console.log('Error');
+    //     }
+    // });
 }

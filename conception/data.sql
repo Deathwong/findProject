@@ -21,13 +21,13 @@ SET FOREIGN_KEY_CHECKS = 1;
 /* Table : user                                              	*/
 /*==============================================================*/
 insert into user (use_id, use_email, use_password)
-values (1, 'jean@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
+values (1, 'jean@gmail.com', 'f6fdffe48c908deb0f4c3bd36c032e72');
 insert into user (use_id, use_email, use_password)
-values (2, 'jean@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
+values (2, 'christ@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
 insert into user (use_id, use_email, use_password)
-values (3, 'jean@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
+values (3, 'peggy@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
 insert into user (use_id, use_email, use_password)
-values (4, 'jean@gmail.com', '21232f297a57a5a743894a0e4a801fc3');
+values (4, 'joanendg@gmail.com', '6dfed4000c9c7cd74e41f1fe79057230');
 
 
 /*==============================================================*/
@@ -175,14 +175,20 @@ values (24, 24, 4);
 /*==============================================================*/
 /* Table : message	                                            */
 /*==============================================================*/
-insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-values (1, 1, 2, 'message', '2023-01-14 7:0:0');
-insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-values (2, 2, 1, 'message', '2023-01-18 7:0:0');
-insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-values (3, 3, 4, 'message', '2023-01-20 7:0:0');
-insert into message (mes_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-values (4, 4, 3, 'message', '2023-01-26 7:0:0');
+insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (1, 1, 2, 1, 'message', '2023-01-14 7:0:0');
+insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (2, 1, 2, 1, 'message', '2023-01-18 7:26:0');
+insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (3, 1, 1, 2, 'message', '2023-01-18 7:28:0');
+insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (4, 7, 1, 2, 'message', '2023-01-20 7:0:0');
+insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (5, 7, 2, 1, 'message', '2023-01-20 7:23:0');
+insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (6, 7, 1, 2, 'message', '2023-01-20 7:27:0');
+insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (7, 1, 4, 3, 'message', '2023-01-26 7:0:0');
 
 
 

@@ -38,6 +38,8 @@ function validateEmail() {
         champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
     } else if (!checkIsNotEmail(email)) {
         champError.text(stringFormat(formControlErrorMessage.email));
+    } else if (checkMaxLength(email, 100)) {
+        champError.text(stringFormat(formControlErrorMessage.maxlength, nomChamp, 10));
     } else {
         champError.text("");
         isValidEmail = true;
@@ -58,6 +60,8 @@ function validateNomAnnonce() {
 
     if (checkEmpty(nomAnnonce)) {
         champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
+    } else if (checkMaxLength(nomAnnonce, 100)) {
+        champError.text(stringFormat(formControlErrorMessage.maxlength, nomChamp, 10));
     } else {
         champError.text("");
         isValidNomAnnonce = true;
@@ -98,6 +102,8 @@ function validateDescriptionAnnonce() {
 
     if (checkEmpty(descriptionAnnonce)) {
         champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
+    } else if (checkMaxLength(descriptionAnnonce, 4000)) {
+        champError.text(stringFormat(formControlErrorMessage.maxlength, nomChamp, 10));
     } else {
         champError.text("");
         isValidDescriptionAnnonce = true;
@@ -161,6 +167,10 @@ function checkIsNotDigit(value) {
 
 function checkMinLength(element, length) {
     return element && element.trim().length < length && element.trim().length !== 0;
+}
+
+function checkMaxLength(element, length) {
+    return element && element.trim().length > length && element.trim().length !== 0;
 }
 
 function checkEmpty(element) {

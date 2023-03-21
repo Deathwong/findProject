@@ -80,7 +80,7 @@ class UserService
 
     }
 
-    public static function getUserByEmail($email): bool|User
+    public static function getUserByEmail($email): User|bool
     {
         $connection = PdoConnectionHandler::getPDOInstance();
 
@@ -136,7 +136,7 @@ class UserService
         $password = getElementInRequestByAttribute('password');
 
         // On valide s'il Sont Vide
-        $isValidEmptyValues = self::validateEmptyValuesUser($email, $password, $string);
+        $isValidEmptyValues = self::validateEmptyValuesUser($email, $password);
 
         if ($isValidEmptyValues) {
             header("location:" . $string);
@@ -144,7 +144,7 @@ class UserService
         }
 
         // On valide avec les critères
-        $isValidNotRespectCriteria = self::validateUserValuesWithCriteria($email, $password, $string);
+        $isValidNotRespectCriteria = self::validateUserValuesWithCriteria($email, $password);
 
         if ($isValidNotRespectCriteria) {
             header("location:" . $string);
@@ -158,7 +158,7 @@ class UserService
      * @param string|null $password
      * @return bool Renvoi true s'il existe des champs vides et false sinon
      */
-    public static function validateEmptyValuesUser(string|null $email, string|null $password): bool
+    public static function validateEmptyValuesUser($email, $password): bool
     {
         $isValid = false;
 
@@ -187,19 +187,20 @@ class UserService
      * @param string|null $password
      * @return bool
      */
-    public static function validateUserValuesWithCriteria(string|null $email, string|null $password): bool
+    public static function validateUserValuesWithCriteria($email, $password): bool
     {
         $isValid = false;
 
-        if (!validateEmail($email) || !validateLength(10, $password)) {
+        if (!validateEmail($email) || !validateMinLength(10, $password)) {
 
             $_SESSION['errorValidationUser'] = '';
 
             if (!validateEmail($email)) {
-                $_SESSION['errorValidationUser'] .= 'Veuillez un email valide sous un bon format</br>exemple : exemple@find.com</br>';
+                $_SESSION['errorValidationUser'] .= 'Veuillez un email valide sous un bon format</br>exemple : 
+                        exemple@find.com</br>';
             }
 
-            if (!validateLength(10, $password)) {
+            if (!validateMinLength(10, $password)) {
                 $_SESSION['errorValidationUser'] .= 'Votre Mot de passe dot contenir au moins 10 caractères';
             }
 

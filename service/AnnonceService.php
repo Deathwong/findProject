@@ -24,8 +24,9 @@ class AnnonceService
         $idAnnonce = getElementInRequestByAttribute("idAnnonce");
 
         // Requête ramenant l'annonce et les différentes catégories séparées par une virgule
-        $query = "select ann.*, GROUP_CONCAT(cat.cat_id,cat.cat_libelle) as categories from annonce ann join categorie_annonce ca 
-            ON ann.ann_id = ca.ann_id join categorie cat on ca.cat_id = cat.cat_id where ann.ann_id = :idAnnonce";
+        $query = "select ann.*, GROUP_CONCAT(cat.cat_id,cat.cat_libelle) as categories from annonce ann 
+                join categorie_annonce ca ON ann.ann_id = ca.ann_id join categorie cat on ca.cat_id = cat.cat_id 
+                                                                     where ann.ann_id = :idAnnonce";
 
         // On fait le prépare statement
         $request = $connection->prepare($query);
@@ -111,20 +112,6 @@ class AnnonceService
         return $annonce;
     }
 
-    public static function validateCreateChampsAnnonce(): void
-    {
-        if (getElementInRequestByAttribute('ann_nom') === null ||
-            getElementInRequestByAttribute('ann_prix') === null ||
-            getElementInRequestByAttribute('ann_description') === null ||
-            getElementInRequestByAttribute("ann_photo") === null ||
-            getElementInRequestByAttribute("cat_id[]") !== null) {
-
-            $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires';
-            header("location:../views/editAnnonce.php");
-            exit();
-        }
-    }
-
     public static function validateUpdateChampsAnnonce(): void
     {
         $annId = getElementInRequestByAttribute('ann_id');
@@ -133,42 +120,11 @@ class AnnonceService
         $annDescription = getElementInRequestByAttribute('ann_description');
         $catID = getElementInRequestByAttribute("cat_id");
 
-        if ($annId === null || $annNon === null || $annPrix === null || $annDescription === null || $catID === null) {
+        // Contrôle des champs obligatoire
+        self::validateAnnonceUpdateRequiredFields($annId, $annNon, $annPrix, $annDescription, $catID);
 
-            $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires suivants: ';
-            $champsErrors = '';
+        self::validateUpdateAnnonceFields($annNon, $annDescription, $annPrix, $annId);
 
-
-            if ($annNon === null) {
-                $champsErrors .= ' Nom';
-            }
-
-            if ($annPrix === null) {
-                $champsErrors = addVirguleIfIsSet($champsErrors);
-                $champsErrors .= ' Prix';
-            }
-
-            if ($annDescription === null) {
-                $champsErrors = addVirguleIfIsSet($champsErrors);
-                $champsErrors .= ' Description';
-            }
-
-            if ($catID === null) {
-                $champsErrors = addVirguleIfIsSet($champsErrors);
-                $champsErrors .= ' Catégories';
-            }
-
-            $_SESSION['errorValidateUpdateAnnonce'] .= $champsErrors;
-
-            header("location:../views/editAnnonce.php?idAnnonce=" . $annId);
-            exit();
-        }
-
-        if (!validatePrice($annPrix)) {
-            $_SESSION['errorValidateUpdateAnnonce'] = "Veuillez saisir le prix sous un bon format</br>exemple : 9.99 ou 9";
-            header("location:../views/editAnnonce.php?idAnnonce=" . $annId);
-            exit();
-        }
     }
 
     public static function updateCategoriesAnnonce($idAnnonce): void
@@ -185,7 +141,7 @@ class AnnonceService
             $request->bindParam(":ann_id", $idAnnonce);
             $request->bindParam(":cat_id", $category);
 
-            $request->execute();
+            $execute = $request->execute();
         }
     }
 
@@ -200,7 +156,7 @@ class AnnonceService
         // Suppression des catégories liées à l'annonce
         CategoryAnnonceService::deleteLinkCategoriesAnnonce($idAnnonce);
 
-        // TODO : faire appelle à la fonction qui supprime les favoris liés à l'annonce
+        // Supression des favoris liés à l'annonce
         FavoriService::deleteLinkFavorisByIdAnnonce($idAnnonce);
 
         $query = "delete from annonce WHERE ann_id = :idAnnonce";
@@ -302,6 +258,10 @@ class AnnonceService
         // Récupération de la connexion PDO
         $connection = PdoConnectionHandler::getPDOInstance();
 
+        //récupération de l'user connect"
+        $userConnect = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
+
+
         // Requête SQL pour insérer une nouvelle annonce
         $query = "insert into annonce(use_id, ann_nom, ann_prix, ann_description, ann_nombre_consultation, 
                     ann_create_at, ann_update_at) 
@@ -312,23 +272,108 @@ class AnnonceService
         // Récupération des valeurs issues de la requête http pour créer l'annonce
         $annonceHttpRequestValues = self::getAnnoncesHttpRequestValues();
 
+        //Initialisation à 0 du nombre de consultation
+        $annonceHttpRequestValues['ann_nombre_consultation'] = 0;
+        $annonceHttpRequestValues['use_id'] = $userConnect->getUseId();
+
+        //Insérer les catégories sélectionnées
+//        $query = "insert into categorie_annonce(ann_id, cat_id) values (:ann_id, :cat_id)";
+//        $request= $connection->prepare($query);
+
         // Exécution de la requête
         $request->execute($annonceHttpRequestValues);
 
         // Récupération de l'identifiant de l'annonce créée
         $ann_id = $connection->lastInsertId();
 
+        self::updateCategoriesAnnonce($ann_id);
+
         // Message d'erreur. Si l'annonce n'a pas été créé
-        if (!$ann_id) {
-            // TODO Gestion de l'erreur. S'inspirer de la création d'un user
+        if (empty($ann_id)) {
+            $_SESSION["errorCreation"] = "l'annonce n'a pas été créée";
+            header("location:../views/createAnnonce.php");
         }
 
-        // Transformation du nom de l'image (id de l'annonce créée
+        // Transformation du nom de l'image (id de l'annonce créée)
         $transformFileName = getFileNamePlusExtension('ann_photo', $ann_id);
 
-        // TODO Enregitrer l'image en faisant un update de l'annonce qui vient d'etre créer
+        // Enregitrer l'image en faisant un update de l'annonce qui vient d'etre créer
+        PhotoService::insertPhotoNameInAnnonceByIdAnonce($ann_id, $connection, $transformFileName);
 
         // Retour de l'identifiant de l'annonce créée
         return (int)$ann_id;
+    }
+
+    /**
+     * @param string $annId
+     * @param string $annNon
+     * @param string $annPrix
+     * @param string $annDescription
+     * @param string $catID
+     * @return void
+     */
+    public static function validateAnnonceUpdateRequiredFields(string $annId, string $annNon, string $annPrix, string $annDescription, string $catID): void
+    {
+        if ($annId === null || $annNon === null || $annPrix === null || $annDescription === null || $catID === null) {
+
+            $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires suivants: ';
+            $champsErrors = '';
+
+
+            if ($annNon === null) {
+                $champsErrors .= ' Nom';
+            }
+
+            if ($annPrix === null) {
+                $champsErrors = addVirguleIfIsSet($champsErrors);
+                $champsErrors .= ' Prix';
+            }
+
+            if ($annDescription === null) {
+                $champsErrors = addVirguleIfIsSet($champsErrors);
+                $champsErrors .= ' Description';
+            }
+
+            if ($catID === null) {
+                $champsErrors = addVirguleIfIsSet($champsErrors);
+                $champsErrors .= ' Catégories';
+            }
+
+
+            $_SESSION['errorValidateUpdateAnnonce'] .= $champsErrors;
+
+            header("location:../views/editAnnonce.php?idAnnonce=" . $annId);
+            exit();
+        }
+    }
+
+    /**
+     * @param string $annNon
+     * @param string $annDescription
+     * @param string $annPrix
+     * @return void
+     */
+    public static function validateUpdateAnnonceFields(string $annNon, string $annDescription, string $annPrix,
+                                                              $annId): void
+    {
+        if (!validateMaxLength(100, $annNon) || !validateMaxLength(4000, $annDescription) ||
+            !validatePrice($annPrix)) {
+
+            $_SESSION['errorValidateUpdateAnnonce'] = '';
+            if (!validateMaxLength(100, $annNon)) {
+                $_SESSION['errorValidateUpdateAnnonce'] .= "Le nom doit avoir au plus 100 caractères </br>";
+            }
+
+            if (!validateMaxLength(4000, $annDescription)) {
+                $_SESSION['errorValidateUpdateAnnonce'] .= "Le nom doit avoir au plus 100 caractères </br>";
+            }
+
+            if (!validatePrice($annPrix)) {
+                $_SESSION['errorValidateUpdateAnnonce'] .= "Veuillez saisir le prix sous un bon format</br>exemple : 9.99 ou 9";
+            }
+
+            header("location:../views/editAnnonce.php?idAnnonce=" . $annId);
+            exit();
+        }
     }
 }

@@ -89,7 +89,7 @@ controller();
 <script type="text/javascript">
     let arrayValuesSelected = [<?php echo '"' . implode('","', $arrayOfSelectedValues) . '"' ?>];
     setCategoriesSelected(arrayValuesSelected);
-    validAnnonceUpdateForm();
+    validAnnonceUpdateEventListnerForm();
 </script>
 </body>
 </html>
