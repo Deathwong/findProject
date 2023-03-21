@@ -64,8 +64,8 @@ function validAnnonceUpdateEventListnerForm() {
 
 
 function submitCreateFormAnnonce() {
-    const form = $("#updateAnnonceForm");
-
+    const form = $("#createAnnonceForm");
+    //Demander si c'est bon
     validateNomAnnonce();
     validatePrixAnnonce();
     validatePhotoAnnonce();
@@ -84,6 +84,7 @@ function validCreateAnnonceForm() {
     validateDescriptionAnnonceEventListener();
     validatePhotoAnnonceEventListener();
     validateCategoryAnnonceEventListener()
+
 }
 
 function setCategoriesSelected(values) {

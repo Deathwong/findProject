@@ -141,7 +141,7 @@ class AnnonceService
             $request->bindParam(":ann_id", $idAnnonce);
             $request->bindParam(":cat_id", $category);
 
-            $request->execute();
+            $execute = $request->execute();
         }
     }
 
@@ -274,8 +274,11 @@ class AnnonceService
 
         //Initialisation à 0 du nombre de consultation
         $annonceHttpRequestValues['ann_nombre_consultation'] = 0;
-
         $annonceHttpRequestValues['use_id'] = $userConnect->getUseId();
+
+        //Insérer les catégories sélectionnées
+//        $query = "insert into categorie_annonce(ann_id, cat_id) values (:ann_id, :cat_id)";
+//        $request= $connection->prepare($query);
 
         // Exécution de la requête
         $request->execute($annonceHttpRequestValues);
@@ -283,8 +286,8 @@ class AnnonceService
         // Récupération de l'identifiant de l'annonce créée
         $ann_id = $connection->lastInsertId();
 
+        self::updateCategoriesAnnonce($ann_id);
 
-        // TODO Gestion de l'erreur. S'inspirer de la création d'un user
         // Message d'erreur. Si l'annonce n'a pas été créé
         if (empty($ann_id)) {
             $_SESSION["errorCreation"] = "l'annonce n'a pas été créée";
@@ -294,10 +297,8 @@ class AnnonceService
         // Transformation du nom de l'image (id de l'annonce créée)
         $transformFileName = getFileNamePlusExtension('ann_photo', $ann_id);
 
-        // TODO Enregitrer l'image en faisant un update de l'annonce qui vient d'etre créer
+        // Enregitrer l'image en faisant un update de l'annonce qui vient d'etre créer
         PhotoService::insertPhotoNameInAnnonceByIdAnonce($ann_id, $connection, $transformFileName);
-
-        self::updateCategoriesAnnonce($ann_id);
 
         // Retour de l'identifiant de l'annonce créée
         return (int)$ann_id;

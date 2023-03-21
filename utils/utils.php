@@ -1,6 +1,6 @@
 <?php
 
-function getElementInRequestByAttribute(string $param): string
+function getElementInRequestByAttribute(string $param): string|null|array
 {
     $value = null;
     switch ($param) {
@@ -45,6 +45,7 @@ function getElementInRequestByAttribute(string $param): string
 
         default:
             echo "Param not found";
+            break;
     }
 
     return $value;

@@ -80,7 +80,7 @@ class UserService
 
     }
 
-    public static function getUserByEmail($email): User
+    public static function getUserByEmail($email): User|bool
     {
         $connection = PdoConnectionHandler::getPDOInstance();
 
