@@ -7,6 +7,6 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <div>
-    <div>Suppression</div>
+    Votre annonce est suppimée.
 </div>
 </body>
