@@ -5,7 +5,13 @@
 
 drop table if exists categorie_annonce;
 
+drop table if exists categorie;
+
+drop table if exists favoris;
+
 drop table if exists message;
+
+drop table if exists annonce;
 
 drop table if exists user;
 
