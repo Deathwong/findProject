@@ -1,4 +1,5 @@
 <?php
+
 require '../Controller/AppController.php';
 controller();
 ?>
@@ -36,9 +37,20 @@ controller();
     </div>
 </div>
 <?php require 'footer.php' ?>
-</body>
 <script>
-    // On récupère l'id du user connecté
-    userConnectId = <?=  $user->getUseId() ?>;
+
+    $(document).ready(function () {
+        // On récupère l'id du user connecté
+        userConnectId = '<?=  $userIsConnected ?>';
+
+        // Affichage du bouton vers la page de connexion de l'utilisateur
+        showOrHideElementByUserConnected('user-signup-link', userConnectId, false);
+        showOrHideElementByUserConnected('user-signing-link', userConnectId, false);
+        showOrHideElementByUserConnected('user-logout-link', userConnectId, true);
+        showOrHideElementByUserConnected('user-label', userConnectId, true);
+    });
+
+
 </script>
+</body>
 </html>

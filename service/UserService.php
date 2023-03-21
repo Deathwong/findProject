@@ -209,4 +209,10 @@ class UserService
 
         return $isValid;
     }
+
+    public static function exit(): void
+    {
+        session_destroy();
+        header("Location: " . AppConstant::$ACCUEIL_LOCATION_LABEL);
+    }
 }

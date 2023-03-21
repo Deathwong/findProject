@@ -31,4 +31,9 @@ class UserController
     {
         return UserService::getUserDetails();
     }
+
+    public static function exit(): void
+    {
+        UserService::exit();
+    }
 }

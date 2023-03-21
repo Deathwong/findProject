@@ -17,6 +17,7 @@ require_once 'MessageController.php';
 
 $users = [];
 $user = new User();
+$userIsConnected = false;
 
 $annonces = [];
 $annonce = new Annonce();
@@ -34,8 +35,8 @@ session_start();
 
 function controller(): void
 {
-    global $users, $user, $annonce, $annonces, $categories, $categoriesAnnonce, $arrayOfSelectedValues, $messageCards,
-           $userConnectChatBox, $userIDChatBox;
+    global $users, $user, $userIsConnected, $annonce, $annonces, $categories, $categoriesAnnonce,
+           $arrayOfSelectedValues, $messageCards, $userConnectChatBox, $userIDChatBox;
     $separator = ",";
 
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -51,6 +52,7 @@ function controller(): void
 
             if (isset($_SESSION["use_id"])) {
                 $user = $_SESSION["use_id"];
+                $userIsConnected = true;
             }
             break;
 
@@ -158,9 +160,14 @@ function controller(): void
                 MessageController::sendMessage();
             }
             break;
+
         case AppConstant::$GET_DISCUSSION:
             $annonce = MessageController::getDiscussion();
             MessageController::sendMessage();
+            break;
+
+        case AppConstant::EXIT_USER:
+            UserController::exit();
             break;
 
         default:

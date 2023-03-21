@@ -2,6 +2,21 @@
     <div class="container">
         <a class="navbar-brand" href="/findProject/views/">Find sToRe</a>
 
+        <div class="btn-group" role="group" aria-label="Gestion utilisateur">
+            <button type="button" class="btn btn-light btn-link" id="user-signing-link" hidden="hidden"
+                    onclick="redirectOnPage('signin.php')">Se connecter
+            </button>
+            <button type="button" class="btn btn-light btn-link" id="user-signup-link" hidden="hidden"
+                    onclick="redirectOnPage('signup.php')">s'inscrire
+            </button>
+            <button type="button" class="btn btn-outline-light" hidden="hidden" id="user-label" disabled>
+                Bienvenue
+            </button>
+            <button type="button" class="btn btn-light btn-link" hidden="hidden" id="user-logout-link"
+                    onclick="redirectOnPage('exitUser.php')">Se déconnecter
+            </button>
+        </div>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
                 aria-controls="offcanvasDarkNavbar">Rechercher
             <span class="navbar-toggler-icon"></span>
