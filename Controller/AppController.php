@@ -163,7 +163,11 @@ function controller(): void
 
         case AppConstant::$GET_DISCUSSION:
             $annonce = MessageController::getDiscussion();
-            MessageController::sendMessage();
+//            MessageController::sendMessage();
+            break;
+
+        case AppConstant::EXIT_USER:
+            UserController::exit();
             break;
 
         case AppConstant::EXIT_USER:
