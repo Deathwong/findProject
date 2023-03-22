@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top bg-body-tertiary bg-dark" data-bs-theme="dark">
+<nav class="navbar sticky-top bg-body-tertiary bg-dark" data-bs-theme="dark">
     <div class="container">
         <a class="navbar-brand" href="/findProject/views/">Find sToRe</a>
 
@@ -7,7 +7,7 @@
                     onclick="redirectOnPage('signin.php')">Se connecter
             </button>
             <button type="button" class="btn btn-light btn-link" id="user-signup-link" hidden="hidden"
-                    onclick="redirectOnPage('signup.php')">s'inscrire
+                    onclick="redirectOnPage('signup.php')">Créer un compte
             </button>
             <button type="button" class="btn btn-outline-light" hidden="hidden" id="user-label" disabled>
                 Bienvenue

@@ -317,3 +317,14 @@ function isUserAuthorizedToDelete(userConnectID, userAnnonceID) {
             window.location.href = "findProject/views/detailsAnnonce.php";
         }
 }
+
+function showOrHideElementByUserConnected(elementId, userIsConnected, show) {
+
+    if (userIsConnected && show) {
+        $("#" + elementId).attr('hidden', false);
+    } else if (!userIsConnected && !show) {
+        $("#" + elementId).attr('hidden', false);
+    } else {
+        $("#" + elementId).attr('hidden', true);
+    }
+}

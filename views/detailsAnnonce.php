@@ -7,6 +7,7 @@ controller();
 <html lang="fr">
 <?php require 'header.php' ?>
 <body>
+<?php require 'menu.php' ?>
 <div>
     <div>
         <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" alt="image de l'annonce">
