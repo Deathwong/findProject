@@ -141,7 +141,7 @@ class AnnonceService
             $request->bindParam(":ann_id", $idAnnonce);
             $request->bindParam(":cat_id", $category);
 
-            $execute = $request->execute();
+            $request->execute();
         }
     }
 
@@ -309,10 +309,12 @@ class AnnonceService
      * @param string $annNon
      * @param string $annPrix
      * @param string $annDescription
-     * @param string $catID
+     * @param array $catID
      * @return void
      */
-    public static function validateAnnonceUpdateRequiredFields(string $annId, string $annNon, string $annPrix, string $annDescription, string $catID): void
+    public static function validateAnnonceUpdateRequiredFields(string $annId, string $annNon, string $annPrix,
+                                                               string $annDescription,
+                                                               array  $catID): void
     {
         if ($annId === null || $annNon === null || $annPrix === null || $annDescription === null || $catID === null) {
 

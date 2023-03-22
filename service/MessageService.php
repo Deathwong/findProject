@@ -75,7 +75,8 @@ class MessageService
 
         $request->execute();
 
-        return $request->fetchAll(PDO::FETCH_CLASS, Message::class);
+        $discussions = $request->fetchAll(PDO::FETCH_CLASS, Message::class);
+        return $discussions;
     }
 
     public static function sendMessage(User $user): void

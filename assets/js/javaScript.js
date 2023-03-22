@@ -258,46 +258,46 @@ function rechercheAjax() {
     });
 }
 
-function getDiscussion() {
+function getDiscussion(idReceiver, idAnnonce) {
     let data = {};
 
     // Récupération des données de chargement de la discussion
     // idReceiver
-    const idReceiver = $("#idReceiver").text().trim();
-    if (!checkEmpty(idReceiver)) {
-        data.nom = idReceiver;
-    }
+    // idReceiver = $("#idReceiver").text().trim();
+    // if (!checkEmpty(idReceiver)) {
+    data.use_id = idReceiver;
+    // }
 
     // idAnnonce
-    const idAnnonce = $("#idAnnonce").text().trim();
-    if (!checkEmpty(idAnnonce)) {
-        data.prixMin = idAnnonce;
-    }
+    // const idAnnonce = $("#idAnnonce").text().trim();
+    // if (!checkEmpty(idAnnonce)) {
+    data.ann_id = idAnnonce;
+    // }
 
-    // const URL = '/findProject/views/getDiscussion.php';
-    // let discussion = null;
-    //
-    // $.ajax({
-    //     method: "POST",
-    //     type: "POST",
-    //     url: URL,
-    //     data: data,
-    //     success: function (data) {
-    //         const discussion = JSON.parse(data);
-    //         let messageContainer = $("#message-container");
-    //         messageContainer.find("tr:gt(0)").remove();
-    //
-    //         for (let i = 0; i < discussion.length; i++) {
-    //             let json_data = '<tr>' +
-    //                 '<td>' + discussion[i].ann_nom + '</td>' +
-    //                 '</tr>';
-    //             discussion.append(json_data);
-    //         }
-    //     },
-    //     error: function (data) {
-    //         console.log('Error');
-    //     }
-    // });
+    const URL = '/findProject/views/getDiscussion.php';
+    let discussion = null;
+
+    $.ajax({
+        method: "POST",
+        type: "POST",
+        url: URL,
+        data: data,
+        success: function (data) {
+            const discussion = JSON.parse(data);
+            let messageContainer = $("#message-container");
+            messageContainer.find("tr:gt(0)").remove();
+
+            // for (let i = 0; i < discussion.length; i++) {
+            //     let json_data = '<tr>' +
+            //         '<td>' + discussion[i].ann_nom + '</td>' +
+            //         '</tr>';
+            //     discussion.append(json_data);
+            // }
+        },
+        error: function (data) {
+            console.log('Error');
+        }
+    });
 }
 
 function showOrHideElementByUserConnected(elementId, userIsConnected, show) {
