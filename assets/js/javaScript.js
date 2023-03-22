@@ -310,3 +310,10 @@ function showOrHideElementByUserConnected(elementId, userIsConnected, show) {
         $("#" + elementId).attr('hidden', true);
     }
 }
+
+function isUserAuthorizedToDelete(userConnectID, userAnnonceID) {
+
+    if (userConnectID !== userAnnonceID) {
+            window.location.href = "findProject/views/detailsAnnonce.php";
+        }
+}
