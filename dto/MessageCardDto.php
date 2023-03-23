@@ -6,7 +6,9 @@ class MessageCardDto
 {
     private int $receiverId;
     private int $idAnnonce;
+    private int $userSenderId;
     private string $receiver;
+    private string $message;
     private string $nomAnnonce;
     private string $photo;
 
@@ -26,8 +28,6 @@ class MessageCardDto
         $this->photo = $photo;
     }
 
-    private string $message;
-
     public function __construct()
     {
     }
@@ -46,6 +46,22 @@ class MessageCardDto
     public function setReceiverId(string $receiverId): void
     {
         $this->receiverId = $receiverId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserSenderId(): int
+    {
+        return $this->userSenderId;
+    }
+
+    /**
+     * @param int $userSenderId
+     */
+    public function setUserSenderId(int $userSenderId): void
+    {
+        $this->userSenderId = $userSenderId;
     }
 
     /**

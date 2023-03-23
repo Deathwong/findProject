@@ -32,13 +32,14 @@ class MessageService
 //                        join user u on m.use_receiver_id and m.mes_sender_id = u.use_id
 //                     where m.mes_sender_id = :idUser or m.use_receiver_id = :idUser";
 
-        $query = "SELECT u.use_id as receiverId, u.use_email as receiver, m.mes_content as message, 
-                        a.ann_nom as nomAnnonce, a.ann_id as idAnnonce, a.ann_photo as photo
-                FROM user u
-                INNER JOIN message m ON u.use_id = m.mes_sender_id
-                INNER JOIN annonce a ON a.ann_id = m.ann_id
-                WHERE m.use_receiver_id = :idUser
-                ORDER BY m.mes_create_at DESC";
+        $query = "SELECT u.use_id as receiverId, u.use_email as receiver, m.mes_content as message,
+                    m.mes_sender_id as userSenderId, a.ann_id as idAnnonce, a.ann_nom as nomAnnonce,
+                    a.ann_photo as photo 
+                    FROM user u
+                    INNER JOIN message m ON u.use_id = m.mes_sender_id
+                    INNER JOIN annonce a ON a.ann_id = m.ann_id
+                    WHERE m.use_receiver_id = :idUser or m.mes_sender_id = :idUser
+                    ORDER BY m.mes_create_at desc  limit 3";
 
         $request = $connection->prepare($query);
 

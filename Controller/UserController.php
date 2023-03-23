@@ -32,6 +32,11 @@ class UserController
         return UserService::getUserDetails();
     }
 
+    public static function getUserById($useId): string
+    {
+        return UserService::getUserById($useId);
+    }
+
     public static function exit(): void
     {
         UserService::exit();

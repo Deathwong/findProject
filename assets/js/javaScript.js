@@ -1,12 +1,26 @@
 let userAnnonceId;
 let userConnectId;
 
+/**
+ * Valide les deux champs du user
+ */
+function validateUserForm() {
+    validateEmail();
+    validatePassword();
+}
+
+/**
+ * Valide le formulaire de connexion pour le submit
+ * Si isValidEmail et isValidPassword sont tous les deux true il submit le formulaire
+ */
 function submitSigninUserForm() {
+    // On récupère l'élément dont l'id est formUser
     const form = $("#formUser");
 
-    validateEmail();
-    validatePassword();
+    // Appel de la fonction de validation des champs du user
+    validateUserForm();
 
+    // Vérification des variables de validation
     if (isValidEmail && isValidPassword) {
         form.submit();
     } else {
@@ -14,11 +28,16 @@ function submitSigninUserForm() {
     }
 }
 
+/**
+ * Valide le formulaire de connexion pour le submit
+ * Si isValidEmail et isValidPassword sont tous les deux true il submit le formulaire
+ */
 function submitSignUpUserForm() {
+    // On récupère l'élément dont l'id est formUser
     const form = $("#formUser");
 
-    validateEmail();
-    validatePassword();
+    // Appel de la fonction de validation des champs du user
+    validateUserForm();
 
     if (isValidEmail && isValidPassword) {
         form.submit();
@@ -27,6 +46,9 @@ function submitSignUpUserForm() {
     }
 }
 
+/**
+ * Permet de valider les différents inputs
+ */
 function validateSignUpFormEventListener() {
     validateEmailEventListener();
     validatePasswordEventListener();
@@ -112,16 +134,15 @@ function showUpdateAnnonceButton(userConnectID, userAnnonceID) {
  * @param condition La condition : True pour l'afficher quand les deux ids sont
  * les memes et false pour afficher lorsqu'ils sont différents
  */
-function showElementByUserConnectedId(userConnectID,
-                                      userAnnonceID, elementID,
-                                      condition) {
+function showElementByUserConnectedId(userConnectID, userAnnonceID, elementID, condition) {
+    console.log("#" + elementID);
     if (condition === true) {
         if (userConnectID === userAnnonceID) {
-            $("#" + elementID).show();
+            $("#" + elementID).attr('hidden', false);
         }
     } else if (condition === false) {
         if (userConnectID !== userAnnonceID) {
-            $("#" + elementID).show();
+            $("#" + elementID).attr('hidden', false);
         }
     }
 }
@@ -129,7 +150,7 @@ function showElementByUserConnectedId(userConnectID,
 /**
  * Permet de rediriger vers une page avec en paramètre dans le get l'id de l'annonce
  * @param idAnnonce Id de L'annonce
- * @param URL URL de la page
+ * @param url
  */
 function redirectOnAnnoncePages(idAnnonce, url) {
     $(location).attr('href', url + '?idAnnonce=' + idAnnonce);
@@ -137,8 +158,7 @@ function redirectOnAnnoncePages(idAnnonce, url) {
 
 /**
  * Permet de rediriger vers une page
- * @param idAnnonce Id de L'annonce
- * @param URL URL de la page
+ * @param url
  */
 function redirectOnPage(url) {
     $(location).attr('href', url);
@@ -314,8 +334,8 @@ function showOrHideElementByUserConnected(elementId, userIsConnected, show) {
 function isUserAuthorizedToDelete(userConnectID, userAnnonceID) {
 
     if (userConnectID !== userAnnonceID) {
-            window.location.href = "findProject/views/detailsAnnonce.php";
-        }
+        window.location.href = "findProject/views/detailsAnnonce.php";
+    }
 }
 
 function showOrHideElementByUserConnected(elementId, userIsConnected, show) {

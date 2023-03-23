@@ -215,4 +215,17 @@ class UserService
         session_destroy();
         header("Location: " . AppConstant::$ACCUEIL_LOCATION_LABEL);
     }
+
+    public static function getUserById($idUser): string
+    {
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        $query = "select u.use_email from user u where use_id = :iduser";
+        $request = $connection->prepare($query);
+        $request->bindParam(':idUser', $idUser);
+
+        $request->execute();
+        $var = $request->fetch();
+        return $var;
+    }
 }
