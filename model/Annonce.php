@@ -14,6 +14,7 @@ class Annonce
     private string $ann_create_at;
     private string $ann_update_at;
     private string $categories;
+    private string $favoris;
 
     /**
      * @return int
