@@ -170,7 +170,11 @@ function controller(): void
         case AppConstant::EXIT_USER:
             UserController::exit();
             break;
-            
+
+        case AppConstant::EXIT_USER:
+            UserController::exit();
+            break;
+
         default:
             header('Status: 404 Not Found');
             echo '<html lang="fr"><body><h1>Page Not Found</h1></body></html>';
