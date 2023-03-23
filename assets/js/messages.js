@@ -4,5 +4,4 @@ const formControlErrorMessage = {
     maxlength: "le %1 doit avoir au plus %2 caractères",
     email: "veuillez saisir un email correcte",
     digit: "ce champ n'admet que des chiffres",
-
 };
