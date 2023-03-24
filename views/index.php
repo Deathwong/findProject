@@ -11,30 +11,6 @@ controller();
 <div class="container">
     <div>
         <h1>Liste Annonces</h1>
-        <!--        <table id="annonce-tab">-->
-        <!--            <tr>-->
-        <!--                <th>Photo</th>-->
-        <!--                <th>Titre</th>-->
-        <!--                <th>Prix</th>-->
-        <!--                <th>Description</th>-->
-        <!--            </tr>-->
-        <!---->
-        <!--            --><?php
-        //            foreach ($annonces as $annonce) {
-        //                ?>
-        <!--                <tr>-->
-        <!--                    <td>-->
-        <!--                        <img src="../assets/img/annonces/-->
-        <?php //= $annonce->getAnnPhoto() ?><!--" alt="image de l'annonce">-->
-        <!--                    </td>-->
-        <!--                    <td>--><?php //= $annonce->getAnnNom() ?><!--</td>-->
-        <!--                    <td>--><?php //= $annonce->getAnnPrix() ?><!--</td>-->
-        <!--                    <td>--><?php //= $annonce->getAnnDescription() ?><!--</td>-->
-        <!--                </tr>-->
-        <!--                --><?php
-        //            }
-        //            ?>
-        <!--        </table>-->
 
         <div class="row row-cols-1 row-cols-md-3 g-4" id="annonce-cards-grid">
             <?php foreach ($annonces as $annonce) { ?>
