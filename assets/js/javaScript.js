@@ -372,3 +372,9 @@ function showOrHideElementByUserConnected(elementId, userIsConnected, show) {
         $("#" + elementId).attr('hidden', true);
     }
 }
+
+function checkedFav(annonceIsInUserFavori) {
+    if (annonceIsInUserFavori == 1) {
+        $("#favori").prop('checked', true);
+    }
+}

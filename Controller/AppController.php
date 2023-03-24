@@ -21,6 +21,8 @@ $userIsConnected = false;
 
 $annonces = [];
 $annonce = new Annonce();
+$annonceUserIdsFavoris = [];
+$annonceIsInUserFavori = false;
 
 $categories = [];
 $categoriesAnnonce = [];
@@ -31,12 +33,15 @@ $messageCards = [];
 $userConnectChatBox = null;
 $userIDChatBox = null;
 
+
 session_start();
 
 function controller(): void
 {
     global $users, $user, $userIsConnected, $annonce, $annonces, $categories, $categoriesAnnonce,
-           $arrayOfSelectedValues, $messageCards, $userConnectChatBox, $userIDChatBox;
+           $arrayOfSelectedValues, $messageCards, $userConnectChatBox, $userIDChatBox, $annonceUserIdsFavoris,
+           $annonceIsInUserFavori;
+
     $separator = ",";
 
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -97,6 +102,10 @@ function controller(): void
                 $annonce = AnnonceController::getAnnonceDetails();
                 $user = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
                 $categoriesAnnonce = explode($separator, getLettersOfTheString($annonce->getCategories()));
+
+
+                $annonceUserIdsFavoris = explode($separator, $annonce->getUserIdFavoris());
+                $annonceIsInUserFavori = in_array($user->getUseId(), $annonceUserIdsFavoris);
             }
             break;
 
@@ -165,10 +174,6 @@ function controller(): void
         case AppConstant::$GET_DISCUSSION:
             $annonce = MessageController::getDiscussion();
 //            MessageController::sendMessage();
-            break;
-
-        case AppConstant::EXIT_USER:
-            UserController::exit();
             break;
 
         case AppConstant::EXIT_USER:
