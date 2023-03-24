@@ -4,10 +4,9 @@ namespace dto;
 
 class MessageCardDto
 {
-    private int $receiverId;
+    private int $interlocuteurId;
     private int $idAnnonce;
-    private int $userSenderId;
-    private string $receiver;
+    private string $interlocuteur;
     private string $message;
     private string $nomAnnonce;
     private string $photo;
@@ -35,49 +34,33 @@ class MessageCardDto
     /**
      * @return string
      */
-    public function getReceiverId(): string
+    public function getInterlocuteurId(): string
     {
-        return $this->receiverId;
+        return $this->interlocuteurId;
     }
 
     /**
-     * @param string $receiverId
+     * @param string $interlocuteurId
      */
-    public function setReceiverId(string $receiverId): void
+    public function setInterlocuteurId(string $interlocuteurId): void
     {
-        $this->receiverId = $receiverId;
-    }
-
-    /**
-     * @return int
-     */
-    public function getUserSenderId(): int
-    {
-        return $this->userSenderId;
-    }
-
-    /**
-     * @param int $userSenderId
-     */
-    public function setUserSenderId(int $userSenderId): void
-    {
-        $this->userSenderId = $userSenderId;
+        $this->interlocuteurId = $interlocuteurId;
     }
 
     /**
      * @return string
      */
-    public function getReceiver(): string
+    public function getInterlocuteur(): string
     {
-        return $this->receiver;
+        return $this->interlocuteur;
     }
 
     /**
-     * @param string $receiver
+     * @param string $interlocuteur
      */
-    public function setReceiver(string $receiver): void
+    public function setInterlocuteur(string $interlocuteur): void
     {
-        $this->receiver = $receiver;
+        $this->interlocuteur = $interlocuteur;
     }
 
     /**
