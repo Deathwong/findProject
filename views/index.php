@@ -45,8 +45,11 @@ controller();
                              alt="Skyscrapers"/>
 
                         <div class="card-body">
+                            <div class="card-title">
 
-                            <h5 class="card-title"><?= $annonce->getAnnNom() ?></h5>
+                                <h5><?= $annonce->getAnnNom() ?></h5>
+                                <h5><?= $annonce->getAnnPrix() ?> €</h5>
+                            </div>
 
                             <p class="card-text">
                                 <?= $annonce->getAnnDescription() ?>
@@ -56,11 +59,7 @@ controller();
                         <div class="card-footer">
                             <!--Détails annonce-->
                             <a href="detailsAnnonce.php?idAnnonce=<?= $annonce->getAnnId() ?>"
-                               class="btn btn-light icon-hover px-2 pt-2"><i class="fa-sharp fa-solid fa-info"></i></a>
-
-                            <!--Détails Favorie-->
-                            <input type="checkbox" id="favori" name="favori" aria-label="favoris"
-                                   onchange="addOrRemoveFavori(<?= $annonce->getAnnId() ?>)">
+                               class="btn btn-primary shadow-0 me-1">Détails</a>
                         </div>
                     </div>
                 </div>

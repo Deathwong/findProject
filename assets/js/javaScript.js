@@ -274,20 +274,20 @@ function rechercheAjax() {
                         alt="Skyscrapers" />
                         
                         <div class="card-body">
-                        
-                            <h5 class="card-title">${annonces[i].ann_nom}</h5>
+                            <div class="card-title">
+                                <h5>${annonces[i].ann_nom}</h5>
+                                <h5>${annonces[i].ann_prix} €</h5>
+                            </div>
                             
                             <p class="card-text">
-                            ${annonces[i].ann_description}
+                                ${annonces[i].ann_description}
                             </p>
                         </div>
                         
                         <div class="card-footer">
                             <!--Détails annonce-->
-                            <a href="detailsAnnonce.php?idAnnonce=${annonces[i].ann_id}" class="btn btn-light icon-hover px-2 pt-2"><i class="fa-sharp fa-solid fa-info"></i></a>
-                            
-                            <!--Détails Favorie-->
-                            <input type="checkbox" id="favori" name="favori" onchange="addOrRemoveFavori(${annonces[i].ann_id})">
+                            <a href="detailsAnnonce.php?idAnnonce=${annonces[i].ann_id}"
+                               class="btn btn-primary shadow-0 me-1">Détails</a>
                         </div>
                     </div>
                 </div>
