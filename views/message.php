@@ -12,27 +12,32 @@ controller();
     <div>
         <div>
             <?php
-            foreach ($messageCards as $messageCard) {
-                $receiverId = $messageCard->getReceiverId();
+            foreach ($conversationsCards as $conversation) {
+                $userConversationId = $conversation->getVendeurId();
+                $userConversationMail = $conversation->getVendeurEmail();
+                if ($userIDChatBox != $conversation->getAcheteurId()) {
+                    $userConversationId = $conversation->getAcheteurId();
+                    $userConversationMail = $conversation->getAcheteurEmail();
+                }
                 ?>
                 <div class="nowrap message-card"
-                     onclick="getDiscussion(<?= $messageCard->getIdAnnonce() ?>,<?= $messageCard->getInterlocuteurId() ?>)">
+                     onclick="getDiscussion(<?= $conversation->getIdConversation() ?>,<?= $userConversationId ?>)">
                     <div>
                         <div>
                             <img class="message-card-photo"
-                                 src="../assets/img/annonces/<?= $messageCard->getPhoto() ?>"
+                                 src="../assets/img/annonces/<?= $conversation->getPhoto() ?>"
                                  alt="image de l'annonce">
                         </div>
                     </div>
                     <div class="">
-                        <div id="idReceiver">
-                            <?= $messageCard->getInterlocuteur() ?>
+                        <div id="interlocuteur">
+                            <?= $userConversationMail ?>
                         </div>
-                        <div id="idAnnonce">
-                            <?= $messageCard->getNomAnnonce() ?>
+                        <div id="nomAnnonce">
+                            <?= $conversation->getAnnonceNom() ?>
                         </div>
                         <div>
-                            <?= $messageCard->getMessage() ?>
+                            <?= $conversation->getMessage() ?>
                         </div>
                     </div>
                 </div>

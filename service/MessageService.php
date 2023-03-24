@@ -2,7 +2,7 @@
 
 namespace service;
 
-use dto\MessageCardDto;
+use dto\ConversationCard;
 use model\Message;
 use model\User;
 use PDO;
@@ -10,7 +10,7 @@ use PDO;
 require_once 'PdoConnectionHandler.php';
 require_once "../utils/utils.php";
 require '../model/Message.php';
-require '../dto/MessageCardDto.php';
+require '../dto/ConversationCard.php';
 
 class MessageService
 {
@@ -20,7 +20,7 @@ class MessageService
 //
 //    }
 
-    public static function getMessageCards(User $user): array
+    public static function getConversationsCards(User $user): array
     {
         // On récupère la connection
         $connection = PdoConnectionHandler::getPDOInstance();
@@ -28,50 +28,57 @@ class MessageService
         // On récupère l'id de l'utilisateur
         $useId = $user->getUseId();
 
-        // On récupère le nombre de conversations
-        $conversationsNumber = self::getConversationNumberByUserId($connection, $useId);
-        $conversationsNumber = intval($conversationsNumber);
-
 
         // Cette requette permet de récupérer l'id de l'annonce le nom la photo l'interlocuteur son id son mail
         // et le dernier message envoyé dans la conversation
-        $query = 'SELECT ann.ann_id as idAnnonce, ann.ann_nom as nomAnnonce, ann.ann_photo as photo, 
-                    u.use_id as interlocuteurId,
-                    u.use_email as interlocuteur, mes.mes_content as message
-                    FROM conversation con 
-                    JOIN annonce ann ON ann.ann_id = con.con_id
-                    JOIN (
-                        SELECT mes.con_id, MAX(mes.mes_create_at) AS max_create_at
-                        FROM message mes
-                        GROUP BY mes.con_id
-                    ) max_mess ON con.con_id = max_mess.con_id
-                    JOIN message mes ON con.con_id = mes.con_id AND mes.mes_create_at = max_mess.max_create_at
-                    JOIN `user` u ON con.con_user_id = u.use_id OR con.con_seller_id = u.use_id  
-                    JOIN (
-                        SELECT DISTINCT CASE 
-                            WHEN con.con_user_id = :userId THEN con.con_seller_id 
-                            WHEN con.con_seller_id = :userId THEN con.con_user_id 
-                            END AS interlocutor_id
-                        FROM conversation con 
-                        WHERE con.con_seller_id = :userId OR con.con_user_id = :userId
-                    ) interlocutor ON (interlocutor.interlocutor_id = u.use_id AND u.use_id != :userId)
-                    WHERE con.con_seller_id = :userId OR con.con_user_id = :userId 
-                    GROUP BY con.con_id 
-                    ORDER BY max_mess.max_create_at DESC
-                    LIMIT :conversationsNumber';
+        $query = 'select
+                    con.con_id as idConversation,
+                    ann.ann_id as annonceId,
+                    ann.ann_nom as annonceNom,
+                    ann.ann_photo as photo,
+                    usAcheteur.use_id as acheteurId,
+                    usAcheteur.use_email as acheteurEmail,
+                    usVendeur.use_id as vendeurId,
+                    usVendeur.use_email as vendeurEmail,
+                    mes.mes_id as messageId,
+                    mes.mes_content as message,
+                    mes.mes_create_at as date
+                from
+                    conversation con
+                left join annonce ann on
+                    ann.ann_id = con.ann_id
+                left join `user` usAcheteur on
+                    usAcheteur.use_id = con.con_user_id
+                left join `user` usVendeur on
+                    usVendeur.use_id = con.con_seller_id
+                left join message mes on
+                    mes.con_id = con.con_id
+                where
+                    (con.con_user_id = :userId
+                        or con.con_seller_id = :userId)
+                    and mes.mes_create_at = (
+                    select
+                        max(m.mes_create_at)
+                    from
+                        message m
+                    where
+                        m.con_id = con.con_id)
+                group by
+                    mes.con_id
+                order by
+                    mes.mes_create_at desc';
 
         // On fait le prépare statement
         $request = $connection->prepare($query);
 
         // Récupération des paramètres et binding
         $request->bindParam(":userId", $useId);
-        $request->bindParam(":conversationsNumber", $conversationsNumber);
 
         // On execute
         $request->execute();
 
         // On retourne la valeur reçue
-        return $request->fetchAll(PDO::FETCH_CLASS, MessageCardDto::class);
+        return $request->fetchAll(PDO::FETCH_CLASS, ConversationCard::class);
     }
 
     public static function getDiscussion(User $user): array
@@ -99,8 +106,7 @@ class MessageService
 
         $request->execute();
 
-        $discussions = $request->fetchAll(PDO::FETCH_CLASS, Message::class);
-        return $discussions;
+        return $request->fetchAll(PDO::FETCH_CLASS, Message::class);
     }
 
     public static function sendMessage(User $user): void
@@ -113,8 +119,8 @@ class MessageService
 
         $messageHttpRequestValues["mes_sender_id"] = $user->getUseId();
 
-        $query = "INSERT INTO find.message(ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-                    VALUES(:ann_id, :mes_sender_id, :use_receiver_id, :mes_content, now())";
+        $query = "INSERT INTO find.message(con_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+                    VALUES(:con_id, :mes_sender_id, :use_receiver_id, :mes_content, now())";
 
         $request = $connection->prepare($query);
 
