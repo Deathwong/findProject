@@ -30,7 +30,8 @@ controller();
     </div>
     <div hidden="hidden" id="favori-annonce">
         <label for="favori">Favori</label>
-        <input type="checkbox" id="favori" name="favori" onchange="addOrRemoveFavori(<?= $annonce->getUseId() ?>)">
+        <input type="checkbox" id="favori" name="favori"
+               onchange="addOrRemoveFavori(<?= $annonce->getUseId() ?>)">
     </div>
     <div hidden="hidden" id="contact-me">
         <button id="contactButton" onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,'sendMessage.php')">
@@ -55,6 +56,7 @@ controller();
     userConnectId = <?=  $user->getUseId() ?>;
     // Récupération de l'id du créateur de l'annonce
     userAnnonceId = <?= $annonce->getUseId() ?>;
+
     // Affichage du bouton vers la modification en fonction des deux ids
     showElementByUserConnectedId(userConnectId, userAnnonceId, 'update-annonce', true);
     // Affichage du bouton vers la suppression en fonction des deux ids
@@ -63,6 +65,9 @@ controller();
     showElementByUserConnectedId(userConnectId, userAnnonceId, 'contact-me', false);
     // Affichage du bouton de mise en favoris en fonction des deux ids
     showElementByUserConnectedId(userConnectId, userAnnonceId, 'favori-annonce', false);
+
+    // Check l'input checkbox, si l'utilisateur connecté à mise l'annonce en favori
+    checkedFav(<?= $annonceIsInUserFavori ?>);
 </script>
 </body>
 </html>

@@ -14,7 +14,7 @@ class Annonce
     private string $ann_create_at;
     private string $ann_update_at;
     private string $categories;
-    private string $favoris;
+    private string $userIdFavoris;
 
     /**
      * @return int
@@ -174,5 +174,21 @@ class Annonce
     public function setCategories(string $categories): void
     {
         $this->categories = $categories;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserIdFavoris(): string
+    {
+        return $this->userIdFavoris;
+    }
+
+    /**
+     * @param string $userIdFavoris
+     */
+    public function setUserIdFavoris(string $userIdFavoris): void
+    {
+        $this->userIdFavoris = $userIdFavoris;
     }
 }
