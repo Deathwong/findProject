@@ -458,7 +458,7 @@ class AnnonceService
                 $_SESSION['errorValidateCreationAnnonce'] .= "Veuillez saisir le prix sous un bon format</br>exemple 
             : 9.99 ou 9";
             }
-            if()
+            if();
 
             // header("location:../views/editAnnonce.php?idAnnonce=" . $annId);
             //exit();
