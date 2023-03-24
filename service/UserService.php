@@ -225,7 +225,6 @@ class UserService
         $request->bindParam(':idUser', $idUser);
 
         $request->execute();
-        $var = $request->fetch();
-        return $var;
+        return $request->fetch();
     }
 }

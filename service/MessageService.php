@@ -25,29 +25,52 @@ class MessageService
         // On récupère la connection
         $connection = PdoConnectionHandler::getPDOInstance();
 
+        // On récupère l'id de l'utilisateur
         $useId = $user->getUseId();
 
-        // La requête
-//        $query = "select distinct  u.* from message m
-//                        join user u on m.use_receiver_id and m.mes_sender_id = u.use_id
-//                     where m.mes_sender_id = :idUser or m.use_receiver_id = :idUser";
+        // On récupère le nombre de conversations
+        $conversationsNumber = self::getConversationNumberByUserId($connection, $useId);
+        $conversationsNumber = intval($conversationsNumber);
 
-        $query = "SELECT u.use_id as receiverId, u.use_email as receiver, m.mes_content as message,
-                    m.mes_sender_id as userSenderId, a.ann_id as idAnnonce, a.ann_nom as nomAnnonce,
-                    a.ann_photo as photo 
-                    FROM user u
-                    INNER JOIN message m ON u.use_id = m.mes_sender_id
-                    INNER JOIN annonce a ON a.ann_id = m.ann_id
-                    WHERE m.use_receiver_id = :idUser or m.mes_sender_id = :idUser
-                    ORDER BY m.mes_create_at desc  limit 3";
 
+        // Cette requette permet de récupérer l'id de l'annonce le nom la photo l'interlocuteur son id son mail
+        // et le dernier message envoyé dans la conversation
+        $query = 'SELECT ann.ann_id as idAnnonce, ann.ann_nom as nomAnnonce, ann.ann_photo as photo, 
+                    u.use_id as interlocuteurId,
+                    u.use_email as interlocuteur, mes.mes_content as message
+                    FROM conversation con 
+                    JOIN annonce ann ON ann.ann_id = con.con_id
+                    JOIN (
+                        SELECT mes.con_id, MAX(mes.mes_create_at) AS max_create_at
+                        FROM message mes
+                        GROUP BY mes.con_id
+                    ) max_mess ON con.con_id = max_mess.con_id
+                    JOIN message mes ON con.con_id = mes.con_id AND mes.mes_create_at = max_mess.max_create_at
+                    JOIN `user` u ON con.con_user_id = u.use_id OR con.con_seller_id = u.use_id  
+                    JOIN (
+                        SELECT DISTINCT CASE 
+                            WHEN con.con_user_id = :userId THEN con.con_seller_id 
+                            WHEN con.con_seller_id = :userId THEN con.con_user_id 
+                            END AS interlocutor_id
+                        FROM conversation con 
+                        WHERE con.con_seller_id = :userId OR con.con_user_id = :userId
+                    ) interlocutor ON (interlocutor.interlocutor_id = u.use_id AND u.use_id != :userId)
+                    WHERE con.con_seller_id = :userId OR con.con_user_id = :userId 
+                    GROUP BY con.con_id 
+                    ORDER BY max_mess.max_create_at DESC
+                    LIMIT :conversationsNumber';
+
+        // On fait le prépare statement
         $request = $connection->prepare($query);
 
         // Récupération des paramètres et binding
-        $request->bindParam(":idUser", $useId);
+        $request->bindParam(":userId", $useId);
+        $request->bindParam(":conversationsNumber", $conversationsNumber);
 
+        // On execute
         $request->execute();
 
+        // On retourne la valeur reçue
         return $request->fetchAll(PDO::FETCH_CLASS, MessageCardDto::class);
     }
 
@@ -105,5 +128,28 @@ class MessageService
             "use_receiver_id" => getElementInRequestByAttribute("use_receiver_id"),
             "mes_content" => getElementInRequestByAttribute("mes_content"),
         ];
+    }
+
+    /**
+     * Permet de récupérer le nombre de conversations de l'utilisateur en lui passant en paramètre l'id de l'utilisateur
+     * @param PDO $connection
+     * @param int $useId
+     * @return string
+     */
+    public static function getConversationNumberByUserId(PDO $connection, int $useId): string
+    {
+        // On récupère le nombre de conversations de l'utilisateur connecté
+        $query = "select count(1) from conversation c where con_user_id or con_seller_id = :userId ";
+
+        // On fait le prépare statement
+        $request = $connection->prepare($query);
+
+        // On fait le bidding
+        $request->bindParam(":userId", $useId);
+
+        // On execute
+        $request->execute();
+
+        return $request->fetchColumn();
     }
 }

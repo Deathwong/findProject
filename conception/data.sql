@@ -10,6 +10,8 @@ truncate table favoris;
 
 truncate table categorie;
 
+truncate table conversation;
+
 truncate table annonce;
 
 truncate table user;
@@ -172,23 +174,37 @@ insert into favoris (fav_id, ann_id, use_id)
 values (24, 24, 4);
 
 
+
+/*==============================================================*/
+/* Table : conversation	                                            */
+/*==============================================================*/
+insert into conversation (ann_id, con_user_id, con_seller_id, con_create_at)
+values (1, 2, 1, '2023-01-14 7:0:0');
+insert into conversation (ann_id, con_user_id, con_seller_id, con_create_at)
+values (1, 4, 1, '2023-01-14 7:20:0');
+insert into conversation (ann_id, con_user_id, con_seller_id, con_create_at)
+values (7, 3, 2, '2023-01-14 7:0:0');
+insert into conversation (ann_id, con_user_id, con_seller_id, con_create_at)
+values (7, 1, 2, '2023-01-14 7:0:0');
+
+
 /*==============================================================*/
 /* Table : message	                                            */
 /*==============================================================*/
-insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-values (1, 1, 2, 1, 'message', '2023-01-14 7:0:0');
-insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-values (2, 1, 2, 1, 'message', '2023-01-18 7:26:0');
-insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-values (3, 1, 1, 2, 'message', '2023-01-18 7:28:0');
-insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-values (4, 7, 1, 2, 'message', '2023-01-20 7:0:0');
-insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-values (5, 7, 2, 1, 'message', '2023-01-20 7:23:0');
-insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-values (6, 7, 1, 2, 'message', '2023-01-20 7:27:0');
-insert into message (mes_id, ann_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-values (7, 1, 4, 3, 'message', '2023-01-26 7:0:0');
+insert into message (con_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (1, 2, 1, 'message', '2023-01-14 7:0:0');
+insert into message (con_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (1, 1, 2, 'message', '2023-01-18 8:26:0');
+insert into message (con_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (1, 2, 1, 'message', '2023-01-18 9:28:0');
+insert into message (con_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (2, 4, 1, 'message', '2023-01-20 7:0:0');
+insert into message (con_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (2, 1, 4, 'message', '2023-01-20 7:23:0');
+insert into message (con_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (4, 1, 2, 'message', '2023-01-20 7:27:0');
+insert into message (con_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+values (4, 2, 1, 'message', '2023-01-26 8:0:0');
 
 
 

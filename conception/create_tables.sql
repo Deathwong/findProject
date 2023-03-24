@@ -11,6 +11,8 @@ drop table if exists favoris;
 
 drop table if exists message;
 
+drop table if exists conversation;
+
 drop table if exists annonce;
 
 drop table if exists user;
@@ -68,12 +70,27 @@ create table favoris
   DEFAULT CHARSET = utf8;
 
 /*==============================================================*/
+/* Table : conversation                                           */
+/*==============================================================*/
+create table conversation
+(
+    con_id        bigint     not NULL AUTO_INCREMENT,
+    ann_id        bigint(20) not null,
+    con_user_id   bigint     not null,
+    con_seller_id bigint     not null,
+    con_create_at datetime   not null,
+    primary key (con_id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+
+/*==============================================================*/
 /* Table : message                                              */
 /*==============================================================*/
 create table message
 (
     mes_id          bigint       not NULL AUTO_INCREMENT,
-    ann_id          bigint(20)   not null,
+    con_id          bigint       not null,
     mes_sender_id   bigint       not null,
     use_receiver_id bigint       not null,
     mes_content     varchar(255) not null,
@@ -114,14 +131,27 @@ alter table favoris
     add constraint fk_favoris_relation__annonce foreign key (ann_id)
         references annonce (ann_id) on delete restrict on update restrict;
 
+alter table conversation
+    add constraint fk_conversation_relation__annonce foreign key (ann_id)
+        references annonce (ann_id) on delete restrict on update restrict;
+
+alter table conversation
+    add constraint fk_conversation_relation__user foreign key (con_user_id)
+        references user (use_id) on delete restrict on update restrict;
+
+alter table conversation
+    add constraint fk_conversation_relation_seller__annonce foreign key (con_seller_id)
+        references user (use_id) on delete restrict on update restrict;
+
 alter table message
     add constraint fk_message_relation__user foreign key (mes_sender_id)
         references user (use_id) on delete restrict on update restrict;
 
 alter table message
+    add constraint fk_message_relatio_conversation foreign key (con_id)
+        references conversation (con_id) on delete restrict on update restrict;
+
+alter table message
     add constraint fk_message_relation_receiver__user foreign key (use_receiver_id)
         references user (use_id) on delete restrict on update restrict;
 
-alter table message
-    add constraint fk_message_relation__annonce foreign key (ann_id)
-        references annonce (ann_id) on delete restrict on update restrict;
