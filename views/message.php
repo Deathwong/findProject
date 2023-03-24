@@ -16,7 +16,7 @@ controller();
                 $receiverId = $messageCard->getReceiverId();
                 ?>
                 <div class="nowrap message-card"
-                     onclick="getDiscussion(<?= $messageCard->getIdAnnonce() ?>,<?= $messageCard->getReceiverId() ?>)">
+                     onclick="getDiscussion(<?= $messageCard->getIdAnnonce() ?>,<?= $messageCard->getInterlocuteurId() ?>)">
                     <div>
                         <div>
                             <img class="message-card-photo"
@@ -26,7 +26,7 @@ controller();
                     </div>
                     <div class="">
                         <div id="idReceiver">
-                            <?= $messageCard->getReceiver() ?>
+                            <?= $messageCard->getInterlocuteur() ?>
                         </div>
                         <div id="idAnnonce">
                             <?= $messageCard->getNomAnnonce() ?>
