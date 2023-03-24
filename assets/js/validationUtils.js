@@ -120,7 +120,6 @@ function validateCategoryAnnonce() {
     const nomChamp = "category de l'annonce";
     const champError = $("#errorCategoryAnnonce");
     const categoryAnnonce = $(".cat_id").val();
-    console.log(categoryAnnonce);
 
     if (checkEmptyArray(categoryAnnonce)) {
         champError.text(stringFormat(formControlErrorMessage.required, nomChamp));

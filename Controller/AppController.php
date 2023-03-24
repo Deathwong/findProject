@@ -89,6 +89,7 @@ function controller(): void
             //Création d'une annonce
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // todo Validation
+                
                 // Connexion de l'utilisateur
                 AnnonceController::createAnnonce();
             }
