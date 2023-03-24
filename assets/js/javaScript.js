@@ -259,17 +259,41 @@ function rechercheAjax() {
         data: data,
         success: function (data) {
             const annonces = JSON.parse(data);
-            let annonceTable = $("#annonce-tab");
-            annonceTable.find("tr:gt(0)").remove();
 
+            // Affichage cards
+            let cardGridContainer = $("#annonce-cards-grid");
+            // clear content
+            cardGridContainer.empty();
+
+            // Construction des différents car d'annonce
             for (var i = 0; i < annonces.length; i++) {
-                let json_data = '<tr>' +
-                    "<td> <img src='../assets/img/annonces/" + annonces[i].ann_photo + "' alt='image annonce'></td>" +
-                    '<td>' + annonces[i].ann_nom + '</td>' +
-                    '<td>' + annonces[i].ann_prix + '</td>' +
-                    '<td>' + annonces[i].ann_description + '</td>' +
-                    '</tr>';
-                annonceTable.append(json_data);
+                let json_data = `
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="../assets/img/annonces/${annonces[i].ann_photo}" class="card-img-top" 
+                        alt="Skyscrapers" />
+                        
+                        <div class="card-body">
+                        
+                            <h5 class="card-title">${annonces[i].ann_nom}</h5>
+                            
+                            <p class="card-text">
+                            ${annonces[i].ann_description}
+                            </p>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <!--Détails annonce-->
+                            <a href="detailsAnnonce.php?idAnnonce=${annonces[i].ann_id}" class="btn btn-light icon-hover px-2 pt-2"><i class="fa-sharp fa-solid fa-info"></i></a>
+                            
+                            <!--Détails Favorie-->
+                            <input type="checkbox" id="favori" name="favori" onchange="addOrRemoveFavori(${annonces[i].ann_id})">
+                        </div>
+                    </div>
+                </div>
+                `
+
+                cardGridContainer.append(json_data);
             }
         },
         error: function (data) {
