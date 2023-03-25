@@ -434,8 +434,8 @@ class AnnonceService
 
             $_SESSION['errorValidateCreationAnnonce'] .= $champsErrors;
 
-            header("location:../views/detailsAnnonce.php?idAnnonce=" . $annId);
-            exit();
+            // header("location:../views/detailsAnnonce.php?idAnnonce=" . $annId);
+            //  exit();
         }
     }
 
@@ -463,8 +463,8 @@ class AnnonceService
                 taille maximale 2Mo";
             }
 
-            header("location:../views/detailsAnnonce.php?idAnnonce=" . $annId);
-            exit();
+//            header("location:../views/detailsAnnonce.php?idAnnonce=" . $ann_id);
+//            exit();
         }
     }
 
