@@ -318,6 +318,9 @@ class AnnonceService
         // Enregitrer l'image en faisant un update de l'annonce qui vient d'etre créer
         PhotoService::insertPhotoNameInAnnonceByIdAnonce($ann_id, $connection, $transformFileName);
 
+
+        header("location:../views/detailsAnnonce.php?idAnnonce=" . $ann_id);
+
         // Retour de l'identifiant de l'annonce créée
         return (int)$ann_id;
     }
@@ -434,8 +437,8 @@ class AnnonceService
 
             $_SESSION['errorValidateCreationAnnonce'] .= $champsErrors;
 
-            // header("location:../views/detailsAnnonce.php?idAnnonce=" . $annId);
-            //  exit();
+            header("location:../views/detailsAnnonce.php?idAnnonce=" . $annId);
+            exit();
         }
     }
 
@@ -463,10 +466,9 @@ class AnnonceService
                 taille maximale 2Mo";
             }
 
-//            header("location:../views/detailsAnnonce.php?idAnnonce=" . $ann_id);
-//            exit();
+            header("location:../views/detailsAnnonce.php?idAnnonce=" . $annId);
+            exit();
         }
     }
-
 
 }

@@ -17,6 +17,7 @@ controller();
                    id="ann_nom"
                    placeholder="Titre de l'annonce"
             >
+            <span id="errorTitleAnnonce"></span>
         </div>
 
         <div>
@@ -26,6 +27,7 @@ controller();
                    id="ann_photo"
                    placeholder="Insérer la photo"
             >
+            <span id="errorPhotoAnnonce"></span>
         </div>
 
         <div>
@@ -36,6 +38,7 @@ controller();
                    id="ann_prix"
                    placeholder="Insérer le prix"
             >
+            <span id="errorPrixAnnonce"></span>
         </div>
 
         <div>
@@ -45,6 +48,7 @@ controller();
                    id="ann_description"
                    placeholder=" Description de l'annonce"
             >
+            <span id="errorDescriptionAnnonce"></span>
         </div>
 
         <div>

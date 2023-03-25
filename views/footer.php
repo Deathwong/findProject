@@ -34,6 +34,7 @@
             showOrHideElementByUserConnected('user-signing-link', userConnectId, false);
             showOrHideElementByUserConnected('user-logout-link', userConnectId, true);
             showOrHideElementByUserConnected('user-label', userConnectId, true);
+            showOrHideElementByUserConnected('user-create-annonce-link', userConnectId, true);
         });
     </script>
 </div>

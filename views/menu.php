@@ -15,6 +15,9 @@
             <button type="button" class="btn btn-light btn-link" hidden="hidden" id="user-logout-link"
                     onclick="redirectOnPage('exitUser.php')">Se déconnecter
             </button>
+            <button type="button" class="btn btn-light btn-link" id="user-create-annonce-link" hidden="hidden"
+                    onclick="redirectOnPage('createAnnonce.php')">Créer une annonce
+            </button>
         </div>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
