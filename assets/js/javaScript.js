@@ -319,6 +319,7 @@ function getDiscussion(idInterlocuteur, idConversation) {
         success: function (data) {
             const discussion = JSON.parse(data);
             let messageContainer = $("#message-container");
+            messageContainer.empty();
             messageContainer.find("tr:gt(0)").remove();
 
             for (let i = 0; i < discussion.length; i++) {
@@ -328,7 +329,6 @@ function getDiscussion(idInterlocuteur, idConversation) {
                         ${discussion[i].mes_content}
                     </div>
                 `
-
                 messageContainer.append(json_data);
             }
         },

@@ -89,8 +89,11 @@ class MessageService
         $idInterlocuteur = getElementInRequestByAttribute("userId");
         $iConversation = getElementInRequestByAttribute("idConversation");
 
-        $query = "select  * from  message mes where  ((mes_sender_id = :idUser and use_receiver_id = :userId) or
-         (mes_sender_id = :userId and use_receiver_id = :idUser)) and con_id = :iConversation";
+//        $query = "select  * from  message mes where  ((mes_sender_id = :idUser and use_receiver_id = :userId) or
+//         (mes_sender_id = :userId and use_receiver_id = :idUser)) and con_id = :iConversation";
+
+        $query = "select * from message where con_id = :idConversation and
+                            (mes_sender_id = :idUser or use_receiver_id = :idUser)";
 
         // On récupère l'id du user connecté
         $useId = $user->getUseId();
@@ -99,8 +102,7 @@ class MessageService
 
         // Récupération des paramètres et binding
         $request->bindParam(":idUser", $useId);
-        $request->bindParam(":userId", $idInterlocuteur);
-        $request->bindParam(":iConversation", $iConversation);
+        $request->bindParam(":idConversation", $iConversation);
 
         $request->execute();
 
@@ -117,7 +119,6 @@ class MessageService
                 'mes_content' => $message["mes_content"],
                 'mes_create_at' => $message["mes_create_at"]
             );
-
         }
 
         return $listMessage;
