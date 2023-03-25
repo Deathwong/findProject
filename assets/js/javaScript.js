@@ -302,21 +302,11 @@ function rechercheAjax() {
     });
 }
 
-function getDiscussion(idReceiver, idAnnonce) {
+function getDiscussion(idInterlocuteur, idConversation) {
     let data = {};
+    data.userId = idInterlocuteur;
 
-    // Récupération des données de chargement de la discussion
-    // idReceiver
-    // idReceiver = $("#idReceiver").text().trim();
-    // if (!checkEmpty(idReceiver)) {
-    data.use_id = idReceiver;
-    // }
-
-    // idAnnonce
-    // const idAnnonce = $("#idAnnonce").text().trim();
-    // if (!checkEmpty(idAnnonce)) {
-    data.ann_id = idAnnonce;
-    // }
+    data.idConversation = idConversation;
 
     const URL = '/findProject/views/getDiscussion.php';
     let discussion = null;
@@ -331,12 +321,16 @@ function getDiscussion(idReceiver, idAnnonce) {
             let messageContainer = $("#message-container");
             messageContainer.find("tr:gt(0)").remove();
 
-            // for (let i = 0; i < discussion.length; i++) {
-            //     let json_data = '<tr>' +
-            //         '<td>' + discussion[i].ann_nom + '</td>' +
-            //         '</tr>';
-            //     discussion.append(json_data);
-            // }
+            for (let i = 0; i < discussion.length; i++) {
+
+                let json_data = `
+                    <div>
+                        ${discussion[i].mes_content}
+                    </div>
+                `
+
+                messageContainer.append(json_data);
+            }
         },
         error: function (data) {
             console.log('Error');
@@ -362,19 +356,20 @@ function isUserAuthorizedToDelete(userConnectID, userAnnonceID) {
     }
 }
 
-function showOrHideElementByUserConnected(elementId, userIsConnected, show) {
-
-    if (userIsConnected && show) {
-        $("#" + elementId).attr('hidden', false);
-    } else if (!userIsConnected && !show) {
-        $("#" + elementId).attr('hidden', false);
-    } else {
-        $("#" + elementId).attr('hidden', true);
-    }
-}
+//
+// function showOrHideElementByUserConnected(elementId, userIsConnected, show) {
+//
+//     if (userIsConnected && show) {
+//         $("#" + elementId).attr('hidden', false);
+//     } else if (!userIsConnected && !show) {
+//         $("#" + elementId).attr('hidden', false);
+//     } else {
+//         $("#" + elementId).attr('hidden', true);
+//     }
+// }
 
 function checkedFav(annonceIsInUserFavori) {
-    if (annonceIsInUserFavori == 1) {
+    if (annonceIsInUserFavori === 1) {
         $("#favori").prop('checked', true);
     }
 }

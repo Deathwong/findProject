@@ -3,7 +3,6 @@
 namespace service;
 
 use dto\ConversationCard;
-use model\Message;
 use model\User;
 use PDO;
 
@@ -87,12 +86,11 @@ class MessageService
         $connection = PdoConnectionHandler::getPDOInstance();
 
         // On récupère l'id de l'interlocuteur
-        $idInterlocuteur = getElementInRequestByAttribute("use_id");
-        $idAnnonce = getElementInRequestByAttribute("ann_id");
+        $idInterlocuteur = getElementInRequestByAttribute("userId");
+        $iConversation = getElementInRequestByAttribute("idConversation");
 
-        $query = "select  * from  message where  ((mes_sender_id = :idUser and use_receiver_id = :userId) or
-                                (mes_sender_id = :userId and use_receiver_id = :idUser)) and ann_id = :idAnnonce  
-                        order by mes_create_at desc";
+        $query = "select  * from  message mes where  ((mes_sender_id = :idUser and use_receiver_id = :userId) or
+         (mes_sender_id = :userId and use_receiver_id = :idUser)) and con_id = :iConversation";
 
         // On récupère l'id du user connecté
         $useId = $user->getUseId();
@@ -102,11 +100,27 @@ class MessageService
         // Récupération des paramètres et binding
         $request->bindParam(":idUser", $useId);
         $request->bindParam(":userId", $idInterlocuteur);
-        $request->bindParam(":idAnnonce", $idAnnonce);
+        $request->bindParam(":iConversation", $iConversation);
 
         $request->execute();
 
-        return $request->fetchAll(PDO::FETCH_CLASS, Message::class);
+        $allMessages = $request->fetchAll(PDO::FETCH_BOTH);
+
+        $listMessage = [];
+
+        foreach ($allMessages as $message) {
+            $listMessage[] = array(
+                'mes_id' => $message["mes_id"],
+                'con_id' => $message["con_id"],
+                'mes_sender_id' => $message["mes_sender_id"],
+                'use_receiver_id' => $message["use_receiver_id"],
+                'mes_content' => $message["mes_content"],
+                'mes_create_at' => $message["mes_create_at"]
+            );
+
+        }
+
+        return $listMessage;
     }
 
     public static function sendMessage(User $user): void

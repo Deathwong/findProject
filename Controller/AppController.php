@@ -89,7 +89,7 @@ function controller(): void
             //Création d'une annonce
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // todo Validation
-                
+
                 // Connexion de l'utilisateur
                 AnnonceController::createAnnonce();
             }
@@ -173,8 +173,12 @@ function controller(): void
             break;
 
         case AppConstant::$GET_DISCUSSION:
-            $annonce = MessageController::getDiscussion();
-//            MessageController::sendMessage();
+            $discussions = MessageController::getDiscussion();
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                echo json_encode($discussions);
+            }
+
             break;
 
         case AppConstant::EXIT_USER:
