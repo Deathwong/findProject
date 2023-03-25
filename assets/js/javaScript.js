@@ -302,7 +302,7 @@ function rechercheAjax() {
     });
 }
 
-function getDiscussion(idInterlocuteur, idConversation) {
+function getDiscussion(idConversation, idInterlocuteur) {
     let data = {};
     data.userId = idInterlocuteur;
 
