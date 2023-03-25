@@ -200,8 +200,11 @@ function validatephotoform(string $ann_photo): bool
     $file_name = $file['name'];
     $file_size = $file['size'];
     $file_tmp = $file['tmp_name'];
-    $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));  //pour récupérer l'extension du fichier
-    //strtolower() pour convertir l'extension en miniscule, pathinfo() pour récupérer les informations
+    $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+    //strtolower() pour convertir l'extension en miniscule
+    // pathinfo() pour récupérer les informations
+    //PATHINFO_EXTENSION pour récupérer les extension du fichier
+
 
     // Vérifier si le fichier est bien une image
     // la fonction getimagesize pour récupérer les infos de l'image
@@ -216,7 +219,7 @@ function validatephotoform(string $ann_photo): bool
 
     // Vérifier si l'extension du fichier est autorisée
     if (!in_array($file_ext, $allowed_ext)) {
-        return 'Le format du fichier sélectionné n\'est pas autorisé (formats autorisés : jpg, jpeg, png, gif)';
+        return 'Le format du fichier sélectionné n\'est pas autorisé (formats autorisés : jpg, jpeg, png)';
     }
 
     // Si toutes les vérifications sont passées avec succès, on peut retourner true
