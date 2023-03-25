@@ -434,8 +434,8 @@ class AnnonceService
 
             $_SESSION['errorValidateCreationAnnonce'] .= $champsErrors;
 
-            // header("location:../views/editAnnonce.php?idAnnonce=" . $annId);
-            // exit();
+            header("location:../views/detailsAnnonce.php?idAnnonce=" . $annId);
+            exit();
         }
     }
 
@@ -458,10 +458,13 @@ class AnnonceService
                 $_SESSION['errorValidateCreationAnnonce'] .= "Veuillez saisir le prix sous un bon format</br>exemple 
             : 9.99 ou 9";
             }
-            if();
+            if (!validatephotoform($ann_photo)) {
+                $_SESSION['errorValidateCreationAnnonce'] .= "Veuillez entrer une image de format jpg/jprg/png et de 
+                taille maximale 2Mo";
+            }
 
-            // header("location:../views/editAnnonce.php?idAnnonce=" . $annId);
-            //exit();
+            header("location:../views/detailsAnnonce.php?idAnnonce=" . $annId);
+            exit();
         }
     }
 
