@@ -134,7 +134,7 @@ class AnnonceService
 
         $ann_nom = $annonce["ann_nom"];
         $ann_prix = $annonce["ann_prix"];
-        $ann_photo = $annonce["ann_photo"];
+        $ann_photo = getElementInRequestByAttribute("ann_photo");
         $ann_description = $annonce["ann_description"];
         $cat_id = getElementInRequestByAttribute("cat_id");
 
