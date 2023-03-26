@@ -94,6 +94,12 @@ function submitCreateFormAnnonce() {
     validateDescriptionAnnonce();
     validateCategoryAnnonce();
 
+    isValidNomAnnonce = true;
+    isValidPrixAnnonce = true;
+    isValidDescriptionAnnonce = true;
+    isValidPhotoAnnonce = true;
+    isValidCategoryAnnonce = true;
+
     if (isValidNomAnnonce && isValidPrixAnnonce && isValidDescriptionAnnonce && isValidPhotoAnnonce &&
         isValidCategoryAnnonce) {
         form.submit();

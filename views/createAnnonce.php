@@ -9,6 +9,15 @@ controller();
 <?php require 'menu.php' ?>
 <div> Création d'une Annonce</div>
 <div>
+
+            <span>
+                <?php
+                if (isset($_SESSION['errorValidateCreationAnnonce'])) {
+                    echo $_SESSION['errorValidateCreationAnnonce'];
+                }
+                $_SESSION['errorValidateCreationAnnonce'] = null;
+                ?>
+            </span>
     <form method="post" action="" id="createAnnonceForm" enctype="multipart/form-data">
         <div>
             <label for="ann_nom"></label>
