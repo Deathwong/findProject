@@ -103,10 +103,11 @@ function controller(): void
                 $annonce = AnnonceController::getAnnonceDetails();
                 $user = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
                 $categoriesAnnonce = explode($separator, getLettersOfTheString($annonce->getCategories()));
-
-
-                $annonceUserIdsFavoris = explode($separator, $annonce->getUserIdFavoris());
-                $annonceIsInUserFavori = in_array($user->getUseId(), $annonceUserIdsFavoris);
+                
+                if (isset($user)) {
+                    $annonceUserIdsFavoris = explode($separator, $annonce->getUserIdFavoris());
+                    $annonceIsInUserFavori = in_array($user->getUseId(), $annonceUserIdsFavoris);
+                }
             }
             break;
 

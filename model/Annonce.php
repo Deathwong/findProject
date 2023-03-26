@@ -14,7 +14,7 @@ class Annonce
     private string $ann_create_at;
     private string $ann_update_at;
     private string $categories;
-    private string $userIdFavoris;
+    private ?string $userIdFavoris;
 
     /**
      * @return int

@@ -326,16 +326,16 @@ class AnnonceService
     }
 
     /**
-     * @param string $annId
-     * @param string $annNon
-     * @param string $annPrix
-     * @param string $annDescription
-     * @param array $catID
+     * @param string|null $annId
+     * @param string|null $annNon
+     * @param string|null $annPrix
+     * @param string|null $annDescription
+     * @param array|null $catID
      * @return void
      */
-    public static function validateAnnonceUpdateRequiredFields(string $annId, string $annNon, string $annPrix,
-                                                               string $annDescription,
-                                                               array  $catID): void
+    public static function validateAnnonceUpdateRequiredFields(?string $annId, ?string $annNon, ?string $annPrix,
+                                                               ?string $annDescription,
+                                                               ?array  $catID): void
     {
         if ($annId === null || $annNon === null || $annPrix === null || $annDescription === null || $catID === null) {
 

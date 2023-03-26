@@ -18,3 +18,20 @@
     width: 200px;
     margin-bottom: 2px;
 }
+
+.chat-box {
+    border: 1px black solid;
+    width: 800px;
+    height: 400px;
+}
+
+.message-user-connected {
+    max-height: 300px;
+    text-align: right;
+}
+
+
+.message-user-interlocuteur {
+    max-height: 300px;
+    text-align: left;
+}

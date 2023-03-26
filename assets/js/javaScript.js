@@ -304,7 +304,6 @@ function rechercheAjax() {
 
 function getDiscussion(idConversation, idInterlocuteur) {
     let data = {};
-    data.userId = idInterlocuteur;
 
     data.idConversation = idConversation;
 
@@ -319,16 +318,30 @@ function getDiscussion(idConversation, idInterlocuteur) {
         success: function (data) {
             const discussion = JSON.parse(data);
             let messageContainer = $("#message-container");
+            let position = 'message_user-connected';
             messageContainer.empty();
             messageContainer.find("tr:gt(0)").remove();
 
             for (let i = 0; i < discussion.length; i++) {
+                let json_data = null;
 
-                let json_data = `
-                    <div>
+                let receiverId = discussion[i].use_receiver_id;
+
+                if (receiverId !== idInterlocuteur) {
+                    // position = 'message-user-interlocuteur';
+                    json_data = `
+                    <div class="message-user-connected">
                         ${discussion[i].mes_content}
                     </div>
-                `
+                `;
+                } else {
+                    json_data = `
+                    <div class="message-user-interlocuteur">
+                        ${discussion[i].mes_content}
+                    </div>
+                `;
+                }
+
                 messageContainer.append(json_data);
             }
         },
