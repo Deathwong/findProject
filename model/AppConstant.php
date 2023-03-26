@@ -10,6 +10,7 @@ class AppConstant
     public static string $ACCUEIL_LOCATION_LABEL = '../views/';
 
     public static string $INDEX_URL = '/findProject/views/';
+    public static string $INDEX_REAL_URL = '/findProject/views/index.php';
     public static string $LISTE_USERS_URL = '/findProject/views/listeUsers.php';
     public static string $DETAILS_USER_URL = '/findProject/views/detailsUser.php';
     public static string $SIGNUP_URL = '/findProject/views/signup.php';

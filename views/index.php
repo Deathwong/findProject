@@ -40,6 +40,8 @@ controller();
                     </div>
                 </div>
             <?php } ?>
+
+            <div hidden="hidden" id="empty-list-annonce">Aucune annonce trouvée !!</div>
         </div>
     </div>
 </div>
