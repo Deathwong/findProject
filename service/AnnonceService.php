@@ -128,7 +128,7 @@ class AnnonceService
 
     }
 
-    public static function validationCreationChampsAnnone(): void
+    public static function validationCreationChampsAnnonce(): void
     {
         $annonce = self::getAnnoncesHttpRequestValues();
 
@@ -139,9 +139,9 @@ class AnnonceService
         $cat_id = getElementInRequestByAttribute("cat_id");
 
         //Contrôle des champs obligatoires
-        self::validateCreationAnnonceRequiredFields($ann_nom, $ann_prix, $ann_description, $cat_id);
+        self::validateCreationAnnonceRequiredFields($ann_nom, $ann_prix, $ann_description, $cat_id, $ann_photo);
 
-        self::validateCreationAnnonceFields($ann_nom, $ann_prix, $ann_description);
+        self::validateCreationAnnonceFields($ann_nom, $ann_description, $ann_prix, $ann_photo);
 
     }
 
@@ -401,9 +401,9 @@ class AnnonceService
         }
     }
 
-    public static function validateCreationAnnonceRequiredFields(string $ann_nom, string $ann_prix,
-                                                                 string $ann_description, string $cat_id,
-                                                                 string $ann_photo): void
+    public static function validateCreationAnnonceRequiredFields(?string $ann_nom, ?string $ann_prix,
+                                                                 ?string $ann_description, ?array $cat_id,
+                                                                 ?string $ann_photo): void
     {
         if ($ann_nom === null || $ann_prix === null || $ann_description === null || $cat_id === null
             || $ann_photo === null) {
@@ -438,13 +438,21 @@ class AnnonceService
 
             $_SESSION['errorValidateCreationAnnonce'] .= $champsErrors;
 
-            header("location:../views/detailsAnnonce.php?idAnnonce=" . $annId);
+            header("location:../views/createAnnonce.php");
             exit();
         }
     }
 
-    public static function validateCreationAnnonceFields(string $ann_nom, string $ann_description, string $ann_prix,
-                                                         string $ann_photo): void
+    /**
+     * Fonction pour valider les champs de création d'une annonce
+     * @param string|null $ann_nom
+     * @param string|null $ann_description
+     * @param string|null $ann_prix
+     * @param string|null $ann_photo
+     * @return void
+     */
+    public static function validateCreationAnnonceFields(?string $ann_nom, ?string $ann_description, ?string $ann_prix,
+                                                         ?string $ann_photo): void
     {
         if (!validateMaxLength(100, $ann_nom) || !validateMaxLength(4000, $ann_description) ||
             !validatePrice($ann_prix)) {
@@ -467,7 +475,7 @@ class AnnonceService
                 taille maximale 2Mo";
             }
 
-            header("location:../views/detailsAnnonce.php?idAnnonce=" . $annId);
+            header("location:../views/createAnnonce.php");
             exit();
         }
     }

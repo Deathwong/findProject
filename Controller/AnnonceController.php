@@ -39,8 +39,12 @@ class AnnonceController
     }
 
     // Permet de créer une annonce
-    public static function createAnnonce(): int
+    public static function createAnnonce(): void
     {
-        return AnnonceService::createAnnonce();
+        //Validation de la création
+        AnnonceService:: validationCreationChampsAnnonce();
+
+        //création d'une annonce
+        AnnonceService::createAnnonce();
     }
 }
