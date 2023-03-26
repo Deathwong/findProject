@@ -35,3 +35,9 @@
     max-height: 300px;
     text-align: left;
 }
+
+
+.photo-details {
+    width: 300px;
+    height: auto;
+}

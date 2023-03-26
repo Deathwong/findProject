@@ -10,7 +10,7 @@ controller();
 <?php require 'menu.php' ?>
 <div>
     <div>
-        <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" alt="image de l'annonce">
+        <img class="photo-details" src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" alt="image de l'annonce">
     </div>
     <div>
         <?= $annonce->getAnnNom() ?>
