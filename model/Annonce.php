@@ -177,9 +177,9 @@ class Annonce
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getUserIdFavoris(): string
+    public function getUserIdFavoris(): ?string
     {
         return $this->userIdFavoris;
     }
