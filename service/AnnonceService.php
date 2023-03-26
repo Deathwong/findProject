@@ -337,6 +337,7 @@ class AnnonceService
                                                                ?string $annDescription,
                                                                ?array  $catID): void
     {
+
         if ($annId === null || $annNon === null || $annPrix === null || $annDescription === null || $catID === null) {
 
             $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires suivants: ';
