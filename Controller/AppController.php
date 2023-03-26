@@ -18,6 +18,7 @@ require_once 'MessageController.php';
 $users = [];
 $user = new User();
 $userIsConnected = false;
+$userIdConnected = null;
 
 $annonces = [];
 $annonce = new Annonce();
@@ -40,13 +41,14 @@ function controller(): void
 {
     global $users, $user, $userIsConnected, $annonce, $annonces, $categories, $categoriesAnnonce,
            $arrayOfSelectedValues, $conversationsCards, $userConnectChatBox, $userIDChatBox, $annonceUserIdsFavoris,
-           $annonceIsInUserFavori;
+           $annonceIsInUserFavori, $userIdConnected;
 
     $separator = ",";
 
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
     switch ($uri) {
+        case AppConstant::$INDEX_REAL_URL:
         case AppConstant::$INDEX_URL:
 
             $categories = CategoryController::getAllCategories();
@@ -58,6 +60,7 @@ function controller(): void
             if (isset($_SESSION["use_id"])) {
                 $user = $_SESSION["use_id"];
                 $userIsConnected = true;
+                $userIdConnected = $user->getUseId();
             }
             break;
 
@@ -105,7 +108,7 @@ function controller(): void
                 $categoriesAnnonce = explode($separator, getLettersOfTheString($annonce->getCategories()));
 
                 $favoris = $annonce->getUserIdFavoris();
-                
+
                 if (isset($user) && isset($favoris)) {
                     $annonceUserIdsFavoris = explode($separator, $annonce->getUserIdFavoris());
                     $annonceIsInUserFavori = in_array($user->getUseId(), $annonceUserIdsFavoris);

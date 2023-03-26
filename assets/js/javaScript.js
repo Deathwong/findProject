@@ -132,6 +132,10 @@ function showUpdateAnnonceButton(userConnectID, userAnnonceID) {
     }
 }
 
+function showElementById(elementId, isShow) {
+    isShow ? $("#" + elementID).attr('hidden', false) : $("#" + elementID).attr('hidden', true);
+}
+
 /**
  * Cache ou affiche un élément en fonction de l'id de l'utilisateur connecté
  * @param userConnectID L'id de l'utilisateur connecté
@@ -227,7 +231,7 @@ function addFavori(data) {
     });
 }
 
-function rechercheAjax() {
+function rechercheAjax(idUserFavori, idUsuerAnnonce) {
     let data = {};
 
     // Récupération des input du formulaire de recherche
@@ -253,6 +257,18 @@ function rechercheAjax() {
     const categorieId = $("#categorie_id").val();
     if (!checkEmpty(categorieId) && categorieId !== '---Catégories---') {
         data.categorieId = categorieId;
+    }
+
+    // Mes annonces favori
+    if (idUserFavori) {
+        data = {};
+        data.mesFavoris = idUserFavori;
+    }
+
+    // Mes annonces
+    if (idUsuerAnnonce) {
+        data = {};
+        data.mesAnnonces = idUsuerAnnonce;
     }
 
     const URL = '/findProject/views/getAllAnnonce.php';
@@ -301,6 +317,9 @@ function rechercheAjax() {
 
                 cardGridContainer.append(json_data);
             }
+
+            annonces.length == 0 ? $('#empty-list-annonce').attr('hidden', false) :
+                $('#empty-list-annonce').attr('hidden', true);
         },
         error: function (data) {
             console.log('Error');
@@ -374,18 +393,6 @@ function isUserAuthorizedToDelete(userConnectID, userAnnonceID) {
         window.location.href = "findProject/views/detailsAnnonce.php";
     }
 }
-
-//
-// function showOrHideElementByUserConnected(elementId, userIsConnected, show) {
-//
-//     if (userIsConnected && show) {
-//         $("#" + elementId).attr('hidden', false);
-//     } else if (!userIsConnected && !show) {
-//         $("#" + elementId).attr('hidden', false);
-//     } else {
-//         $("#" + elementId).attr('hidden', true);
-//     }
-// }
 
 function checkedFav(annonceIsInUserFavori) {
     if (annonceIsInUserFavori === 1) {

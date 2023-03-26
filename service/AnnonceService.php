@@ -232,6 +232,22 @@ class AnnonceService
             $parameters['prixMax'] = $prixMax;
         }
 
+        // Mes annonces
+        if (isset($_POST['mesAnnonces']) || isset($_GET['mesAnnonces'])) {
+            $idUserForAnnonce = getElementInRequestByAttribute("mesAnnonces");
+            $conditions[] = 'ann.use_id = :idUserForAnnonce';
+            $parameters['idUserForAnnonce'] = $idUserForAnnonce;
+        }
+
+        // Mes favoris
+        if (isset($_POST['mesFavoris']) || isset($_GET['mesFavoris'])) {
+            $idUserForAnnonceFav = getElementInRequestByAttribute("mesFavoris");
+            $joinQuery = 'join favoris fav on fav.ann_id = ann.ann_id';
+            $mainQuery .= $joinQuery;
+            $conditions[] = 'fav.use_id = :idUserForAnnonceFav';
+            $parameters['idUserForAnnonceFav'] = $idUserForAnnonceFav;
+        }
+
         if ($conditions) {
             $mainQuery .= " WHERE " . implode(" AND ", $conditions);
         }
