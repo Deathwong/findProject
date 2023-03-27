@@ -48,7 +48,7 @@ controller();
             </div>
             <div class="chat-box" id="message-container">
             </div>
-            <div id="message-input"></div>
+            <div id="send-message-div"></div>
         </div>
 
     </div>

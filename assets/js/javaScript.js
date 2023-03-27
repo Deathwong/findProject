@@ -327,11 +327,33 @@ function rechercheAjax(idUserFavori, idUsuerAnnonce) {
     });
 }
 
+
 function createInputToSendMessageOnMessagePage(idConversation, idInterlocuteur) {
-    let inputMessage = $("#message-input");
-    let labelOfInput = '<label for="mes_content"></label>'
-    let myInput = "<input name='mes_content' id='mes_content' placeholder='your message'>"
-    let myButtonSubmit = <button><img src="../img/icones/svg/send.svg" alt="send message"/></button>
+    let divMessage = $("#send-message-div");
+
+    let sendMessageForm = "<form id='sendMessageForm'></form>"
+
+    divMessage.append(sendMessageForm);
+
+    sendMessageForm = $('#sendMessageForm');
+
+    let myInputInterlocuteur = "<input type='hidden' name='idInterlocuteur' id='idInterlocuteur'>";
+    sendMessageForm.append(myInputInterlocuteur);
+    myInputInterlocuteur = $('#idInterlocuteur');
+    myInputInterlocuteur.val(idInterlocuteur);
+
+
+    let myInputIdConversation = "<input type='hidden' name='idConversation' id='idConversation' value='idConversation'>";
+    sendMessageForm.append(myInputIdConversation);
+    myInputIdConversation = $('#idConversation')
+    myInputIdConversation.val(idConversation)
+
+    let labelOfInput = '<label for="mes_content"></label>';
+    let myInput = "<input name='mes_content' id='mes_content' placeholder='your message'>";
+
+    let myButtonSubmit = "<button onclick='sendMessageAjax()'><img src='../assets/img/icones/svg/send.svg' alt='send message'/></button/>"
+
+    sendMessageForm.append(labelOfInput + myInput + myButtonSubmit);
 }
 
 function getDiscussion(idConversation, idInterlocuteur) {
@@ -376,6 +398,7 @@ function getDiscussion(idConversation, idInterlocuteur) {
 
                 messageContainer.append(json_data);
             }
+            createInputToSendMessageOnMessagePage(idConversation, idInterlocuteur);
         },
         error: function (data) {
             console.log('Error');
@@ -405,4 +428,24 @@ function checkedFav(annonceIsInUserFavori) {
     if (annonceIsInUserFavori === 1) {
         $("#favori").prop('checked', true);
     }
+}
+
+function sendMessageAjax() {
+
+    let data = {};
+
+    let interlocuteur = $('#idInterlocuteur').val();
+
+    let idConversation = $('#idConversation').val()
+
+    if (interlocuteur) {
+        data.interlocuteur = interlocuteur;
+    }
+
+    if (idConversation) {
+        data.idConversation = idConversation;
+    }
+
+    const URL = '/findProject/views/getDiscussion.php';
+
 }
