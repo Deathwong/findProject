@@ -30,6 +30,9 @@
             <button type="button" class="btn btn-light btn-link" id="user-create-annonce-link" hidden="hidden"
                     onclick="redirectOnPage('createAnnonce.php')">Créer une annonce
             </button>
+            <button type="button" class="btn btn-light btn-link" id="user-messagerie-link" hidden="hidden"
+                    onclick="redirectOnPage('message.php')">Messagerie
+            </button>
         </div>
         <!--User Connexion-->
 

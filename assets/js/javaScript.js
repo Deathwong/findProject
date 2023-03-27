@@ -234,7 +234,7 @@ function addFavori(data) {
 function rechercheAjax(idUserFavori, idUsuerAnnonce) {
     let data = {};
 
-    // Récupération des input du formulaire de recherche
+    // Récupération des inputs du formulaire de recherche
     // Nom
     const nom = $("#nom").val();
     if (!checkEmpty(nom)) {
@@ -318,13 +318,20 @@ function rechercheAjax(idUserFavori, idUsuerAnnonce) {
                 cardGridContainer.append(json_data);
             }
 
-            annonces.length == 0 ? $('#empty-list-annonce').attr('hidden', false) :
+            annonces.length === 0 ? $('#empty-list-annonce').attr('hidden', false) :
                 $('#empty-list-annonce').attr('hidden', true);
         },
         error: function (data) {
             console.log('Error');
         }
     });
+}
+
+function createInputToSendMessageOnMessagePage(idConversation, idInterlocuteur) {
+    let inputMessage = $("#message-input");
+    let labelOfInput = '<label for="mes_content"></label>'
+    let myInput = "<input name='mes_content' id='mes_content' placeholder='your message'>"
+    let myButtonSubmit = <button><img src="../img/icones/svg/send.svg" alt="send message"/></button>
 }
 
 function getDiscussion(idConversation, idInterlocuteur) {

@@ -108,7 +108,7 @@ function controller(): void
                 $categoriesAnnonce = explode($separator, getLettersOfTheString($annonce->getCategories()));
 
                 $favoris = $annonce->getUserIdFavoris();
-
+                
                 if (isset($user) && isset($favoris)) {
                     $annonceUserIdsFavoris = explode($separator, $annonce->getUserIdFavoris());
                     $annonceIsInUserFavori = in_array($user->getUseId(), $annonceUserIdsFavoris);

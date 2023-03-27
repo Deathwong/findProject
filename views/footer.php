@@ -35,6 +35,7 @@
             showOrHideElementByUserConnected('user-logout-link', userConnectId, true);
             showOrHideElementByUserConnected('user-label', userConnectId, true);
             showOrHideElementByUserConnected('user-create-annonce-link', userConnectId, true);
+            showOrHideElementByUserConnected('user-messagerie-link', userConnectId, true);
             showOrHideElementByUserConnected('user-annonce', userConnectId, true);
         });
     </script>
