@@ -28,4 +28,10 @@ class MessageController
         $userConnect = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
         return MessageService::getDiscussion($userConnect);
     }
+
+    public static function sendMessageAjax(): void
+    {
+        $userConnect = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
+        MessageService::sendMessageAjax($userConnect);
+    }
 }

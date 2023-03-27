@@ -108,7 +108,7 @@ function controller(): void
                 $categoriesAnnonce = explode($separator, getLettersOfTheString($annonce->getCategories()));
 
                 $favoris = $annonce->getUserIdFavoris();
-                
+
                 if (isset($user) && isset($favoris)) {
                     $annonceUserIdsFavoris = explode($separator, $annonce->getUserIdFavoris());
                     $annonceIsInUserFavori = in_array($user->getUseId(), $annonceUserIdsFavoris);
@@ -184,7 +184,10 @@ function controller(): void
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo json_encode($discussions);
             }
+            break;
 
+        case AppConstant::$SEND_MESSAGE_AJAX_URL:
+            MessageController::sendMessageAjax();
             break;
 
         case AppConstant::EXIT_USER:

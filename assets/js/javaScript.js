@@ -436,7 +436,9 @@ function sendMessageAjax() {
 
     let interlocuteur = $('#idInterlocuteur').val();
 
-    let idConversation = $('#idConversation').val()
+    let idConversation = $('#idConversation').val();
+
+    let message = $('#mes_content').val();
 
     if (interlocuteur) {
         data.interlocuteur = interlocuteur;
@@ -446,6 +448,23 @@ function sendMessageAjax() {
         data.idConversation = idConversation;
     }
 
-    const URL = '/findProject/views/getDiscussion.php';
+    if (message) {
+        data.message = message;
+    }
+
+    const URL = '/findProject/views/sendMessageAjax.php';
+    
+
+    // $.ajax({
+    //     method: "POST",
+    //     type: "POST",
+    //     url: URL,
+    //     data: data,
+    //     success: function (data) {
+    //     },
+    //     error: function (data) {
+    //         console.log('Error');
+    //     }
+    // });
 
 }

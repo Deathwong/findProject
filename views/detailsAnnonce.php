@@ -9,7 +9,7 @@ controller();
 <body>
 <?php require 'menu.php' ?>
 <div>
-    <div><a href="../views/"><img src="../assets/img/icones/svg/svg/arrow-left-circle.svg" alt="retour à l'index"></a>
+    <div><a href="../views/"><img src="../assets/img/icones/svg/arrow-left-circle.svg" alt="retour à l'index"></a>
     </div>
     <div>
         <img class="photo-details" src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" alt="image de l'annonce">

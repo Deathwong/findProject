@@ -123,7 +123,7 @@ class MessageService
 
         // On crée la conversation en récupérant son id
         $idConversation = self::createConversation($user, $connection);
-        
+
         // Récupération des valeurs issues de la requête http pour créer le message
         $messageHttpRequestValues = self::getMessageHttpRequestValues();
 
@@ -208,5 +208,38 @@ class MessageService
 
         // On retourne l'id de la conversation crée
         return $connection->lastInsertId();
+    }
+
+    public static function sendMessageAjax(User $user): void
+    {
+        // On récupère la connection
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        // Récupération de l'id de l'utilisateur connecté
+        $userId = $user->getUseId();
+
+        // On récupère l'id de la conversation
+        $idConversation = getElementInRequestByAttribute("idConversation");
+
+        // On récupère l'id de l'interlocuteur
+        $interlocuteur = getElementInRequestByAttribute("interlocuteur");
+
+        // On récupère le message
+        $message = getElementInRequestByAttribute("message");
+
+        // La requête
+        $query = "INSERT INTO message(con_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+                    VALUES(:con_id , :mes_sender_id, :use_receiver_id, :mes_content, now())";
+
+        // On prépare la requête
+        $request = $connection->prepare($query);
+
+        // On fait le binding de values
+        $request->bindParam(':con_id', $idConversation);
+        $request->bindParam(':mes_sender_id', $userId);
+        $request->bindParam(':use_receiver_id', $interlocuteur);
+        $request->bindParam(':mes_content', $message);
+
+        $request->execute();
     }
 }

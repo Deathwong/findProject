@@ -25,9 +25,10 @@ class AppConstant
     public static string $MESSAGE_URL = "/findProject/views/message.php";
     public static string $SEND_MESSAGE_URL = '/findProject/views/sendMessage.php';
     public static string $GET_DISCUSSION = '/findProject/views/getDiscussion.php';
+    public static string $SEND_MESSAGE_AJAX_URL = '/findProject/views/sendMessageAjax.php';
     public const ADD_FAVORI_BY_ANNONCE_URL = '/findProject/views/addFavoriByAnnonce.php';
-    public const EXIT_USER = "/findProject/views/exitUser.php";
 
+    public const EXIT_USER = "/findProject/views/exitUser.php";
     public const USE_ID_SESSION_KEY = 'use_id';
     public const HTTP_REQUEST_SUCCESS = 'success';
 }
