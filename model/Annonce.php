@@ -13,7 +13,7 @@ class Annonce
     private int $ann_nombre_consultation;
     private string $ann_create_at;
     private string $ann_update_at;
-    private string $categories;
+    private ?string $categories;
     private ?string $userIdFavoris;
 
     /**
@@ -163,7 +163,7 @@ class Annonce
     /**
      * @return string
      */
-    public function getCategories(): string
+    public function getCategories(): ?string
     {
         return $this->categories;
     }

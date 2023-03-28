@@ -242,4 +242,59 @@ class MessageService
 
         $request->execute();
     }
+
+    public static function deleteMessages(PDO $connection, string $idAnnonce): void
+    {
+        // On récupère les ids des différentes conversations
+        $idsConversation = self::getConversationsByIdAnnonce($connection, $idAnnonce);
+
+        // La requête
+        $query = "delete from message where con_id in (:idsConversation)";
+
+
+//        $idsConversation = str_replace('"', '', $idsConversation);
+//        $idsConversation = str_replace ('','',$idsConversation);
+
+        // On prépare la requête
+        $request = $connection->prepare($query);
+
+        // On fait le binding de values
+        $request->bindParam(':idsConversation', $idsConversation);
+
+        // On execute
+        $request->execute();
+    }
+
+    public static function getConversationsByIdAnnonce(PDO $connection, string $idAnnonce): string
+    {
+        // La requête
+        $query = "select group_concat(con.con_id) as id_conversations from conversation con where con.ann_id = :idAnnonce";
+
+        // On prépare la requête
+        $request = $connection->prepare($query);
+
+        // On fait le binding de values
+        $request->bindParam(':idAnnonce', $idAnnonce);
+
+        // On execute
+        $request->execute();
+
+        // On retourne le résultat
+        return $request->fetchColumn();
+    }
+
+    public static function deleteConversations(PDO $connection, string $idAnnonce): void
+    {
+        // La requête
+        $query = "delete from conversation where ann_id = :idAnnonce";
+
+        // On prépare la requête
+        $request = $connection->prepare($query);
+
+        // On fait le binding de values
+        $request->bindParam(':idAnnonce', $idAnnonce);
+
+        // On execute
+        $request->execute();
+    }
 }

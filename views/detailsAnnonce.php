@@ -11,7 +11,7 @@ controller();
 <div class="container text-center">
     <span>
         <?php
-        if ($_SESSION["errorDeleteAnnonce"]) {
+        if (isset($_SESSION["errorDeleteAnnonce"])) {
             echo $_SESSION["errorDeleteAnnonce"];
         }
         $_SESSION["errorDeleteAnnonce"] = null;

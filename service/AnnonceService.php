@@ -174,8 +174,14 @@ class AnnonceService
         // Suppression des catégories liées à l'annonce
         CategoryAnnonceService::deleteLinkCategoriesAnnonce($idAnnonce);
 
-        // Supression des favoris liés à l'annonce
+        // Suppression des favoris liés à l'annonce
         FavoriService::deleteLinkFavorisByIdAnnonce($idAnnonce);
+
+        // Suppression des messages liés à l'annonce
+        MessageService::deleteMessages($connection, $idAnnonce);
+
+        // Suppression des conversations liées à l'annonce
+        MessageService::deleteConversations($connection, $idAnnonce);
 
         $query = "delete from annonce WHERE ann_id = :idAnnonce";
 
@@ -188,7 +194,7 @@ class AnnonceService
         // On exécute la requête
         $request->execute();
 
-        header("url=" . AppConstant::$INDEX_URL);
+        header(AppConstant::$HEADER_LOCATION_LABEL . AppConstant::$INDEX_URL);
     }
 
     public static function getAllAnnonce(): array
@@ -394,6 +400,7 @@ class AnnonceService
      * @param string $annNon
      * @param string $annDescription
      * @param string $annPrix
+     * @param $annId
      * @return void
      */
     public static function validateUpdateAnnonceFields(string $annNon, string $annDescription, string $annPrix,

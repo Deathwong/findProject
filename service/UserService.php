@@ -46,7 +46,11 @@ class UserService
         $request->execute($params);
         $lastInsertID = $connection->lastInsertId();
 
-        header("location:detailsUser.php?userId=$lastInsertID");
+        // Recherche de l'utilisateur grâce à l'email qui est tapé par la personne qui veut se connecter
+        $user = self::getUserByEmail($email);
+
+        $_SESSION[AppConstant::USE_ID_SESSION_KEY] = $user;
+        header("location:../views/");
     }
 
     public static function connectUser(): void
