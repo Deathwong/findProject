@@ -285,7 +285,7 @@ function rechercheAjax(idUserFavori, idUsuerAnnonce, top) {
             // clear content
             cardGridContainer.empty();
 
-            // Construction des différents car d'annonce
+            // Construction des différents cas d'annonce
             for (let i = 0; i < annonces.length; i++) {
                 let json_data = `
                 <div class="col">
@@ -419,14 +419,14 @@ function showOrHideElementByUserConnected(elementId, userIsConnected, show) {
     }
 }
 
-function deleteAnnonce( userAnnonceId,userConnectId,url) {
-    const nomChamp = "suppression de l'annonce";
+function deleteAnnonce(idAnnonce, userConnectId, userAnnonceId, url) {
+    const nomChamp = "l'annonce";
     const champError = $("#errorValidateDeleteAnnonce");
 
-if (userConnectId== userAnnonceId) {
-    $(location).attr('href', url + '?idAnnonce=' + idAnnonce + '&userAnnonceId=' + userAnnonceId);
-} else {
-    champError.text(stringFormat(formControlErrorMessage.unavailable, nomChamp));
+    if (userConnectId === userAnnonceId) {
+        $(location).attr('href', url + '?idAnnonce=' + idAnnonce + '&userAnnonceId=' + userAnnonceId);
+    } else {
+        champError.text(stringFormat(formControlErrorMessage.unavailable, nomChamp));
     }
 }
 
