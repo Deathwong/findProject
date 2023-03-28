@@ -2,6 +2,18 @@
     <div class="container">
         <a class="navbar-brand" href="/findProject/views/">Find sToRe</a>
 
+        <!--User Annonce-->
+        <div class="btn-group" role="group" aria-label="Gestion annonce utilisateur" hidden="hidden" id="user-annonce">
+            <button type="button" class="btn btn-primary" id="user-annonce-link"
+                    onclick="rechercheAjax(null, <?= $userIdConnected ?>)">Mes annonces
+            </button>
+            <button type="button" class="btn btn-light" id="user-annonce-favori-link"
+                    onclick="rechercheAjax(<?= $userIdConnected ?>, null)">Mes annonces favori
+            </button>
+        </div>
+        <!--User Annonce-->
+
+        <!--User Connexion-->
         <div class="btn-group" role="group" aria-label="Gestion utilisateur">
             <button type="button" class="btn btn-light btn-link" id="user-signing-link" hidden="hidden"
                     onclick="redirectOnPage('signin.php')">Se connecter
@@ -15,7 +27,14 @@
             <button type="button" class="btn btn-light btn-link" hidden="hidden" id="user-logout-link"
                     onclick="redirectOnPage('exitUser.php')">Se déconnecter
             </button>
+            <button type="button" class="btn btn-light btn-link" id="user-create-annonce-link" hidden="hidden"
+                    onclick="redirectOnPage('createAnnonce.php')">Créer une annonce
+            </button>
+            <button type="button" class="btn btn-light btn-link" id="user-messagerie-link" hidden="hidden"
+                    onclick="redirectOnPage('message.php')">Messagerie
+            </button>
         </div>
+        <!--User Connexion-->
 
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
                 aria-controls="offcanvasDarkNavbar">Rechercher

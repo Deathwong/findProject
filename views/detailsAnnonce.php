@@ -70,9 +70,6 @@ controller();
 
     // Check l'input checkbox, si l'utilisateur connecté à mise l'annonce en favori
     checkedFav(<?= $annonceIsInUserFavori ?>);
-
-    // Vérification de l'hibilité de suppression de l'annonce
-    authorizedToDelete(userAnnonceId, deleteAnnonce.php, userConnectId);
 </script>
 </body>
 </html>

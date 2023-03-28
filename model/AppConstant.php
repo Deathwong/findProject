@@ -10,6 +10,7 @@ class AppConstant
     public static string $ACCUEIL_LOCATION_LABEL = '../views/';
 
     public static string $INDEX_URL = '/findProject/views/';
+    public static string $INDEX_REAL_URL = '/findProject/views/index.php';
     public static string $LISTE_USERS_URL = '/findProject/views/listeUsers.php';
     public static string $DETAILS_USER_URL = '/findProject/views/detailsUser.php';
     public static string $SIGNUP_URL = '/findProject/views/signup.php';
@@ -24,9 +25,10 @@ class AppConstant
     public static string $MESSAGE_URL = "/findProject/views/message.php";
     public static string $SEND_MESSAGE_URL = '/findProject/views/sendMessage.php';
     public static string $GET_DISCUSSION = '/findProject/views/getDiscussion.php';
+    public static string $SEND_MESSAGE_AJAX_URL = '/findProject/views/sendMessageAjax.php';
     public const ADD_FAVORI_BY_ANNONCE_URL = '/findProject/views/addFavoriByAnnonce.php';
-    public const EXIT_USER = "/findProject/views/exitUser.php";
 
+    public const EXIT_USER = "/findProject/views/exitUser.php";
     public const USE_ID_SESSION_KEY = 'use_id';
     public const HTTP_REQUEST_SUCCESS = 'success';
 }

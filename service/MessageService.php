@@ -14,11 +14,6 @@ require '../dto/ConversationCard.php';
 class MessageService
 {
 
-//    public static function sendMessage(): void
-//    {
-//
-//    }
-
     public static function getConversationsCards(User $user): array
     {
         // On récupère la connection
@@ -86,12 +81,9 @@ class MessageService
         $connection = PdoConnectionHandler::getPDOInstance();
 
         // On récupère l'id de l'interlocuteur
-        $idInterlocuteur = getElementInRequestByAttribute("userId");
         $iConversation = getElementInRequestByAttribute("idConversation");
 
-//        $query = "select  * from  message mes where  ((mes_sender_id = :idUser and use_receiver_id = :userId) or
-//         (mes_sender_id = :userId and use_receiver_id = :idUser)) and con_id = :iConversation";
-
+        // La requête permettant de récupérer la discussion entre 2 utilisateurs
         $query = "select * from message where con_id = :idConversation and
                             (mes_sender_id = :idUser or use_receiver_id = :idUser)";
 
@@ -129,25 +121,42 @@ class MessageService
         // On récupère la connection
         $connection = PdoConnectionHandler::getPDOInstance();
 
-        //  Récupération des valeurs issues de la requête http pour créer le message
+        // On crée la conversation en récupérant son id
+        $idConversation = self::createConversation($user, $connection);
+
+        // Récupération des valeurs issues de la requête http pour créer le message
         $messageHttpRequestValues = self::getMessageHttpRequestValues();
 
+        // On met dans le tableau l'id de la conversation
+        $messageHttpRequestValues["con_id"] = $idConversation;
+
+        // On met dans le tableau l'id du user connecté
         $messageHttpRequestValues["mes_sender_id"] = $user->getUseId();
 
-        $query = "INSERT INTO find.message(con_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
-                    VALUES(:con_id, :mes_sender_id, :use_receiver_id, :mes_content, now())";
+        // La requête permettant d'envoyer un message
+        $query = "INSERT INTO find.message (con_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+                    VALUES(:con_id , :mes_sender_id, :use_receiver_id, :mes_content, now())";
 
-        $request = $connection->prepare($query);
+        // On prépare la requête
+        $requestMessage = $connection->prepare($query);
 
-        $request->execute($messageHttpRequestValues);
+        // On execute la requête
+        $requestMessage->execute($messageHttpRequestValues);
     }
 
     public static function getMessageHttpRequestValues(): array
     {
         return [
-            "ann_id" => getElementInRequestByAttribute("ann_id"),
             "use_receiver_id" => getElementInRequestByAttribute("use_receiver_id"),
             "mes_content" => getElementInRequestByAttribute("mes_content"),
+        ];
+    }
+
+    public static function getConversationHttpRequestValues(): array
+    {
+        return [
+            "con_seller_id" => getElementInRequestByAttribute("use_receiver_id"),
+            "ann_id" => getElementInRequestByAttribute("ann_id"),
         ];
     }
 
@@ -172,5 +181,65 @@ class MessageService
         $request->execute();
 
         return $request->fetchColumn();
+    }
+
+    /**
+     * @param User $user
+     * @param PDO $connection
+     * @return int
+     */
+    public static function createConversation(User $user, PDO $connection): int
+    {
+        // Récupération de la conversation
+        $conversationHttpRequestValues = self::getConversationHttpRequestValues();
+
+        // Récupération de l'id de l'utilisateur connecté
+        $conversationHttpRequestValues["con_user_id"] = $user->getUseId();
+
+        // La requête permettant de créer une conversation
+        $query = "INSERT INTO find.conversation (ann_id, con_user_id, con_seller_id, con_create_at)
+                    VALUES(:ann_id, :con_user_id, :con_seller_id, now())";
+
+        // On prépare la requête
+        $requestConversation = $connection->prepare($query);
+
+        // On execute la requête
+        $requestConversation->execute($conversationHttpRequestValues);
+
+        // On retourne l'id de la conversation crée
+        return $connection->lastInsertId();
+    }
+
+    public static function sendMessageAjax(User $user): void
+    {
+        // On récupère la connection
+        $connection = PdoConnectionHandler::getPDOInstance();
+
+        // Récupération de l'id de l'utilisateur connecté
+        $userId = $user->getUseId();
+
+        // On récupère l'id de la conversation
+        $idConversation = getElementInRequestByAttribute("idConversation");
+
+        // On récupère l'id de l'interlocuteur
+        $interlocuteur = getElementInRequestByAttribute("interlocuteur");
+
+        // On récupère le message
+        $message = getElementInRequestByAttribute("message");
+
+        // La requête
+        $query = "INSERT INTO message(con_id, mes_sender_id, use_receiver_id, mes_content, mes_create_at)
+                    VALUES(:con_id , :mes_sender_id, :use_receiver_id, :mes_content, now())";
+
+        // On prépare la requête
+        $request = $connection->prepare($query);
+
+        // On fait le binding de values
+        $request->bindParam(':con_id', $idConversation);
+        $request->bindParam(':mes_sender_id', $userId);
+        $request->bindParam(':use_receiver_id', $interlocuteur);
+        $request->bindParam(':mes_content', $message);
+
+        $request->execute();
     }
 }

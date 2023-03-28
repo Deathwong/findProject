@@ -14,7 +14,7 @@ class Annonce
     private string $ann_create_at;
     private string $ann_update_at;
     private string $categories;
-    private string $userIdFavoris;
+    private ?string $userIdFavoris;
 
     /**
      * @return int
@@ -177,9 +177,9 @@ class Annonce
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getUserIdFavoris(): string
+    public function getUserIdFavoris(): ?string
     {
         return $this->userIdFavoris;
     }

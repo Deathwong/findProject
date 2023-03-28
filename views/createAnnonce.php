@@ -9,6 +9,15 @@ controller();
 <?php require 'menu.php' ?>
 <div> Création d'une Annonce</div>
 <div>
+
+            <span>
+                <?php
+                if (isset($_SESSION['errorValidateCreationAnnonce'])) {
+                    echo $_SESSION['errorValidateCreationAnnonce'];
+                }
+                $_SESSION['errorValidateCreationAnnonce'] = null;
+                ?>
+            </span>
     <form method="post" action="" id="createAnnonceForm" enctype="multipart/form-data">
         <div>
             <label for="ann_nom"></label>
@@ -17,6 +26,7 @@ controller();
                    id="ann_nom"
                    placeholder="Titre de l'annonce"
             >
+            <span id="errorNomAnnonce"></span>
         </div>
 
         <div>
@@ -26,6 +36,7 @@ controller();
                    id="ann_photo"
                    placeholder="Insérer la photo"
             >
+            <span id="errorPhotoAnnonce"></span>
         </div>
 
         <div>
@@ -36,6 +47,7 @@ controller();
                    id="ann_prix"
                    placeholder="Insérer le prix"
             >
+            <span id="errorPrixAnnonce"></span>
         </div>
 
         <div>
@@ -45,6 +57,7 @@ controller();
                    id="ann_description"
                    placeholder=" Description de l'annonce"
             >
+            <span id="errorDescriptionAnnonce"></span>
         </div>
 
         <div>
@@ -61,6 +74,7 @@ controller();
                 }
                 ?>
             </select>
+            <span id="errorCategoryAnnonce"></span>
         </div>
     </form>
 

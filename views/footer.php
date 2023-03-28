@@ -29,11 +29,14 @@
                 // On récupère l'id du user connecté
                 userConnectId = '<?=  $userIsConnected ?>';
 
-                // Affichage du bouton vers la page de connexion de l'utilisateur
-                showOrHideElementByUserConnected('user-signup-link', userConnectId, false);
-                showOrHideElementByUserConnected('user-signing-link', userConnectId, false);
-                showOrHideElementByUserConnected('user-logout-link', userConnectId, true);
-                showOrHideElementByUserConnected('user-label', userConnectId, true);
-            });
-        </script>
+            // Affichage du bouton vers la page de connexion de l'utilisateur
+            showOrHideElementByUserConnected('user-signup-link', userConnectId, false);
+            showOrHideElementByUserConnected('user-signing-link', userConnectId, false);
+            showOrHideElementByUserConnected('user-logout-link', userConnectId, true);
+            showOrHideElementByUserConnected('user-label', userConnectId, true);
+            showOrHideElementByUserConnected('user-create-annonce-link', userConnectId, true);
+            showOrHideElementByUserConnected('user-messagerie-link', userConnectId, true);
+            showOrHideElementByUserConnected('user-annonce', userConnectId, true);
+        });
+    </script>
 </div>

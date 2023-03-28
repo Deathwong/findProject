@@ -87,7 +87,6 @@ function validAnnonceUpdateEventListnerForm() {
 
 function submitCreateFormAnnonce() {
     const form = $("#createAnnonceForm");
-    //Demander si c'est bon
     validateNomAnnonce();
     validatePrixAnnonce();
     validatePhotoAnnonce();
@@ -124,6 +123,10 @@ function showUpdateAnnonceButton(userConnectID, userAnnonceID) {
     if (userConnectID === userAnnonceID) {
         $("#update-annonce").show();
     }
+}
+
+function showElementById(elementId, isShow) {
+    isShow ? $("#" + elementID).attr('hidden', false) : $("#" + elementID).attr('hidden', true);
 }
 
 /**
@@ -221,10 +224,10 @@ function addFavori(data) {
     });
 }
 
-function rechercheAjax() {
+function rechercheAjax(idUserFavori, idUsuerAnnonce) {
     let data = {};
 
-    // Récupération des input du formulaire de recherche
+    // Récupération des inputs du formulaire de recherche
     // Nom
     const nom = $("#nom").val();
     if (!checkEmpty(nom)) {
@@ -247,6 +250,18 @@ function rechercheAjax() {
     const categorieId = $("#categorie_id").val();
     if (!checkEmpty(categorieId) && categorieId !== '---Catégories---') {
         data.categorieId = categorieId;
+    }
+
+    // Mes annonces favori
+    if (idUserFavori) {
+        data = {};
+        data.mesFavoris = idUserFavori;
+    }
+
+    // Mes annonces
+    if (idUsuerAnnonce) {
+        data = {};
+        data.mesAnnonces = idUsuerAnnonce;
     }
 
     const URL = '/findProject/views/getAllAnnonce.php';
@@ -295,6 +310,9 @@ function rechercheAjax() {
 
                 cardGridContainer.append(json_data);
             }
+
+            annonces.length === 0 ? $('#empty-list-annonce').attr('hidden', false) :
+                $('#empty-list-annonce').attr('hidden', true);
         },
         error: function (data) {
             console.log('Error');
@@ -302,9 +320,37 @@ function rechercheAjax() {
     });
 }
 
+
+function createInputToSendMessageOnMessagePage(idConversation, idInterlocuteur) {
+    let divMessage = $("#send-message-div");
+
+    let sendMessageForm = "<form id='sendMessageForm'></form>"
+
+    divMessage.append(sendMessageForm);
+
+    sendMessageForm = $('#sendMessageForm');
+
+    let myInputInterlocuteur = "<input type='hidden' name='idInterlocuteur' id='idInterlocuteur'>";
+    sendMessageForm.append(myInputInterlocuteur);
+    myInputInterlocuteur = $('#idInterlocuteur');
+    myInputInterlocuteur.val(idInterlocuteur);
+
+
+    let myInputIdConversation = "<input type='hidden' name='idConversation' id='idConversation' value='idConversation'>";
+    sendMessageForm.append(myInputIdConversation);
+    myInputIdConversation = $('#idConversation')
+    myInputIdConversation.val(idConversation)
+
+    let labelOfInput = '<label for="mes_content"></label>';
+    let myInput = "<input name='mes_content' id='mes_content' placeholder='your message'>";
+
+    let myButtonSubmit = "<button onclick='sendMessageAjax()'><img src='../assets/img/icones/svg/send.svg' alt='send message'/></button/>"
+
+    sendMessageForm.append(labelOfInput + myInput + myButtonSubmit);
+}
+
 function getDiscussion(idConversation, idInterlocuteur) {
     let data = {};
-    data.userId = idInterlocuteur;
 
     data.idConversation = idConversation;
 
@@ -319,18 +365,33 @@ function getDiscussion(idConversation, idInterlocuteur) {
         success: function (data) {
             const discussion = JSON.parse(data);
             let messageContainer = $("#message-container");
+            let position = 'message_user-connected';
             messageContainer.empty();
             messageContainer.find("tr:gt(0)").remove();
 
             for (let i = 0; i < discussion.length; i++) {
+                let json_data = null;
 
-                let json_data = `
-                    <div>
+                let receiverId = discussion[i].use_receiver_id;
+
+                if (receiverId !== idInterlocuteur) {
+                    // position = 'message-user-interlocuteur';
+                    json_data = `
+                    <div class="message-user-connected">
                         ${discussion[i].mes_content}
                     </div>
-                `
+                `;
+                } else {
+                    json_data = `
+                    <div class="message-user-interlocuteur">
+                        ${discussion[i].mes_content}
+                    </div>
+                `;
+                }
+
                 messageContainer.append(json_data);
             }
+            createInputToSendMessageOnMessagePage(idConversation, idInterlocuteur);
         },
         error: function (data) {
             console.log('Error');
@@ -356,20 +417,47 @@ function isUserAuthorizedToDelete(userConnectID, userAnnonceID) {
     }
 }
 
-//
-// function showOrHideElementByUserConnected(elementId, userIsConnected, show) {
-//
-//     if (userIsConnected && show) {
-//         $("#" + elementId).attr('hidden', false);
-//     } else if (!userIsConnected && !show) {
-//         $("#" + elementId).attr('hidden', false);
-//     } else {
-//         $("#" + elementId).attr('hidden', true);
-//     }
-// }
-
 function checkedFav(annonceIsInUserFavori) {
     if (annonceIsInUserFavori === 1) {
         $("#favori").prop('checked', true);
     }
+}
+
+function sendMessageAjax() {
+
+    let data = {};
+
+    let interlocuteur = $('#idInterlocuteur').val();
+
+    let idConversation = $('#idConversation').val();
+
+    let message = $('#mes_content').val();
+
+    if (interlocuteur) {
+        data.interlocuteur = interlocuteur;
+    }
+
+    if (idConversation) {
+        data.idConversation = idConversation;
+    }
+
+    if (message) {
+        data.message = message;
+    }
+
+    const URL = '/findProject/views/sendMessageAjax.php';
+
+
+    // $.ajax({
+    //     method: "POST",
+    //     type: "POST",
+    //     url: URL,
+    //     data: data,
+    //     success: function (data) {
+    //     },
+    //     error: function (data) {
+    //         console.log('Error');
+    //     }
+    // });
+
 }

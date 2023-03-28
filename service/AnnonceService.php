@@ -128,20 +128,20 @@ class AnnonceService
 
     }
 
-    public static function validationCreationChampsAnnone(): void
+    public static function validationCreationChampsAnnonce(): void
     {
         $annonce = self::getAnnoncesHttpRequestValues();
 
         $ann_nom = $annonce["ann_nom"];
         $ann_prix = $annonce["ann_prix"];
-        $ann_photo = $annonce["ann_photo"];
+        $ann_photo = getElementInRequestByAttribute("ann_photo");
         $ann_description = $annonce["ann_description"];
         $cat_id = getElementInRequestByAttribute("cat_id");
 
         //Contrôle des champs obligatoires
-        self::validateCreationAnnonceRequiredFields($ann_nom, $ann_prix, $ann_description, $cat_id);
+        self::validateCreationAnnonceRequiredFields($ann_nom, $ann_prix, $ann_description, $cat_id, $ann_photo);
 
-        self::validateCreationAnnonceFields($ann_nom, $ann_prix, $ann_description);
+        self::validateCreationAnnonceFields($ann_nom, $ann_description, $ann_prix, $ann_photo);
 
     }
 
@@ -232,6 +232,22 @@ class AnnonceService
             $parameters['prixMax'] = $prixMax;
         }
 
+        // Mes annonces
+        if (isset($_POST['mesAnnonces']) || isset($_GET['mesAnnonces'])) {
+            $idUserForAnnonce = getElementInRequestByAttribute("mesAnnonces");
+            $conditions[] = 'ann.use_id = :idUserForAnnonce';
+            $parameters['idUserForAnnonce'] = $idUserForAnnonce;
+        }
+
+        // Mes favoris
+        if (isset($_POST['mesFavoris']) || isset($_GET['mesFavoris'])) {
+            $idUserForAnnonceFav = getElementInRequestByAttribute("mesFavoris");
+            $joinQuery = 'join favoris fav on fav.ann_id = ann.ann_id';
+            $mainQuery .= $joinQuery;
+            $conditions[] = 'fav.use_id = :idUserForAnnonceFav';
+            $parameters['idUserForAnnonceFav'] = $idUserForAnnonceFav;
+        }
+
         if ($conditions) {
             $mainQuery .= " WHERE " . implode(" AND ", $conditions);
         }
@@ -294,10 +310,6 @@ class AnnonceService
         $annonceHttpRequestValues['ann_nombre_consultation'] = 0;
         $annonceHttpRequestValues['use_id'] = $userConnect->getUseId();
 
-        //Insérer les catégories sélectionnées
-//        $query = "insert into categorie_annonce(ann_id, cat_id) values (:ann_id, :cat_id)";
-//        $request= $connection->prepare($query);
-
         // Exécution de la requête
         $request->execute($annonceHttpRequestValues);
 
@@ -318,22 +330,26 @@ class AnnonceService
         // Enregitrer l'image en faisant un update de l'annonce qui vient d'etre créer
         PhotoService::insertPhotoNameInAnnonceByIdAnonce($ann_id, $connection, $transformFileName);
 
+
+        header("location:../views/detailsAnnonce.php?idAnnonce=" . $ann_id);
+
         // Retour de l'identifiant de l'annonce créée
         return (int)$ann_id;
     }
 
     /**
-     * @param string $annId
-     * @param string $annNon
-     * @param string $annPrix
-     * @param string $annDescription
-     * @param array $catID
+     * @param string|null $annId
+     * @param string|null $annNon
+     * @param string|null $annPrix
+     * @param string|null $annDescription
+     * @param array|null $catID
      * @return void
      */
-    public static function validateAnnonceUpdateRequiredFields(string $annId, string $annNon, string $annPrix,
-                                                               string $annDescription,
-                                                               array  $catID): void
+    public static function validateAnnonceUpdateRequiredFields(?string $annId, ?string $annNon, ?string $annPrix,
+                                                               ?string $annDescription,
+                                                               ?array  $catID): void
     {
+
         if ($annId === null || $annNon === null || $annPrix === null || $annDescription === null || $catID === null) {
 
             $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires suivants: ';
@@ -397,9 +413,9 @@ class AnnonceService
         }
     }
 
-    public static function validateCreationAnnonceRequiredFields(string $ann_nom, string $ann_prix,
-                                                                 string $ann_description, string $cat_id,
-                                                                 string $ann_photo): void
+    public static function validateCreationAnnonceRequiredFields(?string $ann_nom, ?string $ann_prix,
+                                                                 ?string $ann_description, ?array $cat_id,
+                                                                 ?string $ann_photo): void
     {
         if ($ann_nom === null || $ann_prix === null || $ann_description === null || $cat_id === null
             || $ann_photo === null) {
@@ -434,13 +450,21 @@ class AnnonceService
 
             $_SESSION['errorValidateCreationAnnonce'] .= $champsErrors;
 
-            // header("location:../views/detailsAnnonce.php?idAnnonce=" . $annId);
-            //  exit();
+            header("location:../views/createAnnonce.php");
+            exit();
         }
     }
 
-    public static function validateCreationAnnonceFields(string $ann_nom, string $ann_description, string $ann_prix,
-                                                         string $ann_photo): void
+    /**
+     * Fonction pour valider les champs de création d'une annonce
+     * @param string|null $ann_nom
+     * @param string|null $ann_description
+     * @param string|null $ann_prix
+     * @param string|null $ann_photo
+     * @return void
+     */
+    public static function validateCreationAnnonceFields(?string $ann_nom, ?string $ann_description, ?string $ann_prix,
+                                                         ?string $ann_photo): void
     {
         if (!validateMaxLength(100, $ann_nom) || !validateMaxLength(4000, $ann_description) ||
             !validatePrice($ann_prix)) {
@@ -458,15 +482,10 @@ class AnnonceService
                 $_SESSION['errorValidateCreationAnnonce'] .= "Veuillez saisir le prix sous un bon format</br>exemple 
             : 9.99 ou 9";
             }
-            if (!validatephotoform($ann_photo)) {
-                $_SESSION['errorValidateCreationAnnonce'] .= "Veuillez entrer une image de format jpg/jprg/png et de 
-                taille maximale 2Mo";
-            }
 
-//            header("location:../views/detailsAnnonce.php?idAnnonce=" . $ann_id);
-//            exit();
+            header("location:../views/createAnnonce.php");
+            exit();
         }
     }
-
 
 }
