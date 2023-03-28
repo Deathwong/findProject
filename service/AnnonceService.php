@@ -310,10 +310,6 @@ class AnnonceService
         $annonceHttpRequestValues['ann_nombre_consultation'] = 0;
         $annonceHttpRequestValues['use_id'] = $userConnect->getUseId();
 
-        //Insérer les catégories sélectionnées
-//        $query = "insert into categorie_annonce(ann_id, cat_id) values (:ann_id, :cat_id)";
-//        $request= $connection->prepare($query);
-
         // Exécution de la requête
         $request->execute($annonceHttpRequestValues);
 
@@ -485,10 +481,6 @@ class AnnonceService
             if (!validatePrice($ann_prix)) {
                 $_SESSION['errorValidateCreationAnnonce'] .= "Veuillez saisir le prix sous un bon format</br>exemple 
             : 9.99 ou 9";
-            }
-            if (!validatephotoform($ann_photo)) {
-                $_SESSION['errorValidateCreationAnnonce'] .= "Veuillez entrer une image de format jpg/jprg/png et de 
-                taille maximale 2Mo";
             }
 
             header("location:../views/createAnnonce.php");

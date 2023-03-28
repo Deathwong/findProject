@@ -87,18 +87,11 @@ function validAnnonceUpdateEventListnerForm() {
 
 function submitCreateFormAnnonce() {
     const form = $("#createAnnonceForm");
-    //Demander si c'est bon
     validateNomAnnonce();
     validatePrixAnnonce();
     validatePhotoAnnonce();
     validateDescriptionAnnonce();
     validateCategoryAnnonce();
-
-    isValidNomAnnonce = true;
-    isValidPrixAnnonce = true;
-    isValidDescriptionAnnonce = true;
-    isValidPhotoAnnonce = true;
-    isValidCategoryAnnonce = true;
 
     if (isValidNomAnnonce && isValidPrixAnnonce && isValidDescriptionAnnonce && isValidPhotoAnnonce &&
         isValidCategoryAnnonce) {
@@ -453,7 +446,7 @@ function sendMessageAjax() {
     }
 
     const URL = '/findProject/views/sendMessageAjax.php';
-    
+
 
     // $.ajax({
     //     method: "POST",

@@ -26,7 +26,7 @@ controller();
                    id="ann_nom"
                    placeholder="Titre de l'annonce"
             >
-            <span id="errorTitleAnnonce"></span>
+            <span id="errorNomAnnonce"></span>
         </div>
 
         <div>
@@ -74,6 +74,7 @@ controller();
                 }
                 ?>
             </select>
+            <span id="errorCategoryAnnonce"></span>
         </div>
     </form>
 
