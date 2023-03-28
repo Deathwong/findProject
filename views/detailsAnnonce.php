@@ -46,9 +46,10 @@ controller();
             </button>
         </div>
         <div hidden="hidden" id="delete-annonce">
-            <button class="btn btn-danger" id="deleteButton" onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,'deleteAnnonce.php')">
+            <button class="btn btn-danger" id="deleteButton" onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,<?=  $user->getUseId() ?>,$annonce->getUseId() ?>,'deleteAnnonce.php')">
                 Supprimer
             </button>
+            <span id="errorvalidateDeleteAnnonce"></span>
         </div>
     </div>
 </div>

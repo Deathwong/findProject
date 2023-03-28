@@ -414,10 +414,14 @@ function showOrHideElementByUserConnected(elementId, userIsConnected, show) {
     }
 }
 
-function isUserAuthorizedToDelete(userConnectID, userAnnonceID) {
+function deleteAnnonce( userAnnonceId,userConnectId,url) {
+    const nomChamp = "suppression de l'annonce";
+    const champError = $("#errorValidateDeleteAnnonce");
 
-    if (userConnectID !== userAnnonceID) {
-        window.location.href = "findProject/views/detailsAnnonce.php";
+if (userConnectId== userAnnonceId) {
+    $(location).attr('href', url + '?idAnnonce=' + idAnnonce + '&userAnnonceId=' + userAnnonceId);
+} else {
+    champError.text(stringFormat(formControlErrorMessage.unavailable, nomChamp));
     }
 }
 
