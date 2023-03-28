@@ -253,7 +253,14 @@ class AnnonceService
         }
 
         // Ajout du tri. Les dernières annonces créées ou mise à jour (tri descendant)
-        $sortQuery = ' order by ann_update_at desc';
+        $sortQuery = ' order by ann.ann_update_at desc';
+
+        // Annonces les plus consultés
+        if (isset($_POST['top']) || isset($_GET['top'])) {
+            $sortQuery = ' order by ann.ann_nombre_consultation desc';
+        }
+
+
         $mainQuery .= $sortQuery;
 
 

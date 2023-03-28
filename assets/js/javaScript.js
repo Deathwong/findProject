@@ -224,7 +224,7 @@ function addFavori(data) {
     });
 }
 
-function rechercheAjax(idUserFavori, idUsuerAnnonce) {
+function rechercheAjax(idUserFavori, idUsuerAnnonce, top) {
     let data = {};
 
     // Récupération des inputs du formulaire de recherche
@@ -262,6 +262,11 @@ function rechercheAjax(idUserFavori, idUsuerAnnonce) {
     if (idUsuerAnnonce) {
         data = {};
         data.mesAnnonces = idUsuerAnnonce;
+    }
+
+    if (top) {
+        data = {};
+        data.top = true;
     }
 
     const URL = '/findProject/views/getAllAnnonce.php';
