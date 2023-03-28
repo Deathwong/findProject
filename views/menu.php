@@ -49,6 +49,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        <!--Recherche-->
         <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
              aria-labelledby="offcanvasDarkNavbarLabel">
 
@@ -104,6 +105,7 @@
                 <button class="btn btn-outline-success" onclick="rechercheAjax()">Search</button>
             </div>
         </div>
+        <!--Recherche-->
 
     </div>
 </nav>

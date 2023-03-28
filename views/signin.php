@@ -11,7 +11,7 @@ controller();
 
     <form action="" method="post" id="formUser">
         <div>
-            <label for="email"></label>
+            <label for="email">Email</label>
             <input type="text"
                    name="email"
                    id="email"
@@ -28,7 +28,7 @@ controller();
             </span>
         </div>
         <div>
-            <label for="password"></label>
+            <label for="password">Mot de passe</label>
             <input type="text"
                    name="password"
                    id="password"
