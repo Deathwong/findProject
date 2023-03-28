@@ -8,11 +8,9 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <?php require 'menu.php' ?>
-<div>
-    <div><a href="../views/"><img src="../assets/img/icones/svg/arrow-left-circle.svg" alt="retour à l'index"></a>
-    </div>
+<div class="container text-center">
     <div>
-        <img class="photo-details" src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" alt="image de l'annonce">
+        <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" alt="image de l'annonce" class="img-thumbnail">
     </div>
     <div>
         <?= $annonce->getAnnNom() ?>
@@ -35,21 +33,23 @@ controller();
         <input type="checkbox" id="favori" name="favori"
                onchange="addOrRemoveFavori(<?= $annonce->getUseId() ?>)">
     </div>
-    <div hidden="hidden" id="contact-me">
-        <button id="contactButton" onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,'sendMessage.php')">
-            contacter
-            moi
-        </button>
-    </div>
-    <div hidden="hidden" id="update-annonce">
-        <button id="updateButton" onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,'editAnnonce.php')">
-            Modifier
-        </button>
-    </div>
-    <div hidden="hidden" id="delete-annonce">
-        <button id="deleteButton" onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,'deleteAnnonce.php')">
-            Supprimer
-        </button>
+    <div class="d-flex justify-content-center gap-3">
+        <div hidden="hidden" id="contact-me">
+            <button class="btn btn-primary" id="contactButton" onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,'sendMessage.php')">
+                contacter
+                moi
+            </button>
+        </div>
+        <div hidden="hidden" id="update-annonce">
+            <button class="btn btn-primary" id="updateButton" onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,'editAnnonce.php')">
+                Modifier
+            </button>
+        </div>
+        <div hidden="hidden" id="delete-annonce">
+            <button class="btn btn-danger" id="deleteButton" onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,'deleteAnnonce.php')">
+                Supprimer
+            </button>
+        </div>
     </div>
 </div>
 <?php require 'footer.php' ?>

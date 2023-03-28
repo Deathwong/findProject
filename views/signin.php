@@ -7,7 +7,7 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <?php require 'menu.php' ?>
-<div>
+<div class="container">
 
     <form action="" method="post" id="formUser">
         <div>
@@ -16,6 +16,8 @@ controller();
                    name="email"
                    id="email"
                    placeholder="votre email"
+                   class="form-control"
+                   style="width: auto"
             >
             <span id="errorEmail">
                 <?php
@@ -31,6 +33,8 @@ controller();
                    name="password"
                    id="password"
                    placeholder="mot de passe"
+                   class="form-control"
+                   style="width: auto"
             >
             <span id="errorPassword">
                 <?php
@@ -42,7 +46,9 @@ controller();
         </div>
 
     </form>
-    <input type="submit" value="se connecter" onclick="submitSigninUserForm()">
+    <div>
+        <input type="submit" value="se connecter" class="btn btn-primary" onclick="submitSigninUserForm()">
+    </div>
 </div>
 <?php require 'footer.php' ?>
 <script type="text/javascript">

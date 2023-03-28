@@ -7,7 +7,7 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <?php require 'menu.php' ?>
-<div>
+<div class="container text-center">
     <div>Modification</div>
     <div>
         <div>
@@ -22,11 +22,11 @@ controller();
         </div>
         <form method="post" action="" id="updateAnnonceForm" enctype="multipart/form-data">
             <div>
-                <input type="hidden" name="ann_id" value="1">
+                <input type="hidden" name="ann_id" value="1" class="form-control">
             </div>
             <div>
                 <div>
-                    <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" alt="image de l'annonce">
+                    <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" alt="image de l'annonce" class="img-thumbnail">
                 </div>
                 <div>
                     <input type="file"
@@ -42,6 +42,7 @@ controller();
                        name="ann_nom"
                        id="ann_nom"
                        value="<?= $annonce->getAnnNom() ?>"
+                       class="form-control"
                 >
                 <span id="errorNomAnnonce"></span>
             </div>
@@ -51,12 +52,13 @@ controller();
                        name="ann_prix"
                        id="ann_prix"
                        value="<?= $annonce->getAnnPrix() ?>"
+                       class="form-control"
                 >
                 <span id="errorPrixAnnonce"></span>
             </div>
-            <div>
+            <div class="dropdown">
                 <label for="cat_id[]"></label>
-                <select name="cat_id[]" id="cat_id[]" class="cat_id" multiple>
+                <select name="cat_id[]" id="cat_id[]" class="cat_id form-select" multiple>
                     <?php
                     foreach ($categories as $category) {
                         $categoryLibelle = $category->getCatLibelle();
@@ -76,12 +78,13 @@ controller();
                        name="ann_description"
                        id="ann_description"
                        value="<?= $annonce->getAnnDescription() ?>"
+                       class="form-control"
                 >
                 <span id="errorDescriptionAnnonce"></span>
             </div>
         </form>
         <div>
-            <button onclick="submitUpdateFormAnnonce()">modifier</button>
+            <button onclick="submitUpdateFormAnnonce()" class="btn btn-primary">modifier</button>
         </div>
     </div>
 </div>
