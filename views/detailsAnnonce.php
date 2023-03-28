@@ -8,7 +8,7 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <?php require 'menu.php' ?>
-<div>
+<div class="container">
     <div><a href="../views/"><img src="../assets/img/icones/svg/svg/arrow-left-circle.svg" alt="retour à l'index"></a>
     </div>
     <div>
@@ -47,7 +47,9 @@ controller();
         </button>
     </div>
     <div hidden="hidden" id="delete-annonce">
-        <button id="deleteButton" onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,'deleteAnnonce.php')">
+        <button id="deleteButton"
+                onclick="deleteAnnonce(<?= $annonce->getAnnId() ?>, <?= $annonce->getUseId() ?>,
+                        'deleteAnnonce.php')">
             Supprimer
         </button>
     </div>

@@ -167,6 +167,20 @@ function redirectOnAnnoncePages(idAnnonce, url) {
 }
 
 /**
+ * Permet de supprimer une annonce
+ * @param idAnnonce
+ * @param userAnnonceId
+ * @param url
+ */
+function deleteAnnonce(idAnnonce, userAnnonceId, url) {
+    if (idAnnonce === userAnnonceId) {
+        $(location).attr('href', url + '?idAnnonce=' + idAnnonce + '&userAnnonceId=' + userAnnonceId);
+    } else {
+        // Todo envoie message d'erreur
+    }
+}
+
+/**
  * Permet de rediriger vers une page
  * @param url
  */

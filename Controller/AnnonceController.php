@@ -19,6 +19,7 @@ class AnnonceController
     // La fonction permettant de supprimer une annonce
     public static function deleteAnnonce(): void
     {
+        // TODO : récupérer l'iduser de l'annonce qu'on veux supprimer et le comparer avec l'id user connecter (session)
         AnnonceService::deleteAnnonce();
     }
 

@@ -46,6 +46,19 @@ class UserService
         $request->execute($params);
         $lastInsertID = $connection->lastInsertId();
 
+        // Send mail
+        $to = 'daniel.anani@outlook.com';
+        $subject = 'My test email find';
+        $message = 'Hi, my message!';
+        $headers = 'From: danilo2287@gmail.com' . "\r\n" .
+            'MIME-Version: 1.0' . "\r\n" .
+            'Content-type: text/html; charset=utf-8';
+        if (mail($to, $subject, $message, $headers)) {
+            echo "Email sent";
+        } else {
+            echo "Email sending failed";
+        }
+
         header("location:detailsUser.php?userId=$lastInsertID");
     }
 
