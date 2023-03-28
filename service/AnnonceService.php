@@ -188,7 +188,7 @@ class AnnonceService
         // On exécute la requête
         $request->execute();
 
-        header("Refresh: 3; url=" . AppConstant::$INDEX_URL);
+        header("url=" . AppConstant::$INDEX_URL);
     }
 
     public static function getAllAnnonce(): array

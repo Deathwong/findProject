@@ -281,7 +281,7 @@ function rechercheAjax(idUserFavori, idUsuerAnnonce) {
             cardGridContainer.empty();
 
             // Construction des différents car d'annonce
-            for (var i = 0; i < annonces.length; i++) {
+            for (let i = 0; i < annonces.length; i++) {
                 let json_data = `
                 <div class="col">
                     <div class="card h-100">
@@ -324,6 +324,8 @@ function rechercheAjax(idUserFavori, idUsuerAnnonce) {
 function createInputToSendMessageOnMessagePage(idConversation, idInterlocuteur) {
     let divMessage = $("#send-message-div");
 
+    divMessage.empty();
+
     let sendMessageForm = "<form id='sendMessageForm'></form>"
 
     divMessage.append(sendMessageForm);
@@ -346,7 +348,9 @@ function createInputToSendMessageOnMessagePage(idConversation, idInterlocuteur) 
 
     let myButtonSubmit = "<button onclick='sendMessageAjax()'><img src='../assets/img/icones/svg/send.svg' alt='send message'/></button/>"
 
-    sendMessageForm.append(labelOfInput + myInput + myButtonSubmit);
+    sendMessageForm.append(labelOfInput + myInput);
+
+    divMessage.append(myButtonSubmit);
 }
 
 function getDiscussion(idConversation, idInterlocuteur) {
@@ -374,7 +378,7 @@ function getDiscussion(idConversation, idInterlocuteur) {
 
                 let receiverId = discussion[i].use_receiver_id;
 
-                if (receiverId !== idInterlocuteur) {
+                if (receiverId === idInterlocuteur) {
                     // position = 'message-user-interlocuteur';
                     json_data = `
                     <div class="message-user-connected">
@@ -448,16 +452,14 @@ function sendMessageAjax() {
     const URL = '/findProject/views/sendMessageAjax.php';
 
 
-    // $.ajax({
-    //     method: "POST",
-    //     type: "POST",
-    //     url: URL,
-    //     data: data,
-    //     success: function (data) {
-    //     },
-    //     error: function (data) {
-    //         console.log('Error');
-    //     }
-    // });
+    $.ajax({
+        method: "POST",
+        type: "POST",
+        url: URL,
+        data: data,
+    });
 
+    interlocuteur = parseInt(interlocuteur);
+
+    getDiscussion(idConversation, interlocuteur);
 }

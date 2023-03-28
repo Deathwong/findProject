@@ -7,10 +7,10 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <?php require 'menu.php' ?>
-<div> Création d'une Annonce</div>
-<div>
+<div class="container">
+    <div> Création d'une Annonce</div>
 
-            <span>
+    <span>
                 <?php
                 if (isset($_SESSION['errorValidateCreationAnnonce'])) {
                     echo $_SESSION['errorValidateCreationAnnonce'];
@@ -22,6 +22,7 @@ controller();
         <div>
             <label for="ann_nom"></label>
             <input type="text"
+                   class="form-control"
                    name="ann_nom"
                    id="ann_nom"
                    placeholder="Titre de l'annonce"
@@ -32,6 +33,7 @@ controller();
         <div>
             <label for="ann_photo[]"></label>
             <input type="file"
+                   class="form-control"
                    name="ann_photo"
                    id="ann_photo"
                    placeholder="Insérer la photo"
@@ -40,9 +42,9 @@ controller();
         </div>
 
         <div>
-            <label for="ann_prix[]"></label>
             <label for="ann_prix"></label>
             <input type="text"
+                   class="form-control"
                    name="ann_prix"
                    id="ann_prix"
                    placeholder="Insérer le prix"
@@ -53,6 +55,7 @@ controller();
         <div>
             <label for="ann_description"></label>
             <input type="text"
+                   class="form-control"
                    name="ann_description"
                    id="ann_description"
                    placeholder=" Description de l'annonce"
@@ -62,7 +65,7 @@ controller();
 
         <div>
             <label for="cat_id[]"></label>
-            <select name="cat_id[]" id="cat_id[]" class="cat_id" multiple>
+            <select name="cat_id[]" id="cat_id[]" class="cat_id form-select" multiple>
                 <?php
                 foreach ($categories as $category) {
                     $categoryLibelle = $category->getCatLibelle();
@@ -79,7 +82,7 @@ controller();
     </form>
 
     <div>
-        <button onclick="submitCreateFormAnnonce()">Créer l'annonce</button>
+        <button class="btn btn-primary" onclick="submitCreateFormAnnonce()">Créer l'annonce</button>
     </div>
 
 </div>
