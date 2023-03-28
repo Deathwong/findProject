@@ -2,6 +2,14 @@
     <div class="container">
         <a class="navbar-brand" href="/findProject/views/">Find sToRe</a>
 
+        <!--Top Annonce-->
+        <div>
+            <button type="button" class="btn btn-primary" id="user-annonce-link"
+                    onclick="rechercheAjax(null, null, true)">Top annonces
+            </button>
+        </div>
+        <!--Top Annonce-->
+
         <!--User Annonce-->
         <div class="btn-group" role="group" aria-label="Gestion annonce utilisateur" hidden="hidden" id="user-annonce">
             <button type="button" class="btn btn-primary" id="user-annonce-link"
