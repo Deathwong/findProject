@@ -348,10 +348,10 @@ function createInputToSendMessageOnMessagePage(idConversation, idInterlocuteur) 
     myInputIdConversation = $('#idConversation')
     myInputIdConversation.val(idConversation)
 
-    let labelOfInput = '<label for="mes_content"></label>';
-    let myInput = "<input name='mes_content' id='mes_content' placeholder='your message'>";
+    let labelOfInput = '<label class="form-label" for="mes_content"></label>';
+    let myInput = "<input class='form-control' name='mes_content' id='mes_content' placeholder='your message'>";
 
-    let myButtonSubmit = "<button onclick='sendMessageAjax()'><img src='../assets/img/icones/svg/send.svg' alt='send message'/></button/>"
+    let myButtonSubmit = "<button class='btn btn-primary' onclick='sendMessageAjax()'>envoyer</button/>"
 
     sendMessageForm.append(labelOfInput + myInput);
 
@@ -364,7 +364,6 @@ function getDiscussion(idConversation, idInterlocuteur) {
     data.idConversation = idConversation;
 
     const URL = '/findProject/views/getDiscussion.php';
-    let discussion = null;
 
     $.ajax({
         method: "POST",
@@ -374,7 +373,6 @@ function getDiscussion(idConversation, idInterlocuteur) {
         success: function (data) {
             const discussion = JSON.parse(data);
             let messageContainer = $("#message-container");
-            let position = 'message_user-connected';
             messageContainer.empty();
             messageContainer.find("tr:gt(0)").remove();
 
@@ -387,7 +385,9 @@ function getDiscussion(idConversation, idInterlocuteur) {
                     // position = 'message-user-interlocuteur';
                     json_data = `
                     <div class="message-user-connected">
+                    <div class="message-at-left">               
                         ${discussion[i].mes_content}
+                    </div>
                     </div>
                 `;
                 } else {
@@ -466,9 +466,9 @@ function sendMessageAjax() {
         type: "POST",
         url: URL,
         data: data,
+
+    }).always(function () {
+        interlocuteur = parseInt(interlocuteur);
+        getDiscussion(idConversation, interlocuteur);
     });
-
-    interlocuteur = parseInt(interlocuteur);
-
-    getDiscussion(idConversation, interlocuteur);
 }

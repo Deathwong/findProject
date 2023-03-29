@@ -103,7 +103,7 @@ function validateDescriptionAnnonce() {
     if (checkEmpty(descriptionAnnonce)) {
         champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
     } else if (checkMaxLength(descriptionAnnonce, 4000)) {
-        champError.text(stringFormat(formControlErrorMessage.maxlength, nomChamp, 10));
+        champError.text(stringFormat(formControlErrorMessage.maxlength, nomChamp, 4000));
     } else {
         champError.text("");
         isValidDescriptionAnnonce = true;

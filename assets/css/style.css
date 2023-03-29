@@ -19,25 +19,41 @@
     margin-bottom: 2px;
 }
 
-.chat-box {
-    border: 1px black solid;
-    width: 800px;
-    height: 400px;
+.message-at-left {
+    width: 100%;
+    justify-content: flex-end;
+    align-items: end;
+    background-color: #851932;
+
 }
 
 .message-user-connected {
+    display: flex;
     max-height: 300px;
     text-align: right;
+    color: white;
+    background-color: #6ab1fa;
 }
-
 
 .message-user-interlocuteur {
     max-height: 300px;
     text-align: left;
+    color: #000000;
+    background-color: #a9a7a7;
 }
 
 
 .photo-details {
     width: 300px;
     height: auto;
+}
+
+.small-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.zero-margin-left {
+    margin-left: 0;
 }

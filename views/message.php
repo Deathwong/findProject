@@ -8,12 +8,10 @@ controller();
 <body>
 <?php require 'menu.php' ?>
 <div class="container">
-    <div>Message</div>
-    <div><a href="../views/">
-            <button class="btn btn-primary">retour</button>
-        </a>
-        <div>
-            <div>
+    <h1>Message</h1>
+    <div>
+        <div class="row">
+            <div class="col-md-3">
                 <?php
                 foreach ($conversationsCards as $conversation) {
                     $userConversationId = $conversation->getVendeurId();
@@ -23,23 +21,21 @@ controller();
                         $userConversationMail = $conversation->getAcheteurEmail();
                     }
                     ?>
-                    <div class="nowrap message-card"
+                    <div class="row border border-secondary rounded"
                          onclick="getDiscussion(<?= $conversation->getIdConversation() ?>,<?= $userConversationId ?>)">
-                        <div>
-                            <div>
-                                <img class="message-card-photo"
-                                     src="../assets/img/annonces/<?= $conversation->getPhoto() ?>"
-                                     alt="image de l'annonce">
-                            </div>
+                        <div class="col-md-4">
+                            <img class="img-thumbnail message-card-photo"
+                                 src="../assets/img/annonces/<?= $conversation->getPhoto() ?>"
+                                 alt="image de l'annonce">
                         </div>
-                        <div class="">
+                        <div class="col small-text">
                             <div id="interlocuteur">
                                 <?= $userConversationMail ?>
                             </div>
                             <div id="nomAnnonce">
                                 <?= $conversation->getAnnonceNom() ?>
                             </div>
-                            <div>
+                            <div class="small-text">
                                 <?= $conversation->getMessage() ?>
                             </div>
                         </div>
@@ -48,11 +44,17 @@ controller();
                 }
                 ?>
             </div>
-            <div class="chat-box" id="message-container">
+            <div class="col ps-5 border border-secondary rounded ms-3 me-4">
+                <div class="col overflow-auto " id="message-container">
+                </div>
+                <div class="sticky-bottom" id="send-message-div"></div>
             </div>
-            <div id="send-message-div"></div>
         </div>
-
+    </div>
+    <div>
+        <a href="../views/">
+            <button class="mt-3 btn btn-primary">retour</button>
+        </a>
     </div>
     <?php require 'footer.php' ?>
 </body>
