@@ -53,12 +53,12 @@ controller();
 
         <div>
             <label for="ann_description"></label>
-            <input type="text"
-                   class="form-control"
-                   name="ann_description"
-                   id="ann_description"
-                   placeholder=" Description de l'annonce"
-            >
+            <textarea
+                    class="form-control"
+                    name="ann_description"
+                    id="ann_description"
+                    placeholder=" Description de l'annonce"
+            ></textarea>
             <span id="errorDescriptionAnnonce"></span>
         </div>
 

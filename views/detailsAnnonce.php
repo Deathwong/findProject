@@ -8,7 +8,7 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <?php require 'menu.php' ?>
-<div class="container">
+<div class="container mb-5">
     <h1>Détails de l'annonce</h1>
     <span>
         <?php
@@ -35,13 +35,15 @@ controller();
             </div>
 
             <div class="row mt-3">
-                <div class="col-md-2">
+                <div class="col-md-2 fw-semibold fs-6">
                     <span>Catégorie(s):</span>
                 </div>
                 <div class="col">
                     <?php
                     foreach ($categoriesAnnonce as $categoryAnnonce) {
-                        echo "<span class='badge text-bg-secondary'>$categoryAnnonce</span>";
+                        ?>
+                        <span class='badge rounded-pill text-bg-secondary'><?= $categoryAnnonce ?>  </span>
+                        <?php
                     }
                     ?>
                 </div>

@@ -183,6 +183,12 @@ class AnnonceService
         // Suppression des conversations liées à l'annonce
         MessageService::deleteConversations($connection, $idAnnonce);
 
+        // On récupère le nom de la photo
+        $photoName = PhotoService::getPhotoNameByAnnonceId("$idAnnonce", $connection);
+
+        // On supprime la photo
+        PhotoService::deletePhotoInDirectoryByHisName($photoName);
+
         $query = "delete from annonce WHERE ann_id = :idAnnonce";
 
         // On fait le prépare statement
@@ -194,6 +200,7 @@ class AnnonceService
         // On exécute la requête
         $request->execute();
 
+        // On redirige vers la page de détail
         header(AppConstant::$HEADER_LOCATION_LABEL . AppConstant::$INDEX_URL);
     }
 

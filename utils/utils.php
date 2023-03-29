@@ -106,7 +106,7 @@ function getDigitsOfTheString($string): string
  */
 function getLettersOfTheString($string): string
 {
-    return preg_replace('/[^a-zA-Z]/', '', $string);
+    return preg_replace('/[0-9]/', '', $string);
 }
 
 /**

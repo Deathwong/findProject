@@ -7,7 +7,7 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <?php require 'menu.php' ?>
-<div class="container">
+<div class="container mb-5">
     <div>
         <h1>Modification de l'annonce</h1>
         <div>
@@ -75,12 +75,11 @@ controller();
             </div>
             <div>
                 <label for="ann_description"></label>
-                <input type="text"
-                       name="ann_description"
-                       id="ann_description"
-                       value="<?= $annonce->getAnnDescription() ?>"
-                       class="form-control"
-                >
+                <textarea
+                        name="ann_description"
+                        id="ann_description"
+                        class="form-control"
+                ><?= $annonce->getAnnDescription() ?></textarea>
                 <span id="errorDescriptionAnnonce"></span>
             </div>
         </form>

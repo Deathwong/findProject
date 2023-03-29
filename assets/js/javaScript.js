@@ -383,7 +383,7 @@ function getDiscussion(idConversation, idInterlocuteur) {
                 if (receiverId === idInterlocuteur) {
                     // position = 'message-user-interlocuteur';
                     json_data = `
-                    <div class="message-user-connected">
+                    <div class="message-user-connected mt-2">
                         <div class="message-at-left rounded-2">               
                             ${discussion[i].mes_content}
                         </div>
@@ -391,7 +391,7 @@ function getDiscussion(idConversation, idInterlocuteur) {
                 `;
                 } else {
                     json_data = `
-                    <div class="message-user-interlocuteur">
+                    <div class="message-user-interlocuteur mt-2">
                         <div class="message-at-right rounded-2">
                             ${discussion[i].mes_content}
                         </div>
