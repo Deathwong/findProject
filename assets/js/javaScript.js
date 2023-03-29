@@ -299,7 +299,7 @@ function rechercheAjax(idUserFavori, idUsuerAnnonce, top) {
                                 <h5>${annonces[i].ann_prix} €</h5>
                             </div>
                             
-                            <p class="card-text">
+                            <p class="card-text  text-truncate">
                                 ${annonces[i].ann_description}
                             </p>
                         </div>
@@ -315,7 +315,8 @@ function rechercheAjax(idUserFavori, idUsuerAnnonce, top) {
 
                 cardGridContainer.append(json_data);
             }
-
+            window.scrollTo(0, 0);
+            
             annonces.length === 0 ? $('#empty-list-annonce').attr('hidden', false) :
                 $('#empty-list-annonce').attr('hidden', true);
         },

@@ -4,42 +4,72 @@
 
         <!--Top Annonce-->
         <div>
-            <button type="button" class="btn btn-primary" id="user-annonce-link"
+            <button type="button" class="btn btn-primary btn-sm" id="user-annonce-link"
                     onclick="rechercheAjax(null, null, true)">Top annonces
             </button>
         </div>
         <!--Top Annonce-->
 
-        <!--User Annonce-->
-        <div class="btn-group" role="group" aria-label="Gestion annonce utilisateur" hidden="hidden" id="user-annonce">
-            <button type="button" class="btn btn-primary" id="user-annonce-link"
-                    onclick="rechercheAjax(null, <?= $userIdConnected ?>)">Mes annonces
+        <!--User Annonce dropdown-->
+        <div class="dropdown" id="user-annonce">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">Mon Compte
             </button>
-            <button type="button" class="btn btn-light" id="user-annonce-favori-link"
-                    onclick="rechercheAjax(<?= $userIdConnected ?>, null)">Mes annonces favori
-            </button>
+            <ul class="dropdown-menu">
+                <!--Mes Annonces-->
+                <li>
+                    <button class="dropdown-item" type="button" onclick="rechercheAjax(null, <?= $userIdConnected ?>)">
+                        Mes annonces
+                    </button>
+                </li>
+                <!--Mes Annonces-->
+
+                <!--Mes Favoris-->
+                <li>
+                    <button class="dropdown-item" type="button" onclick="rechercheAjax(<?= $userIdConnected ?>, null)">
+                        Mes annonces favori
+                    </button>
+                </li>
+                <!--Mes Favoris-->
+
+                <!--Créer une annonce-->
+                <li>
+                    <button class="dropdown-item" type="button" onclick="redirectOnPage('createAnnonce.php')">
+                        Créer une annonce
+                    </button>
+                </li>
+                <!--Créer une annonce-->
+
+                <!--Messagerie-->
+                <li>
+                    <button class="dropdown-item" type="button" onclick="redirectOnPage('message.php')">
+                        Mes messages
+                    </button>
+                </li>
+                <!--Messagerie-->
+
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+
+                <!--Déconnexion-->
+                <li>
+                    <button class="dropdown-item" type="button" onclick="redirectOnPage('exitUser.php')">
+                        Se déconnecter
+                    </button>
+                </li>
+                <!--Déconnexion-->
+            </ul>
         </div>
-        <!--User Annonce-->
+        <!--User Annonce dropdown-->
 
         <!--User Connexion-->
         <div class="btn-group" role="group" aria-label="Gestion utilisateur">
-            <button type="button" class="btn btn-light btn-link" id="user-signing-link" hidden="hidden"
+            <button type="button" class="btn btn-light btn-link btn-sm" id="user-signing-link" hidden="hidden"
                     onclick="redirectOnPage('signin.php')">Se connecter
             </button>
-            <button type="button" class="btn btn-light btn-link" id="user-signup-link" hidden="hidden"
+            <button type="button" class="btn btn-light btn-link btn-sm" id="user-signup-link" hidden="hidden"
                     onclick="redirectOnPage('signup.php')">Créer un compte
-            </button>
-            <button type="button" class="btn btn-outline-light" hidden="hidden" id="user-label" disabled>
-                Bienvenue
-            </button>
-            <button type="button" class="btn btn-light btn-link" hidden="hidden" id="user-logout-link"
-                    onclick="redirectOnPage('exitUser.php')">Se déconnecter
-            </button>
-            <button type="button" class="btn btn-light btn-link" id="user-create-annonce-link" hidden="hidden"
-                    onclick="redirectOnPage('createAnnonce.php')">Créer une annonce
-            </button>
-            <button type="button" class="btn btn-light btn-link" id="user-messagerie-link" hidden="hidden"
-                    onclick="redirectOnPage('message.php')">Messagerie
             </button>
         </div>
         <!--User Connexion-->
