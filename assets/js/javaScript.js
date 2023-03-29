@@ -332,7 +332,6 @@ function createInputToSendMessageOnMessagePage(idConversation, idInterlocuteur) 
     divMessage.empty();
 
     let sendMessageForm = "<form id='sendMessageForm'></form>"
-
     divMessage.append(sendMessageForm);
 
     sendMessageForm = $('#sendMessageForm');
@@ -385,15 +384,17 @@ function getDiscussion(idConversation, idInterlocuteur) {
                     // position = 'message-user-interlocuteur';
                     json_data = `
                     <div class="message-user-connected">
-                    <div class="message-at-left">               
-                        ${discussion[i].mes_content}
-                    </div>
+                        <div class="message-at-left rounded-2">               
+                            ${discussion[i].mes_content}
+                        </div>
                     </div>
                 `;
                 } else {
                     json_data = `
                     <div class="message-user-interlocuteur">
-                        ${discussion[i].mes_content}
+                        <div class="message-at-right rounded-2">
+                            ${discussion[i].mes_content}
+                        </div>
                     </div>
                 `;
                 }
@@ -466,7 +467,6 @@ function sendMessageAjax() {
         type: "POST",
         url: URL,
         data: data,
-
     }).always(function () {
         interlocuteur = parseInt(interlocuteur);
         getDiscussion(idConversation, interlocuteur);

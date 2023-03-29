@@ -28,7 +28,7 @@ controller();
                                  src="../assets/img/annonces/<?= $conversation->getPhoto() ?>"
                                  alt="image de l'annonce">
                         </div>
-                        <div class="col small-text">
+                        <div class="col">
                             <div id="interlocuteur">
                                 <?= $userConversationMail ?>
                             </div>
