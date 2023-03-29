@@ -3,6 +3,7 @@
 namespace service;
 
 use dto\ConversationCard;
+use model\AppConstant;
 use model\User;
 use PDO;
 
@@ -142,6 +143,12 @@ class MessageService
 
         // On execute la requête
         $requestMessage->execute($messageHttpRequestValues);
+
+        // Récupération de l'id de l'annonce
+        $annnonceId = getElementInRequestByAttribute("ann_id");
+        // On redirige vers la page de détails de l'annonce
+        header(AppConstant::$HEADER_LOCATION_LABEL . AppConstant::$DETAILS_ANNONCE_LOCATION_LABEL .
+            '?idAnnonce=' . $annnonceId);
     }
 
     public static function getMessageHttpRequestValues(): array

@@ -42,13 +42,6 @@ controller();
                onchange="addOrRemoveFavori(<?= $annonce->getUseId() ?>)">
     </div>
     <div class="d-flex justify-content-center gap-3">
-        <div hidden="hidden" id="contact-me">
-            <button class="btn btn-primary" id="contactButton"
-                    onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,'sendMessage.php')">
-                contacter
-                moi
-            </button>
-        </div>
         <div hidden="hidden" id="update-annonce">
             <button class="btn btn-primary" id="updateButton"
                     onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,'editAnnonce.php')">
@@ -56,9 +49,48 @@ controller();
             </button>
         </div>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Supprimer
-        </button>
+        <div hidden="hidden" id="delete-annonce">
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Supprimer
+            </button>
+        </div>
+        <div>
+            <a href="index.php">
+                <button class="btn btn-primary">retour</button>
+            </a>
+        </div>
+        <div hidden="hidden" id="contact-me">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                contactez
+                moi
+            </button>
+        </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="sendMessage.php" id="messageForm">
+                            <div class="mb-3">
+                                <input type="hidden" name="ann_id" id="ann_id" value="<?= $annonce->getAnnId() ?>">
+                                <input type="hidden" name="use_receiver_id" id="use_receiver_id"
+                                       value="<?= $annonce->getUseId() ?>">
+                                <label for="mes_content" class="col-form-label">Message:</label>
+                                <textarea class="form-control" name="mes_content" id="mes_content">Bonjour, votre annonce m'intéresse ! Est-elle toujours disponible ?</textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">fermer</button>
+                        <button class="btn btn-primary" onclick="submitForm('messageForm')">envoyer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -66,17 +98,17 @@ controller();
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Suppression</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        êtes vous sûr de supprimer cette annonce ?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">non</button>
                         <button class="btn btn-danger" id="deleteButton"
                                 onclick="deleteAnnonce(<?= $annonce->getAnnId() ?>,<?= $user->getUseId() ?>,<?= $annonce->getUseId() ?>,'deleteAnnonce.php')">
-                            Supprimer
+                            oui
                         </button>
                     </div>
                 </div>

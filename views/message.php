@@ -7,9 +7,11 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <?php require 'menu.php' ?>
-<div>
+<div class="container">
     <div>Message</div>
-    <div><a href="../views/"><img src="../assets/img/icones/svg/arrow-left-circle.svg" alt="retour à l'index"></a>
+    <div><a href="../views/">
+            <button class="btn btn-primary">retour</button>
+        </a>
         <div>
             <div>
                 <?php

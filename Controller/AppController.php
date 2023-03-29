@@ -169,8 +169,7 @@ function controller(): void
             break;
 
         case AppConstant::$SEND_MESSAGE_URL:
-            $annonce = AnnonceController::getAnnonceDetails();
-
+//            $annonce = AnnonceController::getAnnonceDetails();
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 MessageController::sendMessage();
             }
