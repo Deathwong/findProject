@@ -54,7 +54,7 @@
 
                 <!--Déconnexion-->
                 <li>
-                    <button class="dropdown-item" type="button" onclick="redirectOnPage('exitUser.php')">
+                    <button class="dropdown-item text-danger" type="button" onclick="redirectOnPage('exitUser.php')">
                         Se déconnecter
                     </button>
                 </li>
