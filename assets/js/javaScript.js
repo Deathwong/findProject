@@ -349,9 +349,9 @@ function createInputToSendMessageOnMessagePage(idConversation, idInterlocuteur) 
     myInputIdConversation.val(idConversation)
 
     let labelOfInput = '<label class="form-label" for="mes_content"></label>';
-    let myInput = "<input class='form-control' name='mes_content' id='mes_content' placeholder='your message'>";
+    let myInput = "<textarea class='form-control' name='mes_content' id='mes_content' placeholder='your message'>";
 
-    let myButtonSubmit = "<button class='btn btn-primary' onclick='sendMessageAjax()'>envoyer</button/>"
+    let myButtonSubmit = "<button class='btn btn-primary mt-2 mb-3' onclick='sendMessageAjax()'>envoyer</button/>"
 
     sendMessageForm.append(labelOfInput + myInput);
 

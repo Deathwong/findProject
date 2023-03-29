@@ -8,6 +8,7 @@ controller();
 <body>
 <?php require 'menu.php' ?>
 <div class="container">
+    <h1>Création de compte</h1>
     <div>
         <span>
             <?php
@@ -19,7 +20,7 @@ controller();
         </span>
     </div>
 
-    <form action="detailsUser.php" method="post" id="formUser">
+    <form action="" method="post" id="formUser">
         <div>
             <label for="email">Email</label>
             <input type="text"

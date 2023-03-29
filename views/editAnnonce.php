@@ -7,9 +7,9 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <?php require 'menu.php' ?>
-<div class="container text-center">
-    <div>Modification</div>
+<div class="container">
     <div>
+        <h1>Modification de l'annonce</h1>
         <div>
             <span>
                 <?php
@@ -26,7 +26,8 @@ controller();
             </div>
             <div>
                 <div>
-                    <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" alt="image de l'annonce" class="img-thumbnail">
+                    <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" alt="image de l'annonce"
+                         class="img-thumbnail">
                 </div>
                 <div>
                     <input type="file"

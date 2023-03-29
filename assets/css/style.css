@@ -22,6 +22,7 @@
 .message-at-left {
     justify-content: flex-end;
     align-items: end;
+    text-wrap: normal;
     color: #000000;
     background-color: #a9a7a7;
 }
@@ -29,13 +30,13 @@
 .message-at-right {
     justify-content: flex-start;
     align-items: start;
+    flex-wrap: wrap;
     color: white;
     background-color: #6ab1fa;
 }
 
 .message-user-connected {
     display: flex;
-    max-height: 300px;
     text-align: right;
     justify-content: flex-end;
 }
@@ -43,7 +44,6 @@
 .message-user-interlocuteur {
     display: flex;
     justify-content: start;
-    max-height: 300px;
     text-align: left;
 }
 
@@ -53,12 +53,10 @@
     height: auto;
 }
 
-.small-text {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
 .zero-margin-left {
     margin-left: 0;
+}
+
+.max-150 {
+    max-width: 150px;
 }

@@ -8,7 +8,7 @@ controller();
 <body>
 <?php require 'menu.php' ?>
 <div class="container">
-    <h1>Message</h1>
+    <h1>Messagerie</h1>
     <div>
         <div class="row">
             <div class="col-md-3">
@@ -35,7 +35,7 @@ controller();
                             <div id="nomAnnonce">
                                 <?= $conversation->getAnnonceNom() ?>
                             </div>
-                            <div class="small-text">
+                            <div class="d-inline-block text-truncate max-150">
                                 <?= $conversation->getMessage() ?>
                             </div>
                         </div>
@@ -45,7 +45,7 @@ controller();
                 ?>
             </div>
             <div class="col ps-5 border border-secondary rounded ms-3 me-4">
-                <div class="col overflow-auto " id="message-container">
+                <div class="col overflow-auto" id="message-container">
                 </div>
                 <div class="sticky-bottom" id="send-message-div"></div>
             </div>

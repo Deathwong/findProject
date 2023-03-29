@@ -8,8 +8,7 @@ controller();
 <body>
 <?php require 'menu.php' ?>
 <div class="container text-center">
-    <div class="fs-3 text-center border border-3"> Création d'une Annonce</div>
-
+    <h1>Création d'annonce</h1>
     <span>
                 <?php
                 if (isset($_SESSION['errorValidateCreationAnnonce'])) {
