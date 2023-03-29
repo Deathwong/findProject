@@ -245,29 +245,38 @@ class MessageService
 
     public static function deleteMessages(PDO $connection, string $idAnnonce): void
     {
+        // le séparateur qui va nous permettre de créer le tableau
+        $separator = ",";
         // On récupère les ids des différentes conversations
         $idsConversation = self::getConversationsByIdAnnonce($connection, $idAnnonce);
 
+
         if ($idsConversation) {
-            // La requête
-            $query = "delete from message where con_id in (:idsConversation)";
+            // Construction du tableau d'id des conversations
+            $arrayIdsConversation = explode($separator, $idsConversation);
 
-            // On prépare la requête
-            $request = $connection->prepare($query);
+            foreach ($arrayIdsConversation as $idConversation) {
 
-            // On fait le binding de values
-            $request->bindParam(':idsConversation', $idsConversation);
+                // La requête
+                $query = "delete from message where con_id = :idsConversation";
 
-            // On execute
-            $request->execute();
+                // On prépare la requête
+                $request = $connection->prepare($query);
+
+                // On fait le binding de values
+                $request->bindParam(':idsConversation', $idConversation);
+
+                // On execute
+                $request->execute();
+            }
         }
-
     }
 
     public static function getConversationsByIdAnnonce(PDO $connection, string $idAnnonce): string|false|null
     {
         // La requête
-        $query = "select group_concat(con.con_id) as id_conversations from conversation con where con.ann_id = :idAnnonce";
+        $query = "select group_concat(con.con_id) as id_conversations from conversation con 
+                                                    where con.ann_id = :idAnnonce";
 
         // On prépare la requête
         $request = $connection->prepare($query);
