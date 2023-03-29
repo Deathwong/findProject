@@ -248,24 +248,23 @@ class MessageService
         // On récupère les ids des différentes conversations
         $idsConversation = self::getConversationsByIdAnnonce($connection, $idAnnonce);
 
-        // La requête
-        $query = "delete from message where con_id in (:idsConversation)";
+        if ($idsConversation) {
+            // La requête
+            $query = "delete from message where con_id in (:idsConversation)";
 
+            // On prépare la requête
+            $request = $connection->prepare($query);
 
-//        $idsConversation = str_replace('"', '', $idsConversation);
-//        $idsConversation = str_replace ('','',$idsConversation);
+            // On fait le binding de values
+            $request->bindParam(':idsConversation', $idsConversation);
 
-        // On prépare la requête
-        $request = $connection->prepare($query);
+            // On execute
+            $request->execute();
+        }
 
-        // On fait le binding de values
-        $request->bindParam(':idsConversation', $idsConversation);
-
-        // On execute
-        $request->execute();
     }
 
-    public static function getConversationsByIdAnnonce(PDO $connection, string $idAnnonce): string
+    public static function getConversationsByIdAnnonce(PDO $connection, string $idAnnonce): string|false|null
     {
         // La requête
         $query = "select group_concat(con.con_id) as id_conversations from conversation con where con.ann_id = :idAnnonce";
