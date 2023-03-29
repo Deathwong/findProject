@@ -299,7 +299,7 @@ class AnnonceService
         return $statement->fetchAll(PDO::FETCH_CLASS, Annonce::class);
     }
 
-    public static function createAnnonce(): int
+    public static function createAnnonce(): void
     {
 
         // Récupération de la connexion PDO
@@ -345,9 +345,6 @@ class AnnonceService
 
 
         header("location:../views/detailsAnnonce.php?idAnnonce=" . $ann_id);
-
-        // Retour de l'identifiant de l'annonce créée
-        return (int)$ann_id;
     }
 
     /**

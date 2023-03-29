@@ -7,8 +7,8 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <?php require 'menu.php' ?>
-<div class="container">
-    <div> Création d'une Annonce</div>
+<div class="container text-center">
+    <div class="fs-3 text-center border border-3"> Création d'une Annonce</div>
 
     <span>
                 <?php
@@ -82,7 +82,10 @@ controller();
     </form>
 
     <div>
-        <button class="btn btn-primary" onclick="submitCreateFormAnnonce()">Créer l'annonce</button>
+        <button class="fs-4 text-center btn btn-primary" onclick="submitCreateFormAnnonce()">
+            Créer
+            l'annonce
+        </button>
     </div>
 
 </div>
