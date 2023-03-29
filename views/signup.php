@@ -43,8 +43,12 @@ controller();
         </div>
 
     </form>
-    <input type="submit" value="s'inscrire" class="btn btn-primary" onclick="submitSignUpUserForm()">
-
+    <div class="d-grid gap-2 d-md-block mt-3">
+        <input type="submit" value="s'inscrire" class="btn btn-primary" onclick="submitSignUpUserForm()">
+        <a href="index.php">
+            <button class="btn btn-secondary">retour</button>
+        </a>
+    </div>
 </div>
 <?php require 'footer.php' ?>
 <script type="text/javascript">

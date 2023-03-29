@@ -57,7 +57,7 @@ controller();
         </div>
         <div>
             <a href="index.php">
-                <button class="btn btn-primary">retour</button>
+                <button class="btn btn-secondary">retour</button>
             </a>
         </div>
         <div hidden="hidden" id="contact-me">

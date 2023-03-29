@@ -35,7 +35,7 @@ controller();
                             <div id="nomAnnonce">
                                 <?= $conversation->getAnnonceNom() ?>
                             </div>
-                            <div class="d-inline-block text-truncate max-150">
+                            <div class="d-inline-block text-truncate max-150-message-truncate">
                                 <?= $conversation->getMessage() ?>
                             </div>
                         </div>

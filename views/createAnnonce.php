@@ -79,12 +79,18 @@ controller();
             <span id="errorCategoryAnnonce"></span>
         </div>
     </form>
-
-    <div>
-        <button class="fs-4 text-center btn btn-primary" onclick="submitCreateFormAnnonce()">
-            Créer
-            l'annonce
-        </button>
+    <div class="mt-3 space-between">
+        <div>
+            <a href="../views/">
+                <button class="btn btn-secondary">retour</button>
+            </a>
+        </div>
+        <div>
+            <button class="btn btn-primary" onclick="submitCreateFormAnnonce()">
+                Créer
+                l'annonce
+            </button>
+        </div>
     </div>
 
 </div>

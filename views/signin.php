@@ -47,8 +47,11 @@ controller();
         </div>
 
     </form>
-    <div>
+    <div class="d-grid gap-2 d-md-block mt-3">
         <input type="submit" value="se connecter" class="btn btn-primary" onclick="submitSigninUserForm()">
+        <a href="index.php">
+            <button class="btn btn-secondary">retour</button>
+        </a>
     </div>
 </div>
 <?php require 'footer.php' ?>
