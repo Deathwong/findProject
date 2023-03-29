@@ -22,7 +22,7 @@ controller();
         </div>
         <form method="post" action="" id="updateAnnonceForm" enctype="multipart/form-data">
             <div>
-                <input type="hidden" name="ann_id" value="1" class="form-control">
+                <input type="hidden" name="ann_id" value="<?= $annonce->getAnnId() ?>" class="form-control">
             </div>
             <div>
                 <div>
@@ -85,6 +85,7 @@ controller();
         </form>
         <div class="d-grid gap-2 d-md-block mt-3">
             <button onclick="submitUpdateFormAnnonce()" class="btn btn-primary">modifier</button>
+
             <a href="detailsAnnonce.php?idAnnonce=<?= $annonce->getAnnId() ?>">
                 <button class="btn btn-secondary">retour</button>
             </a>
