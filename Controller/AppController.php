@@ -69,21 +69,11 @@ function controller(): void
                 $userIdConnected = $user->getUseId();
             }
             break;
-
-        case AppConstant::$LISTE_USERS_URL:
-            $users = UserController::getUsers();
-            break;
-
-        case AppConstant::$DETAILS_USER_URL:
+            
+        case AppConstant::$SIGNUP_URL:
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 UserController::createUser();
-            } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $user = UserController::getUserDetails();
             }
-            break;
-
-        case AppConstant::$SIGNUP_URL:
-            // Pour éviter les erreurs 404. À l'enregistrement, on pointe sur details
             break;
 
         case AppConstant::$SIGNIN_URL:

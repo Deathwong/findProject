@@ -8,6 +8,7 @@ controller();
 <body>
 <?php require 'menu.php' ?>
 <div class="container">
+    <h1>Connexion</h1>
 
     <form action="" method="post" id="formUser">
         <div>
