@@ -55,11 +55,11 @@ controller();
                 Modifier
             </button>
         </div>
-        <div hidden="hidden" id="delete-annonce">
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                Supprimer
-            </button>
-        </div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Supprimer
+        </button>
+
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -82,6 +82,7 @@ controller();
                 </div>
             </div>
         </div>
+
     </div>
     <span id="errorValidateDeleteAnnonce"></span>
 </div>
