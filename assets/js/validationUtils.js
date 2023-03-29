@@ -14,7 +14,7 @@ function validatePassword() {
     if (checkEmpty(password)) {
         champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
     } else if (checkMinLength(password, 10)) {
-        champError.text(stringFormat(formControlErrorMessage.minlength, 10));
+        champError.text(stringFormat(formControlErrorMessage.minlength, nomChamp, 10));
     } else {
         champError.text("")
         isValidPassword = true;
@@ -60,7 +60,7 @@ function validateNomAnnonce() {
     if (checkEmpty(nomAnnonce)) {
         champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
     } else if (checkMaxLength(nomAnnonce, 100)) {
-        champError.text(stringFormat(formControlErrorMessage.maxlength, nomChamp, 10));
+        champError.text(stringFormat(formControlErrorMessage.maxlength, nomChamp, 100));
     } else {
         champError.text("");
         isValidNomAnnonce = true;

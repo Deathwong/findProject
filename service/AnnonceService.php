@@ -330,13 +330,14 @@ class AnnonceService
         // Récupération de l'identifiant de l'annonce créée
         $ann_id = $connection->lastInsertId();
 
-        self::updateCategoriesAnnonce($ann_id);
-
         // Message d'erreur. Si l'annonce n'a pas été créé
         if (empty($ann_id)) {
             $_SESSION["errorCreation"] = "l'annonce n'a pas été créée";
             header("location:../views/createAnnonce.php");
+            exit();
         }
+
+        self::updateCategoriesAnnonce($ann_id);
 
         // Transformation du nom de l'image (id de l'annonce créée)
         $transformFileName = getFileNamePlusExtension('ann_photo', $ann_id);
