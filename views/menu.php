@@ -4,7 +4,7 @@
 
         <!--Top Annonce-->
         <div>
-            <button type="button" class="btn btn-primary btn-sm" id="user-annonce-link"
+            <button type="button" class="btn btn-primary btn-sm" id="top-annonce-link"
                     onclick="rechercheAjax(null, null, true)">Top annonces
             </button>
         </div>
@@ -64,11 +64,11 @@
         <!--User Annonce dropdown-->
 
         <!--User Connexion-->
-        <div class="btn-group" role="group" aria-label="Gestion utilisateur">
-            <button type="button" class="btn btn-light btn-link btn-sm" id="user-signing-link" hidden="hidden"
+        <div class="btn-group" hidden="hidden" role="group" aria-label="Gestion utilisateur" id="user-connect-div">
+            <button type="button" class="btn btn-light btn-link btn-sm" id="user-signing-link"
                     onclick="redirectOnPage('signin.php')">Se connecter
             </button>
-            <button type="button" class="btn btn-light btn-link btn-sm" id="user-signup-link" hidden="hidden"
+            <button type="button" class="btn btn-light btn-link btn-sm" id="user-signup-link"
                     onclick="redirectOnPage('signup.php')">Créer un compte
             </button>
         </div>

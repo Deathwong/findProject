@@ -47,6 +47,12 @@ function controller(): void
 
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
+    if (isset($_SESSION["use_id"])) {
+        $user = $_SESSION["use_id"];
+        $userIsConnected = true;
+        $userIdConnected = $user->getUseId();
+    }
+
     switch ($uri) {
         case AppConstant::$INDEX_REAL_URL:
         case AppConstant::$INDEX_URL:
