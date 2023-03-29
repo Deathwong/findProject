@@ -4,7 +4,6 @@ namespace model;
 
 class User
 {
-
     private int $use_id;
     private string $use_email;
     private string $use_password;

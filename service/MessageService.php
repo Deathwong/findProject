@@ -14,7 +14,6 @@ require '../dto/ConversationCard.php';
 
 class MessageService
 {
-
     public static function getConversationsCards(User $user): array
     {
         // On récupère la connection
@@ -22,7 +21,6 @@ class MessageService
 
         // On récupère l'id de l'utilisateur
         $useId = $user->getUseId();
-
 
         // Cette requette permet de récupérer l'id de l'annonce le nom la photo l'interlocuteur son id son mail
         // et le dernier message envoyé dans la conversation
@@ -256,7 +254,6 @@ class MessageService
         $separator = ",";
         // On récupère les ids des différentes conversations
         $idsConversation = self::getConversationsByIdAnnonce($connection, $idAnnonce);
-
 
         if ($idsConversation) {
             // Construction du tableau d'id des conversations

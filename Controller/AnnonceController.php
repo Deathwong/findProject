@@ -10,7 +10,6 @@ require '../service/AnnonceService.php';
 
 class AnnonceController
 {
-
     // La fonction permettant de récupérer les Annonces
     public static function getAnnonceDetails(): Annonce
     {
@@ -22,7 +21,6 @@ class AnnonceController
     {
         // Récupération de l'utilisateur connecté
         $userConnect = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
-
 
         if ($userConnect) {
 
@@ -39,7 +37,6 @@ class AnnonceController
                 $_SESSION["errorDeleteAnnonce"] = "vous n'avez pas la possibilité de supprimer cette annonce";
                 header(AppConstant::$HEADER_LOCATION_LABEL . AppConstant::$DETAILS_ANNONCE_LOCATION_LABEL);
             }
-
         } else {
 
             header(AppConstant::$HEADER_LOCATION_LABEL . AppConstant::$DETAILS_ANNONCE_LOCATION_LABEL);

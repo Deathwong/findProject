@@ -245,7 +245,7 @@ function rechercheAjax(idUserFavori, idUsuerAnnonce, top) {
         data.prixMax = prixMax;
     }
 
-    //
+    // Catégori
     const categorieId = $("#categorie_id").val();
     if (!checkEmpty(categorieId) && categorieId !== '---Catégories---') {
         data.categorieId = categorieId;
@@ -263,6 +263,7 @@ function rechercheAjax(idUserFavori, idUsuerAnnonce, top) {
         data.mesAnnonces = idUsuerAnnonce;
     }
 
+    // Les annonces les plus consultées
     if (top) {
         data = {};
         data.top = true;
@@ -325,7 +326,6 @@ function rechercheAjax(idUserFavori, idUsuerAnnonce, top) {
     });
 }
 
-
 function createInputToSendMessageOnMessagePage(idConversation, idInterlocuteur) {
     let divMessage = $("#send-message-div");
 
@@ -340,7 +340,6 @@ function createInputToSendMessageOnMessagePage(idConversation, idInterlocuteur) 
     sendMessageForm.append(myInputInterlocuteur);
     myInputInterlocuteur = $('#idInterlocuteur');
     myInputInterlocuteur.val(idInterlocuteur);
-
 
     let myInputIdConversation = "<input type='hidden' name='idConversation' id='idConversation' value='idConversation'>";
     sendMessageForm.append(myInputIdConversation);
@@ -460,7 +459,6 @@ function sendMessageAjax() {
     }
 
     const URL = '/findProject/views/sendMessageAjax.php';
-
 
     $.ajax({
         method: "POST",

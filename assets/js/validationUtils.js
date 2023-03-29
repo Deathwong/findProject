@@ -6,7 +6,6 @@ let isValidDescriptionAnnonce = false;
 let isValidPhotoAnnonce = false;
 let isValidCategoryAnnonce = false;
 
-
 function validatePassword() {
     const champError = $("#errorPassword");
     const nomChamp = "Password";

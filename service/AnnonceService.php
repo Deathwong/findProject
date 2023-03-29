@@ -14,7 +14,6 @@ require_once 'PhotoService.php';
 
 class AnnonceService
 {
-
     public static function getAnnonceDetails(): Annonce
     {
         // On récupère la connection
@@ -125,7 +124,6 @@ class AnnonceService
         self::validateAnnonceUpdateRequiredFields($annId, $annNon, $annPrix, $annDescription, $catID);
 
         self::validateUpdateAnnonceFields($annNon, $annDescription, $annPrix, $annId);
-
     }
 
     public static function validationCreationChampsAnnonce(): void
@@ -273,9 +271,7 @@ class AnnonceService
             $sortQuery = ' order by ann.ann_nombre_consultation desc';
         }
 
-
         $mainQuery .= $sortQuery;
-
 
         $statement = $connection->prepare($mainQuery);
         $statement->execute($parameters);
@@ -308,13 +304,11 @@ class AnnonceService
 
     public static function createAnnonce(): void
     {
-
         // Récupération de la connexion PDO
         $connection = PdoConnectionHandler::getPDOInstance();
 
         //récupération de l'user connect"
         $userConnect = getElementInSession(AppConstant::USE_ID_SESSION_KEY);
-
 
         // Requête SQL pour insérer une nouvelle annonce
         $query = "insert into annonce(use_id, ann_nom, ann_prix, ann_description, ann_nombre_consultation, 
@@ -350,7 +344,6 @@ class AnnonceService
         // Enregitrer l'image en faisant un update de l'annonce qui vient d'etre créer
         PhotoService::insertPhotoNameInAnnonceByIdAnonce($ann_id, $connection, $transformFileName);
 
-
         header("location:../views/detailsAnnonce.php?idAnnonce=" . $ann_id);
     }
 
@@ -366,12 +359,10 @@ class AnnonceService
                                                                ?string $annDescription,
                                                                ?array  $catID): void
     {
-
         if ($annId === null || $annNon === null || $annPrix === null || $annDescription === null || $catID === null) {
 
             $_SESSION['errorValidateUpdateAnnonce'] = 'Veuillez renseigner les champs obligatoires suivants: ';
             $champsErrors = '';
-
 
             if ($annNon === null) {
                 $champsErrors .= ' Nom';
@@ -391,7 +382,6 @@ class AnnonceService
                 $champsErrors = addVirguleIfIsSet($champsErrors);
                 $champsErrors .= ' Catégories';
             }
-
 
             $_SESSION['errorValidateUpdateAnnonce'] .= $champsErrors;
 
@@ -440,7 +430,6 @@ class AnnonceService
 
             $_SESSION['errorValidateCreationAnnonce'] = 'Veuillez renseigner les champs obligatoires suivants: ';
             $champsErrors = '';
-
 
             if ($ann_nom === null) {
                 $champsErrors .= ' Nom';

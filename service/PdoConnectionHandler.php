@@ -17,7 +17,6 @@ class PdoConnectionHandler
     const PASS_WORD = "";
     private static PDO $instance;
 
-
     private function __construct()
     {
         self::$instance = $this->getBddConnection();
@@ -55,7 +54,6 @@ class PdoConnectionHandler
             die($messageErreur);
         }
     }
-
 }
 
 

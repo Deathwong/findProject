@@ -9,7 +9,6 @@ require_once "../service/UserService.php";
 
 class UserController
 {
-
     public static function getUsers(): array
     {
         return UserService::getUsers();

@@ -6,7 +6,6 @@ use PDO;
 
 class PhotoService
 {
-
     /**
      * Insert la photo dans la base de donnée
      * @param int $idAnnonce

@@ -15,7 +15,6 @@ require_once 'CategoryController.php';
 require_once 'FavoriController.php';
 require_once 'MessageController.php';
 
-$users = [];
 $user = new User();
 $userIsConnected = false;
 $userIdConnected = null;
@@ -34,12 +33,11 @@ $conversationsCards = [];
 $userConnectChatBox = null;
 $userIDChatBox = null;
 
-
 session_start();
 
 function controller(): void
 {
-    global $users, $user, $userIsConnected, $annonce, $annonces, $categories, $categoriesAnnonce,
+    global $user, $userIsConnected, $annonce, $annonces, $categories, $categoriesAnnonce,
            $arrayOfSelectedValues, $conversationsCards, $userConnectChatBox, $userIDChatBox, $annonceUserIdsFavoris,
            $annonceIsInUserFavori, $userIdConnected;
 
@@ -113,11 +111,6 @@ function controller(): void
         case AppConstant::$DELETE_ANNONCE_URL:
             // Suppression d'une annonce via son Id
             AnnonceController::deleteAnnonce();
-            break;
-
-        case AppConstant::$LIST_ANNONCE_URL:
-            // TODO Mettre un commentaire de la fonctionnalité
-            // TODO : Appelle de la fonction qui va bien d'annonceController
             break;
 
         case AppConstant::$EDIT_ANNONCE_URL:
