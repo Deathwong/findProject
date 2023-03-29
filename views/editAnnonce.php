@@ -22,7 +22,7 @@ controller();
         </div>
         <form method="post" action="" id="updateAnnonceForm" enctype="multipart/form-data">
             <div>
-                <input type="hidden" name="ann_id" value="1" class="form-control">
+                <input type="hidden" name="ann_id" value="<?= $annonce->getAnnId() ?>" class="form-control">
             </div>
             <div>
                 <div>
