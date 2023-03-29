@@ -8,7 +8,7 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <?php require 'menu.php' ?>
-<div class="container">
+<div class="container mb-5">
     <div>
         <h1>Liste Annonces</h1>
 
@@ -17,7 +17,7 @@ controller();
 
                 <div class="col">
                     <div class="card h-100">
-                        <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" class="card-img-top"
+                        <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" class="card-img-top mw-100"
                              alt="Skyscrapers"/>
 
                         <div class="card-body">

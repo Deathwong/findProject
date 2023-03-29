@@ -69,7 +69,7 @@ function controller(): void
                 $userIdConnected = $user->getUseId();
             }
             break;
-            
+
         case AppConstant::$SIGNUP_URL:
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 UserController::createUser();
@@ -165,7 +165,6 @@ function controller(): void
             break;
 
         case AppConstant::$SEND_MESSAGE_URL:
-//            $annonce = AnnonceController::getAnnonceDetails();
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 MessageController::sendMessage();
             }
