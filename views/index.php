@@ -17,7 +17,7 @@ controller();
 
                 <div class="col">
                     <div class="card h-100">
-                        <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" class="card-img-top"
+                        <img src="../assets/img/annonces/<?= $annonce->getAnnPhoto() ?>" class="card-img-top mw-100"
                              alt="Skyscrapers"/>
 
                         <div class="card-body">
