@@ -8,7 +8,7 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <?php require 'menu.php' ?>
-<div class="container">
+<div class="container mb-5">
     <div>
         <h1>Liste Annonces</h1>
 
