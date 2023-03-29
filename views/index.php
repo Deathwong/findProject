@@ -27,7 +27,7 @@ controller();
                                 <h5><?= $annonce->getAnnPrix() ?> €</h5>
                             </div>
 
-                            <p class="card-text">
+                            <p class="card-text text-truncate">
                                 <?= $annonce->getAnnDescription() ?>
                             </p>
                         </div>
