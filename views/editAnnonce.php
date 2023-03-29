@@ -84,8 +84,11 @@ controller();
                 <span id="errorDescriptionAnnonce"></span>
             </div>
         </form>
-        <div>
+        <div class="d-grid gap-2 d-md-block mt-3">
             <button onclick="submitUpdateFormAnnonce()" class="btn btn-primary">modifier</button>
+            <a href="detailsAnnonce.php?idAnnonce=<?= $annonce->getAnnId() ?>">
+                <button class="btn btn-secondary">retour</button>
+            </a>
         </div>
     </div>
 </div>

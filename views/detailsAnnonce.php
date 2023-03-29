@@ -8,7 +8,7 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <?php require 'menu.php' ?>
-<div class="container text-center">
+<div class="container">
     <h1>Détails de l'annonce</h1>
     <span>
         <?php
@@ -42,7 +42,7 @@ controller();
         <input type="checkbox" id="favori" name="favori"
                onchange="addOrRemoveFavori(<?= $annonce->getUseId() ?>)">
     </div>
-    <div class="d-flex justify-content-center gap-3">
+    <div class="d-flex gap-3">
         <div hidden="hidden" id="update-annonce">
             <button class="btn btn-primary" id="updateButton"
                     onclick="redirectOnAnnoncePages(<?= $annonce->getAnnId() ?>,'editAnnonce.php')">
@@ -57,7 +57,7 @@ controller();
         </div>
         <div>
             <a href="index.php">
-                <button class="btn btn-primary">retour</button>
+                <button class="btn btn-secondary">retour</button>
             </a>
         </div>
         <div hidden="hidden" id="contact-me">

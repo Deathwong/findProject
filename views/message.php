@@ -35,7 +35,7 @@ controller();
                             <div id="nomAnnonce">
                                 <?= $conversation->getAnnonceNom() ?>
                             </div>
-                            <div class="d-inline-block text-truncate max-150">
+                            <div class="d-inline-block text-truncate max-150-message-truncate">
                                 <?= $conversation->getMessage() ?>
                             </div>
                         </div>
@@ -53,7 +53,7 @@ controller();
     </div>
     <div>
         <a href="../views/">
-            <button class="mt-3 btn btn-primary">retour</button>
+            <button class="mt-3 btn btn-secondary">retour</button>
         </a>
     </div>
     <?php require 'footer.php' ?>
