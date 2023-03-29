@@ -109,8 +109,7 @@ function validCreateAnnonceForm() {
 }
 
 function setCategoriesSelected(values) {
-    console.log(values);
-    $('.cat_id option[value=' + values + ']').attr('selected', true);
+    $('#cat_id').val(values)
 }
 
 function showContactForAnnonceButton(userConnectID, userAnnonceID) {
@@ -316,7 +315,7 @@ function rechercheAjax(idUserFavori, idUsuerAnnonce, top) {
                 cardGridContainer.append(json_data);
             }
             window.scrollTo(0, 0);
-            
+
             annonces.length === 0 ? $('#empty-list-annonce').attr('hidden', false) :
                 $('#empty-list-annonce').attr('hidden', true);
         },

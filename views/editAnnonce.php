@@ -59,7 +59,7 @@ controller();
             </div>
             <div class="dropdown">
                 <label for="cat_id[]"></label>
-                <select name="cat_id[]" id="cat_id[]" class="cat_id form-select" multiple>
+                <select name="cat_id[]" id="cat_id" class="cat_id form-select" multiple>
                     <?php
                     foreach ($categories as $category) {
                         $categoryLibelle = $category->getCatLibelle();

@@ -70,7 +70,7 @@ class AnnonceService
 
         self::updateCategoriesAnnonce($idAnnonce);
 
-        header(AppConstant::$HEADER_LOCATION_LABEL . AppConstant::$EDIT_ANNONCE_LOCATION_LABEL . '?idAnnonce='
+        header(AppConstant::$HEADER_LOCATION_LABEL . AppConstant::$DETAILS_ANNONCE_LOCATION_LABEL . '?idAnnonce='
             . $idAnnonce);
     }
 

@@ -65,3 +65,7 @@
     display: flex;
     justify-content: space-between;
 }
+
+.annonce-description {
+    text-align: justify;
+}

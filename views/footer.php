@@ -1,4 +1,4 @@
-<nav class="navbar fixed-bottom bg-body-tertiary bg-dark" data-bs-theme="dark">
+<nav class="navbar  bg-body-tertiary bg-dark" data-bs-theme="dark">
     <div class="container justify-content-center">
         <span class="mb-3 mb-md-0 text-muted">© 2023 Find sTore, Inc (<b>Jean MENSAH, Peggy CODO,
             Christopher MOUITY MACKONGO, Charlin Joane NDONG SIMA, Tristan PIERRE-LOUIS</b>)</span>
