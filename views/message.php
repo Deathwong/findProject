@@ -53,7 +53,7 @@ controller();
     </div>
     <div>
         <a href="../views/">
-            <button class="mt-3 btn btn-primary">retour</button>
+            <button class="mt-3 btn btn-secondary">retour</button>
         </a>
     </div>
     <?php require 'footer.php' ?>

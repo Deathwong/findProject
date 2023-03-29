@@ -7,7 +7,7 @@ controller();
 <?php require 'header.php' ?>
 <body>
 <?php require 'menu.php' ?>
-<div class="container text-center">
+<div class="container">
     <h1>Création d'annonce</h1>
     <span>
                 <?php
@@ -79,18 +79,14 @@ controller();
             <span id="errorCategoryAnnonce"></span>
         </div>
     </form>
-    <div class="mt-3 space-between">
-        <div>
-            <a href="../views/">
-                <button class="btn btn-secondary">retour</button>
-            </a>
-        </div>
-        <div>
-            <button class="btn btn-primary" onclick="submitCreateFormAnnonce()">
-                Créer
-                l'annonce
-            </button>
-        </div>
+    <div class="d-grid gap-2 d-md-block mt-3">
+        <button class="btn btn-primary" onclick="submitCreateFormAnnonce()">
+            Créer
+            l'annonce
+        </button>
+        <a href="../views/">
+            <button class="btn btn-secondary">retour</button>
+        </a>
     </div>
 
 </div>

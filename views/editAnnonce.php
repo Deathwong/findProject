@@ -84,15 +84,11 @@ controller();
                 <span id="errorDescriptionAnnonce"></span>
             </div>
         </form>
-        <div class="mt-3 space-between">
-            <div>
-                <a href="detailsAnnonce.php?idAnnonce=<?= $annonce->getAnnId() ?>">
-                    <button class="btn btn-secondary">retour</button>
-                </a>
-            </div>
-            <div>
-                <button onclick="submitUpdateFormAnnonce()" class="mt-3 btn btn-primary">modifier</button>
-            </div>
+        <div class="d-grid gap-2 d-md-block mt-3">
+            <button onclick="submitUpdateFormAnnonce()" class="btn btn-primary">modifier</button>
+            <a href="detailsAnnonce.php?idAnnonce=<?= $annonce->getAnnId() ?>">
+                <button class="btn btn-secondary">retour</button>
+            </a>
         </div>
     </div>
 </div>
