@@ -63,9 +63,19 @@ function getFileNamePlusExtension($param, $name): string
 
     $extension = getFileExtension($uploadFileName);
 
-    $transformFileName = $name . '.' . $extension;
-    move_uploaded_file($file['tmp_name'], "../assets/img/annonces/" . $transformFileName);
+    return constructNamePlusExtensionAndMove($name, $extension, $file['tmp_name']);
+}
 
+/**
+ * @param $name
+ * @param string $extension
+ * @param $tmp_name
+ * @return string
+ */
+function constructNamePlusExtensionAndMove($name, string $extension, $tmp_name): string
+{
+    $transformFileName = $name . '.' . $extension;
+    move_uploaded_file($tmp_name, "../assets/img/annonces/" . $transformFileName);
     return $transformFileName;
 }
 
