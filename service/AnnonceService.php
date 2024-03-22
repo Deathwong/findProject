@@ -141,7 +141,7 @@ class AnnonceService
         //Contrôle des champs obligatoires
         self::validateCreationAnnonceRequiredFields($ann_nom, $ann_prix, $ann_description, $cat_id, $ann_photo);
 
-        self::validateCreationAnnonceFields($ann_nom, $ann_description, $ann_prix, $ann_photo);
+        self::validateCreationAnnonceFields($ann_nom, $ann_description, $ann_prix);
 
     }
 
@@ -326,7 +326,7 @@ class AnnonceService
         // Récupération des valeurs issues de la requête http pour créer l'annonce
         $annonceHttpRequestValues = self::getAnnoncesHttpRequestValues();
 
-        //Initialisation à 0 du nombre de consultation
+        //Initialisation à 0 du nombre de consultations
         $annonceHttpRequestValues['ann_nombre_consultation'] = 0;
         $annonceHttpRequestValues['use_id'] = $userConnect->getUseId();
 
@@ -347,7 +347,7 @@ class AnnonceService
         // Transformation du nom de l'image (id de l'annonce créée)
         $transformFileName = getFileNamePlusExtension('ann_photo', $ann_id);
 
-        // Enregitrer l'image en faisant un update de l'annonce qui vient d'etre créer
+        // Enregistrer l'image en faisant un update de l'annonce qui vient d'etre créer
         PhotoService::insertPhotoNameInAnnonceByIdAnonce($ann_id, $connection, $transformFileName);
 
 
@@ -478,11 +478,10 @@ class AnnonceService
      * @param string|null $ann_nom
      * @param string|null $ann_description
      * @param string|null $ann_prix
-     * @param string|null $ann_photo
      * @return void
      */
-    public static function validateCreationAnnonceFields(?string $ann_nom, ?string $ann_description, ?string $ann_prix,
-                                                         ?string $ann_photo): void
+    public static function validateCreationAnnonceFields(?string $ann_nom, ?string $ann_description,
+                                                         ?string $ann_prix): void
     {
         if (!validateMaxLength(100, $ann_nom) || !validateMaxLength(4000, $ann_description) ||
             !validatePrice($ann_prix)) {
