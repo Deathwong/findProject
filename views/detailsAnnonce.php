@@ -132,10 +132,13 @@ controller();
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">non</button>
-                                <button class="btn btn-danger" id="deleteButton"
-                                        onclick="deleteAnnonce(<?= $annonce->getAnnId() ?>,<?= $user->getUseId() ?>,<?= $annonce->getUseId() ?>,'deleteAnnonce.php')">
-                                    oui
-                                </button>
+                                <?php if ($user) { ?>
+                                    <button class="btn btn-danger" id="deleteButton"
+                                            onclick="deleteAnnonce(<?= $annonce->getAnnId() ?>,<?= $user->getUseId() ?>,
+                                            <?= $annonce->getUseId() ?>,'deleteAnnonce.php')">
+                                        oui
+                                    </button>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
