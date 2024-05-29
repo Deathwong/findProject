@@ -22,6 +22,26 @@ controller();
 
     <form action="" method="post" id="formUser">
         <div>
+            <label for="nom">Nom</label>
+            <input type="text"
+                   class="form-control"
+                   name="nom"
+                   id="nom"
+                   placeholder="votre Nom"
+            >
+            <span id="errorNom"></span>
+        </div>
+        <div>
+            <label for="prenom">Prenom</label>
+            <input type="text"
+                   class="form-control"
+                   name="prenom"
+                   id="prenom"
+                   placeholder="votre Prenom"
+            >
+            <span id="errorPrenom"></span>
+        </div>
+        <div>
             <label for="email">Email</label>
             <input type="text"
                    class="form-control"
@@ -40,6 +60,16 @@ controller();
                    placeholder="mot de passe"
             >
             <span id="errorPassword"></span>
+        </div>
+        <div>
+            <label for="confirmPassword">Confirmation Mot de passe</label>
+            <input type="text"
+                   class="form-control"
+                   name="confirmPassword"
+                   id="confirmPassword"
+                   placeholder="retapez votre mot de passe"
+            >
+            <span id="errorConfirmPassword"></span>
         </div>
 
     </form>

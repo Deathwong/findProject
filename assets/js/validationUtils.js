@@ -1,3 +1,6 @@
+let isValidNom = false;
+let isValidPrenom = false;
+let isValidConfirmPassword = false;
 let isValidEmail = false;
 let isValidPassword = false;
 let isValidNomAnnonce = false;
@@ -45,6 +48,20 @@ function validateEmail() {
     }
 }
 
+function validateNomListener() {
+
+    $("#nom").on("keyup", () => {
+        validateNom();
+    });
+}
+
+function validatePrenomListener() {
+
+    $("#prenom").on("keyup", () => {
+        validatePrenom();
+    });
+}
+
 function validateEmailEventListener() {
 
     $("#email").on("keyup", () => {
@@ -52,7 +69,50 @@ function validateEmailEventListener() {
     });
 }
 
+function validateConfirmPasswordEventListener() {
+    $("#confirmPassword").on("keyup", () => {
+        validateConfirmPassword();
+    });
+}
+
+function validateNom() {
+
+    const nomChamp = "Nom";
+    const champError = $("#errorNom");
+    const nom = $("#nom").val();
+
+    if (checkEmpty(nom)) {
+        champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
+    } else if (checkMaxLength(nom, 50)) {
+        champError.text(stringFormat(formControlErrorMessage.maxlength, nomChamp, 50));
+    } else if (checkMinLength(nom, 2)) {
+        champError.text(stringFormat(formControlErrorMessage.minlength, nomChamp, 2));
+    } else {
+        champError.text("");
+        isValidNom = true;
+    }
+}
+
+function validatePrenom() {
+
+    const nomChamp = "Prenom";
+    const champError = $("#errorPrenom");
+    const prenom = $("#prenom").val();
+
+    if (checkEmpty(prenom)) {
+        champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
+    } else if (checkMaxLength(prenom, 100)) {
+        champError.text(stringFormat(formControlErrorMessage.maxlength, nomChamp, 100));
+    } else if (checkMinLength(prenom, 2)) {
+        champError.text(stringFormat(formControlErrorMessage.minlength, nomChamp, 2));
+    } else {
+        champError.text("");
+        isValidPrenom = true;
+    }
+}
+
 function validateNomAnnonce() {
+
     const nomChamp = "nom de l'annonce";
     const champError = $("#errorNomAnnonce");
     const nomAnnonce = $("#ann_nom").val();
@@ -61,9 +121,28 @@ function validateNomAnnonce() {
         champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
     } else if (checkMaxLength(nomAnnonce, 100)) {
         champError.text(stringFormat(formControlErrorMessage.maxlength, nomChamp, 100));
+    } else if (checkMinLength(nomAnnonce, 2)) {
+        champError.text(stringFormat(formControlErrorMessage.minlength, nomChamp, 2));
     } else {
         champError.text("");
         isValidNomAnnonce = true;
+    }
+}
+
+function validateConfirmPassword() {
+
+    const champError = $("#errorConfirmPassword");
+    const nomChamp = "Confirm Password";
+    const password = $("#password").val();
+    const confirmPassword = $("#confirmPassword").val();
+
+    if (checkEmpty(confirmPassword)) {
+        champError.text(stringFormat(formControlErrorMessage.required, nomChamp));
+    } else if (confirmPassword !== password) {
+        champError.text(formControlErrorMessage.confirmationMotDePasse);
+    } else {
+        champError.text("");
+        isValidConfirmPassword = true;
     }
 }
 

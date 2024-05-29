@@ -4,7 +4,14 @@ let userConnectId;
 /**
  * Valide les deux champs du user
  */
-function validateUserForm() {
+function validateSignUpUserForm() {
+    validateEmail();
+    validatePassword();
+}
+
+function validateSignInUserForm() {
+    validateNom();
+    validatePrenom();
     validateEmail();
     validatePassword();
 }
@@ -18,7 +25,7 @@ function submitSigninUserForm() {
     const form = $("#formUser");
 
     // Appel de la fonction de validation des champs du user
-    validateUserForm();
+    validateSignUpUserForm();
 
     // Vérification des variables de validation
     if (isValidEmail && isValidPassword) {
@@ -37,9 +44,9 @@ function submitSignUpUserForm() {
     const form = $("#formUser");
 
     // Appel de la fonction de validation des champs du user
-    validateUserForm();
+    validateSignInUserForm();
 
-    if (isValidEmail && isValidPassword) {
+    if (isValidEmail && isValidPassword && isValidNom && isValidPrenom && isValidConfirmPassword) {
         form.submit();
     } else {
         form.preventDefault();
@@ -50,8 +57,11 @@ function submitSignUpUserForm() {
  * Permet de valider les différents inputs
  */
 function validateSignUpFormEventListener() {
+    validateNomListener();
+    validatePrenomListener();
     validateEmailEventListener();
     validatePasswordEventListener();
+    validateConfirmPasswordEventListener();
 }
 
 function validateSignInFormEventListener() {
