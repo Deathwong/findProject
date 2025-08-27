@@ -84,6 +84,3 @@ Exécutez [`conception\data.sql`](conception/data.sql) pour remplir la base avec
 - Erreur PDO: vérifiez les constantes dans `PdoConnectionHandler.php`, que le serveur MySQL est démarré et que la BD/tables existent.
 - 404/chemins: assurez-vous d’accéder via `views/index.php` ou de configurer votre serveur pour pointer le document root vers `views/`.
 - Droits d’écriture: si vous ajoutez l’upload d’images, vérifiez les permissions du dossier cible.
-
-## Licence
-Ce projet est fourni tel quel. Ajoutez ici votre licence si nécessaire.
