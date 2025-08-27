@@ -15,6 +15,17 @@ class Annonce
     private string $ann_update_at;
     private ?string $categories;
     private ?string $userIdFavoris;
+    private int $ann_isArchived;
+
+    public function getAnnIsArchived(): int
+    {
+        return $this->ann_isArchived;
+    }
+
+    public function setAnnIsArchived(int $ann_isArchived): void
+    {
+        $this->ann_isArchived = $ann_isArchived;
+    }
 
     /**
      * @return int
