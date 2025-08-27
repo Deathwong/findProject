@@ -31,9 +31,9 @@ Application web PHP (style MVC léger) permettant de publier et consulter des an
 3. Créer la base de données et les tables:
    - Ouvrez votre client MySQL (phpMyAdmin, HeidiSQL, MySQL Shell, etc.).
    - Exécutez, dans l’ordre, les scripts SQL du dossier `conception`:
-     - `conception\create_database.sql`
-     - `conception\create_tables.sql`
-     - (Optionnel) `conception\data.sql` pour des données d’exemple
+     - [`conception\create_database.sql`](conception/create_database.sql)
+     - [`conception\create_tables.sql`](conception/create_tables.sql)
+     - (Optionnel) [`conception\data.sql`](conception/data.sql) pour des données d’exemple
 4. Configurer la connexion BD si nécessaire dans `service\PdoConnectionHandler.php`:
    - DATA_BASE_NAME: `find`
    - HOST: `localhost`
@@ -78,7 +78,7 @@ Le fichier `service\PdoConnectionHandler.php` centralise la connexion PDO:
 Astuce: Si vous changez le nom de la base via `create_database.sql`, ajustez la constante `DATA_BASE_NAME` en conséquence.
 
 ## Données d’exemple
-Exécutez `conception\data.sql` pour remplir la base avec des exemples d’annonces, catégories et utilisateurs.
+Exécutez [`conception\data.sql`](conception/data.sql) pour remplir la base avec des exemples d’annonces, catégories et utilisateurs.
 
 ## Dépannage
 - Erreur PDO: vérifiez les constantes dans `PdoConnectionHandler.php`, que le serveur MySQL est démarré et que la BD/tables existent.
